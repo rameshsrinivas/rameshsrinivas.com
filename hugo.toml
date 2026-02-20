@@ -1,0 +1,43 @@
+baseURL = 'https://rameshsrinivas.com/'
+languageCode = 'en-us'
+title = 'Ramesh Srinivas'
+theme = 'minimal'
+
+[params]
+  description = "Co-Founder & CTO | Making the complex accessible"
+  author = "Ramesh Srinivas"
+  tagline = "Making the complex accessible — in technology, in finance, in leadership."
+  linkedin = "https://www.linkedin.com/in/rsrinivas/"
+  company = "https://www.optionsplay.com"
+  companyName = "OptionsPlay"
+
+[markup]
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[menu]
+  [[menu.main]]
+    name = "About"
+    url = "/#about"
+    weight = 1
+  [[menu.main]]
+    name = "Experience"
+    url = "/#experience"
+    weight = 2
+  [[menu.main]]
+    name = "Writing"
+    url = "/blog/"
+    weight = 3
+  [[menu.main]]
+    name = "Connect"
+    url = "/#connect"
+    weight = 4
+
+[params.seo]
+  keywords = ["Ramesh Srinivas", "CTO", "OptionsPlay", "fintech", "technology leadership", "AI-augmented development", "options trading", "financial technology", "software architecture"]
+  ogImage = "/images/headshot.png"
+  twitterHandle = "@raremesh"  # Add if you have one, e.g. "@rameshsrinivas"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Ramesh Srinivas</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Home on Ramesh Srinivas</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like</title>
+      <link>http://localhost:1313/blog/ai-pair-programming/</link>
+      <pubDate>Wed, 18 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/ai-pair-programming/</guid>
+      <description>&lt;p&gt;Last August, I wrote an executive summary for a major platform initiative. I spec&amp;rsquo;d it out carefully: 10 weeks to production, 2-3 developers plus QA and BA support, roughly 22 person-weeks of effort. I&amp;rsquo;d been doing this long enough to know those were honest numbers — if anything, conservative for the scope.&lt;/p&gt;&#xA;&lt;p&gt;Six months later, I shipped it. Five working days. Just me and an AI.&lt;/p&gt;&#xA;&lt;p&gt;Not a proof of concept. Not a prototype. A real-time rules engine evaluating thousands of securities every minute, generating ranked strategy recommendations across 11 strategy types, with an admin portal, 560 automated tests, and zero existing tests broken — integrated into a mature enterprise codebase with 100+ projects.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

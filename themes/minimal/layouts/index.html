@@ -1,0 +1,112 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-image">
+        <img src="/images/headshot.png" alt="{{ .Site.Params.author }}">
+      </div>
+      <div class="hero-text">
+        <h1>{{ .Site.Title }}</h1>
+        <p class="hero-title">Co-Founder & Chief Technology Officer</p>
+        <p class="hero-tagline">{{ .Site.Params.tagline }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section">
+  <div class="container">
+    <h2>About</h2>
+    <div class="prose">
+      <p><strong>I'm a pattern-recognizer who bets early and bets right.</strong></p>
+      
+      <p>SaaS architecture before Salesforce existed. Azure when everyone said AWS. AI-augmented development before most CTOs figured out how to use ChatGPT. The throughline of my career isn't just building technology — it's seeing where technology is going and getting there first.</p>
+      
+      <p>I've spent 34 years building software — and I still write code every week. That's unusual for someone with "Chief" in their title. But I've never believed leadership means stepping away from the craft. The best technology decisions come from leaders who understand the terrain because they're still walking it.</p>
+      
+      <p>My philosophy is simple: use complexity in service of clarity. Take sophisticated systems and make them accessible to people who shouldn't need a PhD to benefit from them. That principle shaped how I architected cloud platforms in the early 2000s, how I built real-time trading systems at scale, and how I lead technology at OptionsPlay today.</p>
+      
+      <p>I'm not a CTO who manages from a distance. I'm a builder who happens to lead.</p>
+    </div>
+  </div>
+</section>
+
+<!-- What I Do Section -->
+<section id="current" class="section section-alt">
+  <div class="container">
+    <h2>What I Do</h2>
+    <div class="prose">
+      <h3>Co-Founder & CTO, OptionsPlay</h3>
+      <p class="date">2012 – Present</p>
+      
+      <p>OptionsPlay exists to democratize options trading — to take the tools and techniques of Wall Street professionals and make them accessible to everyday investors. Our tagline is "Options for the Rest of Us," and that's not marketing. It's an architectural principle.</p>
+      
+      <p>I lead all technology strategy, engineering, and infrastructure across our operations in the US, Canada, and Nordic regions. More importantly, I built the platform that makes our mission possible: embeddable widgets that integrate in weeks instead of years, APIs that deliver sub-second responses at scale, and an architecture that earned the trust of the industry's biggest names.</p>
+      
+      <p><a href="{{ .Site.Params.company }}" target="_blank" rel="noopener">→ {{ .Site.Params.companyName }}</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="section">
+  <div class="container">
+    <h2>Career Highlights</h2>
+    
+    <div class="experience-grid">
+      <article class="experience-card">
+        <h3>Pioneered SaaS Before the SaaS Era</h3>
+        <p class="meta">Virtual Growth, 2000–2002</p>
+        <p>Architected a platform that delivered Lawson's enterprise CRM and accounting software as online tools for small and medium businesses — years before "cloud software" had a name. While the dot-com bubble was inflating around consumer plays, I was building the infrastructure patterns that would later define the industry.</p>
+      </article>
+      
+      <article class="experience-card">
+        <h3>Rebuilt Forex.com from the Ground Up</h3>
+        <p class="meta">Gain Capital, VP Application Architecture</p>
+        <p>Led the design and delivery of a completely re-architected Forex.com — a real-time trading platform serving a global audience. Built on service-oriented architecture, the multi-lingual application met demanding requirements for performance, scalability, and failover while dramatically lowering maintenance costs.</p>
+      </article>
+      
+      <article class="experience-card">
+        <h3>Bet on Azure When AWS Was King</h3>
+        <p class="meta">OptionsPlay, 2012</p>
+        <p>Made the contrarian decision to build OptionsPlay's infrastructure on Microsoft Azure when Amazon Web Services dominated the conversation. Secured three years of sponsored services, became a Microsoft reference customer, and built a partnership that continues today. The investors questioned it. The results validated it.</p>
+      </article>
+      
+      <article class="experience-card">
+        <h3>Built the Integration Architecture That Landed Enterprise Partners</h3>
+        <p class="meta">OptionsPlay</p>
+        <p>Designed an embeddable widget architecture with minimal PII exposure that transforms enterprise integration timelines from years to weeks. That technical decision is the primary reason a company our size has partnerships with Fidelity, Merrill Lynch, Schwab, Raymond James, and Nasdaq.</p>
+      </article>
+      
+      <article class="experience-card">
+        <h3>Achieved 22x Development Efficiency Through AI-Augmented Workflows</h3>
+        <p class="meta">OptionsPlay, 2025–Present</p>
+        <p>Developed and operationalized a systematic approach to AI-assisted development that compressed a 22 person-week initiative into 7 working days — with higher quality, more comprehensive testing (560 automated tests, zero regressions), and additional features beyond the original scope. Not a proof of concept. Production software running in a live enterprise environment.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Connect Section -->
+<section id="connect" class="section section-alt">
+  <div class="container">
+    <h2>Connect</h2>
+    <div class="prose">
+      <p>I'm always interested in conversations about fintech, technology leadership, and building systems that make complex things accessible.</p>
+      
+      <div class="connect-links">
+        <a href="{{ .Site.Params.linkedin }}" target="_blank" rel="noopener" class="connect-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="{{ .Site.Params.company }}" target="_blank" rel="noopener" class="connect-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          {{ .Site.Params.companyName }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
