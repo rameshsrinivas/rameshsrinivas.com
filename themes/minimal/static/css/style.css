@@ -408,3 +408,31 @@ p code {
     align-items: flex-start;
   }
 }
+
+/* Docs Preview Link */
+.docs-preview {
+  display: block;
+  margin-top: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.docs-preview:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.docs-preview img {
+  width: 100%;
+  display: block;
+}
+
+.docs-preview span {
+  display: block;
+  padding: 0.75rem 1rem;
+  background: #f8f9fa;
+  font-weight: 500;
+  color: #2563eb;
+}

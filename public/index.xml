@@ -6,8 +6,15 @@
     <description>Recent content in Home on Ramesh Srinivas</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development</title>
+      <link>http://localhost:1313/blog/ai-development-blueprint/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/ai-development-blueprint/</guid>
+      <description>&lt;p&gt;After decades of building software, I&amp;rsquo;ve learned that the difference between projects that ship smoothly and projects that spiral isn&amp;rsquo;t &lt;em&gt;just&lt;/em&gt; talent or technology — it&amp;rsquo;s process. And with AI now capable of being a genuine development partner, having the right process matters more than ever.&lt;/p&gt;&#xA;&lt;p&gt;This is the blueprint I use at OptionsPlay to take initiatives from idea to production using AI-augmented development.&lt;/p&gt;&#xA;&lt;h2 id=&#34;philosophy&#34;&gt;Philosophy&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Measure twice, cut once.&lt;/strong&gt; The quality of the output is directly proportional to the quality of the planning. Four stages of thinking, two of building. By the time you pick up the hammer, you already know where every nail goes.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like</title>
       <link>http://localhost:1313/blog/ai-pair-programming/</link>
