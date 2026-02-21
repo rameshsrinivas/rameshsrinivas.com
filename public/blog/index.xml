@@ -6,14 +6,14 @@
     <description>Recent content in Writing on Ramesh Srinivas</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>http://localhost:1313/blog/first-quote/</link>
-      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/first-quote/</guid>
-      <description>&lt;p&gt;The best technology decisions come from leaders who understand the terrain because they&amp;rsquo;re still walking it.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— Me, apparently&lt;/span&gt;&lt;/p&gt;</description>
+      <title>Humans Are Not Machines</title>
+      <link>http://localhost:1313/blog/humans-are-not-machines/</link>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/humans-are-not-machines/</guid>
+      <description>&lt;p&gt;I work with AI every day. It helps me write code, think through architecture, and move faster than I ever could alone. I&amp;rsquo;m the first to admit — when it comes to raw efficiency, I don&amp;rsquo;t stand a chance against the tools I use.&lt;/p&gt;&#xA;&lt;p&gt;And yet, I keep seeing a notion float around that troubles me: that humans are essentially machines, and machines are becoming essentially human. That the line between us is blurring to the point of irrelevance.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development</title>
@@ -28,6 +28,48 @@
       <pubDate>Wed, 18 Feb 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blog/ai-pair-programming/</guid>
       <description>&lt;p&gt;Last August, I wrote an executive summary for a major platform initiative. I spec&amp;rsquo;d it out carefully: 10 weeks to production, 2-3 developers plus QA and BA support, roughly 22 person-weeks of effort. I&amp;rsquo;d been doing this long enough to know those were honest numbers — if anything, conservative for the scope.&lt;/p&gt;&#xA;&lt;p&gt;Six months later, I shipped it. Five working days. Just me and an AI.&lt;/p&gt;&#xA;&lt;p&gt;Not a proof of concept. Not a prototype. A real-time rules engine evaluating thousands of securities every minute, generating ranked strategy recommendations across 11 strategy types, with an admin portal, 560 automated tests, and zero existing tests broken — integrated into a mature enterprise codebase with 100+ projects.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Simply Grand</title>
+      <link>http://localhost:1313/blog/grand-central/</link>
+      <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/grand-central/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/first-quote/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/first-quote/</guid>
+      <description>&lt;p&gt;The best technology decisions come from leaders who understand the terrain because they&amp;rsquo;re still walking it.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— Me, apparently&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>24 Life Lessons from Teaching Tennis to My Kids</title>
+      <link>http://localhost:1313/blog/tennis-life-lessons/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/tennis-life-lessons/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;1. Want to get good at something? Teach it.&lt;/strong&gt; I&amp;rsquo;ve had to learn the intricate details of almost everything I do on the court, just so I can pass that knowledge to my kids. In the process, I&amp;rsquo;ve become a much better player than I ever was.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;2. Success — and failure — begins in the mind.&lt;/strong&gt; Henry Ford said, &amp;ldquo;Whether you think you can or think you cannot, you&amp;rsquo;re right.&amp;rdquo; For years, Roger Federer ruled men&amp;rsquo;s tennis. He stepped onto the court supreme in his belief that he could beat anyone. On the other side of the net, most opponents believed they had no shot — and the results followed. Then a precocious 22-year-old named Novak Djokovic declared he could take down the king. He lost that match in straight sets. But not long after, Novak proved he can beat anyone.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Don&#39;t Let the Old Man In</title>
+      <link>http://localhost:1313/blog/getting-older/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/getting-older/</guid>
+      <description>&lt;p&gt;My body isn&amp;rsquo;t exactly raring to go when getting out of bed these days. There&amp;rsquo;s an awareness of the physical body being past its prime. The person that stares back at me in the mirror seems much older than the mental image in my head.&lt;/p&gt;&#xA;&lt;p&gt;Looking at the struggles my parents face daily, I&amp;rsquo;m aware of what&amp;rsquo;s coming. I did a lot of thinking when I was moving them to a retirement home a few weeks ago. The helplessness gnaws at me. It scares me.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Find the Artist</title>
+      <link>http://localhost:1313/blog/find-the-artist/</link>
+      <pubDate>Fri, 21 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/find-the-artist/</guid>
+      <description>&lt;p&gt;During a meditation session, I see a photograph on my wall that I don&amp;rsquo;t recognize. It&amp;rsquo;s stunning — the composition is exquisite, the lighting is perfect, the subject couldn&amp;rsquo;t be better. I&amp;rsquo;m mesmerized.&lt;/p&gt;&#xA;&lt;p&gt;It&amp;rsquo;s so gorgeous that I need to find the artist. I ask the people around me if they recognize it. I describe the photograph, the style, the mastery behind it. No one can place it.&lt;/p&gt;&#xA;&lt;p&gt;I keep looking. Eventually, someone thinks she might know, and gives me a location. I take a cab across the city and get there — but the guy at the desk tells me I have the wrong address. The artist might be at another location, across the water. I&amp;rsquo;d need to take a ferry.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>31 Things I&#39;ve Learned Being on Startups</title>
+      <link>http://localhost:1313/blog/31-things-from-startups/</link>
+      <pubDate>Wed, 01 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/31-things-from-startups/</guid>
+      <description>&lt;p&gt;In my 22-year career as a technologist, I&amp;rsquo;ve had the opportunity to be part of several startups. Some didn&amp;rsquo;t get off the ground. Some flattered to deceive. Others managed to get further along and become successful enough to be bought out.&lt;/p&gt;&#xA;&lt;p&gt;Despite a less than stellar success rate in general, and the significant risks associated with startups, I&amp;rsquo;ve always gravitated towards them. Why, you ask?&lt;/p&gt;&#xA;&lt;p&gt;The success rate, the risks, the ups and downs notwithstanding — you can count on coming out at the other end with precious career and life lessons. You&amp;rsquo;re afforded the luxury and freedom to mold culture, to be creative, to innovate. Something that isn&amp;rsquo;t exactly easy to do at conventional organizations, even if you are an intrapreneur.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

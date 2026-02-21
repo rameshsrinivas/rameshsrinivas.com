@@ -1,6 +1,6 @@
 ---
 title: "Humans Are Not Machines"
-date: 2025-02-21
+date: 2026-02-21
 description: "We built machines to be efficient. We were never meant to be."
 categories: ["Technology"]
 tags: ["AI", "Philosophy", "Leadership"]
