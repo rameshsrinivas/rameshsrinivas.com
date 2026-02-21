@@ -1,16 +1,34 @@
 {{ define "main" }}
-<article class="section blog-post">
+<article class="section blog-post post-{{ .Params.style | default "text" }}">
   <div class="container container-narrow">
-    <header class="post-header">
-      <h1>{{ .Title }}</h1>
-      <p class="meta">{{ .Date.Format "January 2, 2006" }}{{ with .Params.readingTime }} · {{ . }} min read{{ end }}</p>
-    </header>
     
-    <div class="prose">
-      {{ .Content }}
-    </div>
+    {{ if eq .Params.style "quote" }}
+      <!-- Quote Post -->
+      <blockquote class="quote-post">
+        {{ .Content }}
+      </blockquote>
+    
+    {{ else if eq .Params.style "photo" }}
+      <!-- Photo Post -->
+      <figure class="photo-post">
+        <img src="{{ .Params.image }}" alt="{{ .Params.caption }}">
+        {{ with .Params.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+      </figure>
+      {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+    
+    {{ else }}
+      <!-- Standard Text Post -->
+      <header class="post-header">
+        <h1>{{ .Title }}</h1>
+        <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+      </header>
+      <div class="prose">
+        {{ .Content }}
+      </div>
+    {{ end }}
     
     <footer class="post-footer">
+      <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
       <a href="/blog/" class="back-link">← Back to all posts</a>
     </footer>
   </div>

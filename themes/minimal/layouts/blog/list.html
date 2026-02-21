@@ -6,15 +6,35 @@
     
     <div class="blog-list">
       {{ range .Pages }}
-      <article class="blog-card">
-        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
-        <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
-        {{ if .Description }}
-        <p>{{ .Description }}</p>
+      <article class="blog-card card-{{ .Params.style | default "text" }}">
+        
+        {{ if eq .Params.style "quote" }}
+          <!-- Quote Card -->
+          <blockquote class="quote-post">
+            {{ .Content }}
+          </blockquote>
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+        
+        {{ else if eq .Params.style "photo" }}
+          <!-- Photo Card -->
+          <a href="{{ .Permalink }}">
+            <img src="{{ .Params.image }}" alt="{{ .Params.caption }}" class="card-image">
+          </a>
+          {{ with .Params.caption }}<p class="caption">{{ . }}</p>{{ end }}
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+        
         {{ else }}
-        <p>{{ .Summary }}</p>
+          <!-- Standard Card -->
+          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+          {{ if .Description }}
+          <p>{{ .Description }}</p>
+          {{ else }}
+          <p>{{ .Summary }}</p>
+          {{ end }}
+          <a href="{{ .Permalink }}" class="read-more">Read more →</a>
         {{ end }}
-        <a href="{{ .Permalink }}" class="read-more">Read more →</a>
+        
       </article>
       {{ end }}
     </div>
