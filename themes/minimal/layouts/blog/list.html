@@ -9,17 +9,24 @@
     {{ $allTags := .Site.Taxonomies.tags }}
     {{ if or $allCategories $allTags }}
     <div class="taxonomy-filters">
-      {{ if $allCategories }}
-      <span class="taxonomy-label">Categories:</span>
-      {{ range $allCategories.Alphabetical }}
-      <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-category">{{ .Page.Title }}</a>
-      {{ end }}
-      {{ end }}
+      <div class="taxonomy-row">
+        {{ if $allCategories }}
+        {{ range $allCategories.Alphabetical }}
+        <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-category">{{ .Page.Title }}</a>
+        {{ end }}
+        {{ end }}
+        {{ if $allTags }}
+        <button class="tags-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.querySelector('.tags-collapsible').classList.toggle('tags-visible');">
+          <span class="tags-toggle-icon">&#9654;</span> Tags
+        </button>
+        {{ end }}
+      </div>
       {{ if $allTags }}
-      <span class="taxonomy-label">Tags:</span>
-      {{ range $allTags.Alphabetical }}
-      <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-tag">{{ .Page.Title }}</a>
-      {{ end }}
+      <div class="tags-collapsible">
+        {{ range $allTags.Alphabetical }}
+        <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-tag">{{ .Page.Title }}</a>
+        {{ end }}
+      </div>
       {{ end }}
     </div>
     {{ end }}

@@ -1,5 +1,5 @@
 ---
-title: "Humans Are Not Machines"
+title: "Humans Are Not Machines, Machines Are Not Human"
 date: 2026-02-21
 description: "We built machines to be efficient. We were never meant to be."
 categories: ["Technology"]
