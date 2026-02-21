@@ -9,27 +9,94 @@
       </blockquote>
     
     {{ else if eq .Params.style "photo" }}
-      <!-- Photo Post -->
-      <figure class="photo-post">
-        <img src="{{ .Params.image }}" alt="{{ .Params.caption }}">
-        {{ with .Params.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
-      </figure>
+      <!-- Photo Post (with Hugo image processing) -->
+      {{ $page := . }}
+      {{ $img := false }}
+      {{/* Try page bundle resource first */}}
+      {{ with .Params.image }}
+        {{ $img = $page.Resources.GetMatch . }}
+      {{ end }}
+      {{ if not $img }}
+        {{ with $page.Resources.ByType "image" }}
+          {{ $img = index . 0 }}
+        {{ end }}
+      {{ end }}
+
+      {{ if $img }}
+        <figure class="photo-post">
+          {{/* Generate optimized versions */}}
+          {{ $full := $img.Resize "2000x q85" }}
+          {{ $medium := $img.Resize "1200x q85" }}
+          {{ $small := $img.Resize "800x q85" }}
+          {{ $webpFull := $img.Resize "2000x webp q85" }}
+          {{ $webpMedium := $img.Resize "1200x webp q85" }}
+          {{ $webpSmall := $img.Resize "800x webp q85" }}
+          <picture>
+            <source type="image/webp"
+              srcset="{{ $webpSmall.RelPermalink }} 800w, {{ $webpMedium.RelPermalink }} 1200w, {{ $webpFull.RelPermalink }} 2000w"
+              sizes="(max-width: 768px) 100vw, 800px">
+            <img
+              src="{{ $medium.RelPermalink }}"
+              srcset="{{ $small.RelPermalink }} 800w, {{ $medium.RelPermalink }} 1200w, {{ $full.RelPermalink }} 2000w"
+              sizes="(max-width: 768px) 100vw, 800px"
+              alt="{{ .Params.caption | default .Title }}"
+              loading="lazy"
+              width="{{ $full.Width }}"
+              height="{{ $full.Height }}">
+          </picture>
+          {{ with .Params.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+        </figure>
+      {{ else if .Params.image }}
+        {{/* Fallback for static path images */}}
+        <figure class="photo-post">
+          <img src="{{ .Params.image }}" alt="{{ .Params.caption | default .Title }}" loading="lazy">
+          {{ with .Params.caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+        </figure>
+      {{ end }}
+      <div class="post-taxonomies">
+        {{ with .Params.categories }}
+        <span class="taxonomy-label">Categories:</span>
+        {{ range . }}
+        <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+        {{ end }}
+        {{ end }}
+        {{ with .Params.tags }}
+        <span class="taxonomy-label">Tags:</span>
+        {{ range . }}
+        <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+        {{ end }}
+        {{ end }}
+      </div>
       {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
-    
+
     {{ else }}
       <!-- Standard Text Post -->
       <header class="post-header">
         <h1>{{ .Title }}</h1>
         <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+        <div class="post-taxonomies">
+          {{ with .Params.categories }}
+          <span class="taxonomy-label">Categories:</span>
+          {{ range . }}
+          <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+          {{ end }}
+          {{ end }}
+          {{ with .Params.tags }}
+          <span class="taxonomy-label">Tags:</span>
+          {{ range . }}
+          <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
       </header>
       <div class="prose">
         {{ .Content }}
       </div>
     {{ end }}
-    
+
     <footer class="post-footer">
       <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
-      <a href="/blog/" class="back-link">← Back to all posts</a>
+      <a href="/blog/" class="back-link">&larr; Back to all posts</a>
     </footer>
   </div>
 </article>

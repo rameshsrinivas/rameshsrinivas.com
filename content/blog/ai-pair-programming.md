@@ -2,6 +2,8 @@
 title: "From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like"
 date: 2026-02-18
 description: "How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code."
+categories: ["Technology"]
+tags: ["AI", "Engineering", "Leadership"]
 ---
 
 Last August, I wrote an executive summary for a major platform initiative. I spec'd it out carefully: 10 weeks to production, 2-3 developers plus QA and BA support, roughly 22 person-weeks of effort. I'd been doing this long enough to know those were honest numbers — if anything, conservative for the scope.

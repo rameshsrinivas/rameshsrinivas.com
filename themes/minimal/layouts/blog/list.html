@@ -2,27 +2,99 @@
 <section class="section">
   <div class="container">
     <h1>Writing</h1>
-    <p class="section-intro">Thoughts on technology leadership, AI-augmented development, and building systems that make complex things accessible.</p>
-    
+    <p class="section-intro">Technology leadership, photography, tennis, and whatever else life throws my way.</p>
+
+    <!-- Filter by Category / Tag -->
+    {{ $allCategories := .Site.Taxonomies.categories }}
+    {{ $allTags := .Site.Taxonomies.tags }}
+    {{ if or $allCategories $allTags }}
+    <div class="taxonomy-filters">
+      {{ if $allCategories }}
+      <span class="taxonomy-label">Categories:</span>
+      {{ range $allCategories.Alphabetical }}
+      <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-category">{{ .Page.Title }}</a>
+      {{ end }}
+      {{ end }}
+      {{ if $allTags }}
+      <span class="taxonomy-label">Tags:</span>
+      {{ range $allTags.Alphabetical }}
+      <a href="{{ .Page.Permalink }}" class="taxonomy-chip chip-tag">{{ .Page.Title }}</a>
+      {{ end }}
+      {{ end }}
+    </div>
+    {{ end }}
+
     <div class="blog-list">
       {{ range .Pages }}
       <article class="blog-card card-{{ .Params.style | default "text" }}">
-        
+
         {{ if eq .Params.style "quote" }}
           <!-- Quote Card -->
-          <blockquote class="quote-post">
-            {{ .Content }}
-          </blockquote>
-          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
-        
-        {{ else if eq .Params.style "photo" }}
-          <!-- Photo Card -->
-          <a href="{{ .Permalink }}">
-            <img src="{{ .Params.image }}" alt="{{ .Params.caption }}" class="card-image">
+          <a href="{{ .Permalink }}" class="quote-link">
+            <blockquote class="quote-post">
+              {{ .Content }}
+            </blockquote>
           </a>
-          {{ with .Params.caption }}<p class="caption">{{ . }}</p>{{ end }}
+          <div class="post-taxonomies">
+            {{ with .Params.categories }}
+            <span class="taxonomy-label">Categories:</span>
+            {{ range . }}
+            <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+            {{ with .Params.tags }}
+            <span class="taxonomy-label">Tags:</span>
+            {{ range . }}
+            <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+          </div>
           <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
-        
+
+        {{ else if eq .Params.style "photo" }}
+          <!-- Photo Card (with Hugo image processing) -->
+          {{ $page := . }}
+          {{ $img := false }}
+          {{ with .Params.image }}
+            {{ $img = $page.Resources.GetMatch . }}
+          {{ end }}
+          {{ if not $img }}
+            {{ with $page.Resources.ByType "image" }}
+              {{ $img = index . 0 }}
+            {{ end }}
+          {{ end }}
+
+          {{ if $img }}
+            {{ $thumb := $img.Resize "600x q85" }}
+            {{ $thumbWebp := $img.Resize "600x webp q85" }}
+            <a href="{{ $page.Permalink }}">
+              <picture>
+                <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }}">
+                <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+              </picture>
+            </a>
+          {{ else if $page.Params.image }}
+            <a href="{{ $page.Permalink }}">
+              <img src="{{ $page.Params.image }}" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy">
+            </a>
+          {{ end }}
+          {{ with $page.Params.caption }}<p class="caption">{{ . }}</p>{{ end }}
+          <div class="post-taxonomies">
+            {{ with .Params.categories }}
+            <span class="taxonomy-label">Categories:</span>
+            {{ range . }}
+            <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+            {{ with .Params.tags }}
+            <span class="taxonomy-label">Tags:</span>
+            {{ range . }}
+            <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+          </div>
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+
         {{ else }}
           <!-- Standard Card -->
           <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
@@ -32,9 +104,23 @@
           {{ else }}
           <p>{{ .Summary }}</p>
           {{ end }}
+          <div class="post-taxonomies">
+            {{ with .Params.categories }}
+            <span class="taxonomy-label">Categories:</span>
+            {{ range . }}
+            <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+            {{ with .Params.tags }}
+            <span class="taxonomy-label">Tags:</span>
+            {{ range . }}
+            <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+          </div>
           <a href="{{ .Permalink }}" class="read-more">Read more →</a>
         {{ end }}
-        
+
       </article>
       {{ end }}
     </div>

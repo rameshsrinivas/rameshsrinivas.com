@@ -1,0 +1,16 @@
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <h1>{{ .Title }}</h1>
+    <p class="section-intro">Browse posts by {{ .Data.Singular }}.</p>
+
+    <div class="taxonomy-list">
+      {{ range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.Permalink }}" class="taxonomy-chip taxonomy-chip-lg">
+        {{ .Page.Title }} <span class="taxonomy-count">{{ .Count }}</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

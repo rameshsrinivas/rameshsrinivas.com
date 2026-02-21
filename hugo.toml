@@ -11,6 +11,10 @@ theme = 'minimal'
   company = "https://www.optionsplay.com"
   companyName = "OptionsPlay"
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
 [markup]
   [markup.highlight]
     style = "github"

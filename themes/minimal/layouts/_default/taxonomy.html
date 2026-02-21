@@ -1,0 +1,80 @@
+{{ define "main" }}
+<section class="section">
+  <div class="container">
+    <div class="taxonomy-header">
+      <a href="/blog/" class="back-link">&larr; All posts</a>
+      <h1>{{ .Title }}</h1>
+      <p class="section-intro">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} in this {{ .Data.Singular }}.</p>
+    </div>
+
+    <div class="blog-list">
+      {{ range .Pages }}
+      <article class="blog-card card-{{ .Params.style | default "text" }}">
+
+        {{ if eq .Params.style "quote" }}
+          <blockquote class="quote-post">
+            {{ .Content }}
+          </blockquote>
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+
+        {{ else if eq .Params.style "photo" }}
+          <!-- Photo Card (with Hugo image processing) -->
+          {{ $page := . }}
+          {{ $img := false }}
+          {{ with .Params.image }}
+            {{ $img = $page.Resources.GetMatch . }}
+          {{ end }}
+          {{ if not $img }}
+            {{ with $page.Resources.ByType "image" }}
+              {{ $img = index . 0 }}
+            {{ end }}
+          {{ end }}
+
+          {{ if $img }}
+            {{ $thumb := $img.Resize "600x q85" }}
+            {{ $thumbWebp := $img.Resize "600x webp q85" }}
+            <a href="{{ $page.Permalink }}">
+              <picture>
+                <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }}">
+                <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+              </picture>
+            </a>
+          {{ else if $page.Params.image }}
+            <a href="{{ $page.Permalink }}">
+              <img src="{{ $page.Params.image }}" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy">
+            </a>
+          {{ end }}
+          {{ with $page.Params.caption }}<p class="caption">{{ . }}</p>{{ end }}
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+
+        {{ else }}
+          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+          <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+          {{ if .Description }}
+          <p>{{ .Description }}</p>
+          {{ else }}
+          <p>{{ .Summary }}</p>
+          {{ end }}
+          <div class="post-taxonomies">
+            {{ with .Params.categories }}
+            <span class="taxonomy-label">Categories:</span>
+            {{ range . }}
+            <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+            {{ with .Params.tags }}
+            <span class="taxonomy-label">Tags:</span>
+            {{ range . }}
+            <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
+            {{ end }}
+            {{ end }}
+          </div>
+          <a href="{{ .Permalink }}" class="read-more">Read more &rarr;</a>
+        {{ end }}
+
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

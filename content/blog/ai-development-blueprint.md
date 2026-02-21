@@ -2,6 +2,8 @@
 title: "The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development"
 date: 2026-02-20
 description: "A stage-gated process for turning ideas into production software using AI as a development partner — measure twice, cut once."
+categories: ["Technology"]
+tags: ["AI", "Process", "Engineering"]
 ---
 
 After decades of building software, I've learned that the difference between projects that ship smoothly and projects that spiral isn't _just_ talent or technology — it's process. And with AI now capable of being a genuine development partner, having the right process matters more than ever.
