@@ -97,6 +97,23 @@
 
         {{ else }}
           <!-- Standard Card -->
+          {{ if .Params.image }}
+            {{ $page := . }}
+            {{ $img := false }}
+            {{ with .Params.image }}
+              {{ $img = $page.Resources.GetMatch . }}
+            {{ end }}
+            {{ if $img }}
+              {{ $thumb := $img.Resize "600x q85" }}
+              {{ $thumbWebp := $img.Resize "600x webp q85" }}
+              <a href="{{ $page.Permalink }}">
+                <picture>
+                  <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }}">
+                  <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}" class="card-cover" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+                </picture>
+              </a>
+            {{ end }}
+          {{ end }}
           <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
           <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
           {{ if .Description }}
