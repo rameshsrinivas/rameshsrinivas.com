@@ -55,14 +55,12 @@
       {{ end }}
       <div class="post-taxonomies">
         {{ with .Params.categories }}
-        <span class="taxonomy-label">Categories:</span>
-        {{ range . }}
+                {{ range . }}
         <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
         {{ end }}
         {{ end }}
         {{ with .Params.tags }}
-        <span class="taxonomy-label">Tags:</span>
-        {{ range . }}
+                {{ range . }}
         <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
         {{ end }}
         {{ end }}
@@ -76,14 +74,12 @@
         <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
         <div class="post-taxonomies">
           {{ with .Params.categories }}
-          <span class="taxonomy-label">Categories:</span>
-          {{ range . }}
+                    {{ range . }}
           <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
           {{ end }}
           {{ end }}
           {{ with .Params.tags }}
-          <span class="taxonomy-label">Tags:</span>
-          {{ range . }}
+                    {{ range . }}
           <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
           {{ end }}
           {{ end }}

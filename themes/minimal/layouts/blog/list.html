@@ -44,14 +44,12 @@
           </a>
           <div class="post-taxonomies">
             {{ with .Params.categories }}
-            <span class="taxonomy-label">Categories:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
             {{ end }}
             {{ end }}
             {{ with .Params.tags }}
-            <span class="taxonomy-label">Tags:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
             {{ end }}
             {{ end }}
@@ -90,14 +88,12 @@
           {{ with $page.Params.caption }}<p class="caption">{{ . }}</p>{{ end }}
           <div class="post-taxonomies">
             {{ with .Params.categories }}
-            <span class="taxonomy-label">Categories:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
             {{ end }}
             {{ end }}
             {{ with .Params.tags }}
-            <span class="taxonomy-label">Tags:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
             {{ end }}
             {{ end }}
@@ -134,14 +130,12 @@
           {{ end }}
           <div class="post-taxonomies">
             {{ with .Params.categories }}
-            <span class="taxonomy-label">Categories:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "categories/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-category">{{ . }}</a>
             {{ end }}
             {{ end }}
             {{ with .Params.tags }}
-            <span class="taxonomy-label">Tags:</span>
-            {{ range . }}
+                        {{ range . }}
             <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="taxonomy-chip chip-tag">{{ . }}</a>
             {{ end }}
             {{ end }}
