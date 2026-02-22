@@ -1,6 +1,6 @@
 ---
 title: "Thirteen Years"
-date: 2026-02-21
+date: 2026-02-01
 description: "Most startups don't make it to year five. We just finished year thirteen. This is less about the company, and more about the people."
 categories: ["Life"]
 tags: ["Gratitude", "Leadership", "Startups"]
