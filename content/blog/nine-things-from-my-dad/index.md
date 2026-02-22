@@ -1,9 +1,10 @@
 ---
-title: "9 Things I Learned from My Dad"
+title: "10 Things I Learned from My Dad"
 date: 2024-10-15
 description: "A tribute to a simple man with a remarkable journey — from rags to riches, back to rags, and back again."
 categories: ["Life"]
 tags: ["Family", "Lessons", "Gratitude"]
+image: "cover.png"
 ---
 
 I first wrote this as a tribute on my father's 80th birthday. I'd flown from New York to Chennai to surprise him — gave him a big hug, handed him a pop-up card handcrafted by his six-year-old grandson, and still felt like it wasn't enough. So I sat down and wrote.
@@ -12,7 +13,7 @@ Sixteen years later, my dad is 96. Still sharp as a knife. My mom, battling Park
 
 The lessons haven't changed. If anything, they've only deepened with time.
 
-This is a tribute to a simple man with a remarkable journey — a man who went from rags to riches, back to rags, and then back to riches again. Along the way, he taught me things that shaped who I am. These are nine of them.
+This is a tribute to a simple man with a remarkable journey — a man who went from rags to riches, back to rags, and then back to riches again. Along the way, he taught me things that shaped who I am. These are ten of them — nine I wrote then, and one I only understood later.
 
 ---
 
@@ -119,6 +120,16 @@ That experience has kept me and my family grounded ever since. I tell my kids to
 Dad pursued a few entrepreneurial ventures after the last debt was paid. None took off. But his reputation in the industry attracted a wealthy investor who wanted to make films. Fifty years since his first foray into cinema, my father remains one of the most respected figures in the Southern Indian film industry.
 
 Every life has its triumphs, challenges, and failures. In every situation, there are lessons. It's how we carry those lessons forward that defines us.
+
+### 10. The apple finds its own tree
+
+I never followed my father into the movie industry — though I had my chances. I went off the beaten path, marched to my own drumbeat, and landed in technology. Not exactly Bollywood.
+
+But the further I got in my career, the more I realized how much of him I'd taken with me. The entrepreneurial spirit that made him start his own production house at 40 with a wife and two kids? I carry that. The appetite for risk — betting on startups when a safer paycheck was always an option? That's him. The instinct to go against the grain, to trust your own judgment when the conventional wisdom says otherwise? Pure dad.
+
+The path is different. The DNA is the same.
+
+And from my mom — though I didn't fully appreciate it until much later — I got the quiet resolve. The ability to absorb a blow, steady yourself, and keep moving without making a spectacle of it. She never had to tell me how to be resilient. She just was. She still is.
 
 ---
 
