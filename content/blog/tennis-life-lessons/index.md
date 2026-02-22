@@ -4,6 +4,7 @@ date: 2025-02-21
 description: "Everything I know about life, I learned (or relearned) on the tennis court."
 categories: ["Life"]
 tags: ["Tennis", "Lessons", "Parenting"]
+image: "cover.png"
 ---
 
 **1. Want to get good at something? Teach it.** I've had to learn the intricate details of almost everything I do on the court, just so I can pass that knowledge to my kids. In the process, I've become a much better player than I ever was.

@@ -173,6 +173,24 @@ strong {
   margin-bottom: 0;
 }
 
+/* ===== Hero Graphic ===== */
+.hero-graphic {
+  background: #181e37;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-graphic .container {
+  max-width: 900px;
+  padding: 0;
+}
+
+.hero-graphic img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ===== Prose ===== */
 .prose {
   max-width: 700px;

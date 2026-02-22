@@ -4,6 +4,7 @@ date: 2026-02-18
 description: "How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code."
 categories: ["Technology"]
 tags: ["AI", "Engineering", "Leadership"]
+image: "cover.png"
 ---
 
 Last August, I wrote an executive summary for a major platform initiative. I spec'd it out carefully: 10 weeks to production, 2-3 developers plus QA and BA support, roughly 22 person-weeks of effort. I'd been doing this long enough to know those were honest numbers — if anything, conservative for the scope.
@@ -71,7 +72,7 @@ Here's my original estimate, written before AI was part of my workflow:
 Here's what actually happened:
 
 - **Team:** 1 architect (me) + 1 AI
-- **Timeline:** 5 working days from first commit to running in a live environment
+- **Timeline:** 7 working days from first commit to running in a live environment
 - **Investment:** ~1 person-week of effort
 
 Same scope. Same quality bar. Same enterprise codebase. Same compliance and testing requirements. I didn't cut corners — I added things that weren't in the original plan: an admin portal with real-time rule editing, sorted-set-based cross-symbol rankings, after-hours strategy generation with feature-flag kill switches.
@@ -108,7 +109,7 @@ The most interesting part wasn't the speed. It was the quality-to-speed ratio.
 
 We didn't cut corners. We wrote comprehensive tests. We followed existing patterns. We added feature flags so every new behavior can be toggled off without a deployment. We built an admin UI so business users aren't dependent on engineering for rule changes. We produced more documentation than the original plan called for.
 
-The future of software delivery isn't about replacing developers. It's about what happens when a senior engineer with deep domain knowledge gets a tireless, context-aware partner that can hold an entire enterprise codebase in its head. The answer: you go from 22 person-weeks to 5 days, and you ship something better than what you originally planned.
+The future of software delivery isn't about replacing developers. It's about what happens when a senior engineer with deep domain knowledge gets a tireless, context-aware partner that can hold an entire enterprise codebase in its head. The answer: you go from 22 person-weeks to 7 days, and you ship something better than what you originally planned.
 
 I've been building software since 1992. Thirty-four years. I still remember writing my first clock program in BASIC and thinking: *this right here — this is what I want to do.* Build things. Solve problems. Make something out of nothing.
 

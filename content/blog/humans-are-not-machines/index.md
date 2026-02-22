@@ -4,6 +4,7 @@ date: 2026-02-21
 description: "We built machines to be efficient. We were never meant to be."
 categories: ["Technology"]
 tags: ["AI", "Philosophy", "Leadership"]
+image: "cover.png"
 ---
 
 I work with AI every day. It helps me write code, think through architecture, and move faster than I ever could alone. I'm the first to admit — when it comes to raw efficiency, I don't stand a chance against the tools I use.
