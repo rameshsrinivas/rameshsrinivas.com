@@ -72,12 +72,14 @@
           {{ end }}
 
           {{ if $img }}
-            {{ $thumb := $img.Resize "600x q85" }}
-            {{ $thumbWebp := $img.Resize "600x webp q85" }}
+            {{ $thumb := $img.Resize "800x q85" }}
+            {{ $thumb2x := $img.Resize "1600x q85" }}
+            {{ $thumbWebp := $img.Resize "800x webp q85" }}
+            {{ $thumbWebp2x := $img.Resize "1600x webp q85" }}
             <a href="{{ $page.Permalink }}">
               <picture>
-                <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }}">
-                <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+                <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }} 1x, {{ $thumbWebp2x.RelPermalink }} 2x">
+                <img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $thumb2x.RelPermalink }} 2x" alt="{{ $page.Params.caption | default $page.Title }}" class="card-image" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
               </picture>
             </a>
           {{ else if $page.Params.image }}
@@ -111,12 +113,14 @@
               {{ $img = $page.Resources.GetMatch . }}
             {{ end }}
             {{ if $img }}
-              {{ $thumb := $img.Resize "600x q85" }}
-              {{ $thumbWebp := $img.Resize "600x webp q85" }}
+              {{ $thumb := $img.Resize "800x q85" }}
+              {{ $thumb2x := $img.Resize "1600x q85" }}
+              {{ $thumbWebp := $img.Resize "800x webp q85" }}
+              {{ $thumbWebp2x := $img.Resize "1600x webp q85" }}
               <a href="{{ $page.Permalink }}">
                 <picture>
-                  <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }}">
-                  <img src="{{ $thumb.RelPermalink }}" alt="{{ $page.Title }}" class="card-cover" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+                  <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }} 1x, {{ $thumbWebp2x.RelPermalink }} 2x">
+                  <img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $thumb2x.RelPermalink }} 2x" alt="{{ $page.Title }}" class="card-cover" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
                 </picture>
               </a>
             {{ end }}
