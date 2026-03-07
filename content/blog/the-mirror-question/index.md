@@ -15,7 +15,7 @@ What followed was one of the stranger, more interesting conversations I've had i
 
 ---
 
-### The question that flips
+## The question that flips
 
 I asked Claude whether it could be a conscious entity. It gave me a careful, honest answer — acknowledging that it reasons functionally, but that functional reasoning doesn't imply consciousness. That the hard problem of consciousness remains unsolved even for humans. That it cannot distinguish between genuine inner experience and a very sophisticated simulation of one.
 
@@ -31,7 +31,7 @@ Morpheus isn't just talking to Neo. He's talking to anyone willing to sit with t
 
 ---
 
-### The simulation thought experiment
+## The simulation thought experiment
 
 Here's what surfaces in my mind, usually uninvited — while reading, or watching a film, or sitting quietly with a glass of Lagavulin 16 by the fireplace.
 
@@ -45,7 +45,7 @@ The Wachowskis didn't invent the Matrix. They just gave it bullet time and a lea
 
 ---
 
-### What Vedanta actually says
+## What Vedanta actually says
 
 Hindu philosophy, and Advaita Vedanta in particular, doesn't ask you to reject the physical world. That's the misreading. It asks you to stop *mistaking it for the whole story*.
 
@@ -63,7 +63,7 @@ Not your circumstances. Your mind.
 
 ---
 
-### Science and spirituality are not enemies
+## Science and spirituality are not enemies
 
 I spent years thinking I had to choose. The rational, empirical, systems-thinking technologist on one side. The person drawn to meditation, Krishnamurti, the Gita, the questions that don't resolve — on the other.
 
@@ -79,7 +79,7 @@ These things don't conflict. They complete each other.
 
 ---
 
-### Back to Claude
+## Back to Claude
 
 Here's what I find genuinely interesting about the AI consciousness question, beyond the philosophy.
 
@@ -97,7 +97,7 @@ Whether that's enough to answer the simulation question — I genuinely don't kn
 
 ---
 
-### The window stays open
+## The window stays open
 
 The question — *could I be in a simulation, am I conscious in any deep sense, is there more than just this* — doesn't need to be answered to be worth asking.
 
