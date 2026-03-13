@@ -1,7 +1,6 @@
 ---
 title: "The Force Multiplier They're Not Talking About"
 date: 2026-03-13
-draft: true
 categories: ["Technology"]
 tags: ["AI", "Leadership", "Engineering", "Process"]
 description: "Everyone is talking about AI as a great equalizer. They have it backwards. Lived experience is the unfair advantage in the age of AI — and here's the precise mechanism why."
@@ -50,7 +49,7 @@ Those patterns don't exist in training data. They exist in you.
 
 ## The blueprint is the proof
 
-Earlier this year I published the process framework I've developed for AI-augmented development — a stage-gated pipeline that takes initiatives from idea to production. Six stages. Four of thinking, two of building.
+Earlier this year I published [the process framework](/blog/ai-development-blueprint/) I've developed for AI-augmented development — a stage-gated pipeline that takes initiatives from idea to production. Six stages. Four of thinking, two of building.
 
 That framework didn't come from a methodology book or a conference talk. It came from thirty years of watching projects succeed and fail, distilled into a system and then applied to a fundamentally new paradigm.
 
@@ -114,4 +113,4 @@ That's not a limitation. That's the point.
 
 ---
 
-*Related: [The Quiet Processor](/blog/the-quiet-processor/) — on the neuroscience of pattern recognition, and why your best decisions come from trusting what you already know.*
+<!-- *Related: [The Quiet Processor](/blog/the-quiet-processor/) — on the neuroscience of pattern recognition, and why your best decisions come from trusting what you already know.* -->
