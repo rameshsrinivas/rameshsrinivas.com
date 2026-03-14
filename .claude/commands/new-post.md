@@ -34,7 +34,14 @@ User invokes `/new-post` optionally followed by a title or notes file path.
 
 3. **Remind the user** that the cover image slot is ready — they can run `/cover-image` next to generate the SVG.
 
+## SEO requirements
+- **Description** must be a compelling one-sentence summary — it's used in meta tags, OG tags, and cover image alt text
+- **Section headings** (`##`) should use question format where natural (e.g., "Why does experience matter in the age of AI?") — this helps with AI Overview pull in search results
+- **Cross-link** to related posts where relevant — internal linking strengthens topical authority
+- After publishing, consider whether the new post should be added to the "Selected writing" section on `/about/`
+
 ## Important
+
 - Always create as a page bundle (directory + `index.md`), never a standalone `.md`
 - Always include `image: "cover.png"` in frontmatter even before the image exists
 - Use the voice and style guidelines from CLAUDE.md

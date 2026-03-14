@@ -51,7 +51,20 @@ User invokes `/cover-image` optionally followed by a blog post path.
 - **Bouncing paths** (tennis-life-lessons): trajectory with numbered lesson points
 - **Split/contrast** (humans-are-not-machines): two sides showing different natures
 
+## SEO considerations
+
+- Cover images in the blog list use enriched alt text: `Cover image for {Title} — {Description}`
+- This is handled automatically by the list template — no action needed per-post
+- The cover image contributes to the post's search visibility, so the visual concept should reinforce the post's theme (not be generic)
+
+## Design patterns from recent covers
+
+- **Peak vs steady light** (the-morning-i-stopped-chasing): dramatic spike on left, gentle glow extending right
+- **Two processors** (the-quiet-processor): noisy surface waves above, calm deep waves below, signal breaking through
+- **The lever** (the-force-multiplier): small dense input amplified through a fulcrum to large output
+
 ## Important
+
 - Never use clip art, icons, or literal illustrations — the style is abstract and data-visualization inspired
 - Keep it minimal — fewer elements with careful placement beats a busy composition
 - Every cover should work as a thumbnail at 800px wide in the blog list

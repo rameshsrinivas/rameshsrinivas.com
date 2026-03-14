@@ -39,6 +39,17 @@ Personal website of Ramesh Srinivas — CTO & Co-Founder of OptionsPlay.
 - Taxonomy filters: categories always visible, tags behind collapsible toggle
 - Blog post `<hr>` styled with `2.5rem` margin in `.blog-post hr`
 
+## SEO Patterns
+
+- Section headings (`##`) should use question format where natural — helps with AI Overview pull
+- Every post needs a strong `description:` in frontmatter — used in meta tags, OG tags, and cover image alt text
+- Cover image alt text in blog list is auto-generated: `Cover image for {Title} — {Description}`
+- Person JSON-LD structured data on homepage includes headshot image
+- Article JSON-LD structured data on each blog post
+- Standalone `/about/` page serves as canonical entity page for search engines
+- Cross-link related posts to strengthen topical authority
+- `robots.txt` allows all crawlers and points to `sitemap.xml`
+
 ## Workflow
 - SVGs created in `notes/<slug>-cover.svg`, user exports to PNG manually
 - Posts start as `notes/*.md`, get refined, then published to `content/blog/`
