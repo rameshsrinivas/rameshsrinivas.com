@@ -483,6 +483,34 @@ strong {
   font-weight: 500;
 }
 
+/* ===== About Page ===== */
+.about-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.about-headshot img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.about-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.about-header .hero-title {
+  margin-bottom: 0.25rem;
+}
+
+.about-header .hero-tagline {
+  margin-bottom: 0;
+}
+
 /* ===== Code & Mermaid ===== */
 pre {
   background: var(--bg-code);

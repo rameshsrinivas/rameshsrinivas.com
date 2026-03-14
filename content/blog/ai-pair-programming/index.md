@@ -79,7 +79,7 @@ Same scope. Same quality bar. Same enterprise codebase. Same compliance and test
 
 That's not a 2x improvement. That's an order of magnitude.
 
-## What the AI Actually Did (and Didn't Do)
+## What can AI actually do in software development (and what can't it)?
 
 The AI didn't make the architectural decisions. I did. The AI didn't know that our microservices have 26 partitions that provide natural parallelism, or that our caching layer has specific serialization quirks, or that our DI container has opinions about constructor parameters. I knew those things.
 

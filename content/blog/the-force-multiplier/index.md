@@ -23,7 +23,7 @@ Here's why.
 
 ---
 
-## AI is a force multiplier, not a capability replacement
+## Why is AI a force multiplier, not a capability replacement?
 
 A force multiplier doesn't replace what you bring. It amplifies it. Give a lever to someone with nowhere to stand and nothing happens. Give it to someone with thirty years of knowing exactly where to plant their feet, and you move the world.
 
@@ -33,7 +33,7 @@ That's the distinction that gets lost in the equalization narrative. AI fluency 
 
 ---
 
-## What experience actually is
+## What does experience actually mean in the age of AI?
 
 Most people think of experience as knowledge — facts accumulated over time. That's the least interesting part of it.
 
@@ -75,7 +75,7 @@ Every one of those judgment calls drew on something the AI couldn't provide. Eve
 
 ---
 
-## The real danger isn't falling behind
+## What is the real danger of AI for experienced leaders?
 
 If you're an experienced leader watching younger colleagues ship AI-powered products at speed, the temptation is to feel behind. To focus on closing the technical literacy gap. To learn the tools.
 

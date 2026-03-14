@@ -43,5 +43,5 @@ theme = 'minimal'
 
 [params.seo]
   keywords = ["Ramesh Srinivas", "CTO", "OptionsPlay", "fintech", "technology leadership", "AI-augmented development", "options trading", "financial technology", "software architecture"]
-  ogImage = "/images/headshot.png"
+  ogImage = "/images/ramesh-srinivas.png"
   twitterHandle = "@raremesh"  # Add if you have one, e.g. "@rameshsrinivas"

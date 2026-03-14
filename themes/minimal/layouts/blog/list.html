@@ -116,7 +116,7 @@
               <a href="{{ $page.Permalink }}">
                 <picture>
                   <source type="image/webp" srcset="{{ $thumbWebp.RelPermalink }} 1x, {{ $thumbWebp2x.RelPermalink }} 2x">
-                  <img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $thumb2x.RelPermalink }} 2x" alt="{{ $page.Title }}" class="card-cover" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+                  <img src="{{ $thumb.RelPermalink }}" srcset="{{ $thumb.RelPermalink }} 1x, {{ $thumb2x.RelPermalink }} 2x" alt="Cover image for {{ $page.Title }}{{ with $page.Description }} — {{ . }}{{ end }}" class="card-cover" loading="lazy" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
                 </picture>
               </a>
             {{ end }}

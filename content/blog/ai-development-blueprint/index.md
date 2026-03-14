@@ -210,7 +210,7 @@ Every new conversation starts with three reads: global memory, initiative status
 
 ---
 
-## What AI Does Best at Each Stage
+## What does AI do best at each stage of development?
 
 | Stage | AI's Strength |
 |-------|---------------|

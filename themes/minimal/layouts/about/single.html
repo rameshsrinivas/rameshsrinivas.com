@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article class="section blog-post">
+  <div class="container container-narrow">
+    <header class="about-header">
+      <div class="about-headshot">
+        <img src="/images/ramesh-srinivas.png" alt="Ramesh Srinivas, Co-Founder and CTO of OptionsPlay">
+      </div>
+      <h1>{{ .Title }}</h1>
+      <p class="hero-title">Co-Founder & Chief Technology Officer, OptionsPlay&reg;</p>
+      <p class="hero-tagline">Making the complex accessible — in technology, in finance, in leadership.</p>
+    </header>
+    <div class="prose">
+      {{ .Content }}
+    </div>
+    <footer class="post-footer">
+      <a href="/" class="back-link">&larr; Back to home</a>
+    </footer>
+  </div>
+</article>
+{{ end }}
