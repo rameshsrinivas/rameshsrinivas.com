@@ -4,6 +4,7 @@ date: 2025-02-21
 description: "A cab, a ferry, a gondola up a mountain — all to find the artist behind a photograph on my wall."
 categories: ["Life"]
 tags: ["Meditation", "Spirituality", "Self-Discovery"]
+image: "cover.png"
 ---
 
 During a meditation session, I see a photograph on my wall that I don't recognize. It's stunning — the composition is exquisite, the lighting is perfect, the subject couldn't be better. I'm mesmerized.
