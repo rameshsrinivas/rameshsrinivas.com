@@ -1,7 +1,6 @@
 ---
 title: "The Quiet Processor"
-date: 2026-03-18
-draft: true
+date: 2026-03-27
 categories: ["Technology", "Life"]
 tags: ["Leadership", "AI", "Philosophy", "Process", "Self-Discovery"]
 description: "The best decisions I've ever made didn't come from thinking harder. They came from knowing when to stop thinking."
