@@ -1,6 +1,6 @@
 ---
 title: "The Morning I Stopped Chasing and Started Living"
-date: 2026-03-20
+date: 2026-03-21
 categories: ["Life"]
 tags: ["Self-Discovery", "Leadership", "Lessons", "Meditation"]
 description: "On the difference between a peak experience and a lived life — and why the latter is harder and more valuable."
