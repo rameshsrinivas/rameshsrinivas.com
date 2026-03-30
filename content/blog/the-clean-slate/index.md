@@ -138,4 +138,4 @@ You already proved you can.
 
 *Related: [The Mirror Question](/blog/the-mirror-question/) — on consciousness, simulation, and the question that comes back around.*
 
-<!-- *Related: [The Quiet Processor](/blog/the-quiet-processor/) — on the deeper system that already has the answer.* -->
+*Related: [The Quiet Processor](/blog/the-quiet-processor/) — on the deeper system that already has the answer.*

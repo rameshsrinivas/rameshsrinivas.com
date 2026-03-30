@@ -467,6 +467,22 @@ strong {
   color: var(--text-muted);
 }
 
+.blog-post .prose blockquote {
+  border-left: 3px solid var(--text-muted);
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.25rem;
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+.blog-post .prose blockquote p {
+  margin-bottom: 0.5rem;
+}
+
+.blog-post .prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 .blog-post hr {
   border: none;
   border-top: 1px solid var(--border-hr);
