@@ -58,6 +58,10 @@ html {
   --shadow-hero:    rgba(0, 0, 0, 0.12);
   --shadow-card:    rgba(0, 0, 0, 0.08);
   --shadow-docs:    rgba(37, 99, 235, 0.15);
+
+  --compass-ring:   #8b6f4e;
+  --compass-cursor: #2563eb;
+  --compass-bg:     #ffffff;
 }
 
 [data-theme="dark"] {
@@ -105,6 +109,10 @@ html {
   --shadow-hero:    rgba(0, 0, 0, 0.3);
   --shadow-card:    rgba(0, 0, 0, 0.2);
   --shadow-docs:    rgba(91, 147, 255, 0.15);
+
+  --compass-ring:   #e8a87c;
+  --compass-cursor: #4a9eff;
+  --compass-bg:     #1a1a1a;
 }
 
 body {
@@ -213,6 +221,15 @@ strong {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-logo .compass-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
 }
 
 .site-logo:hover {

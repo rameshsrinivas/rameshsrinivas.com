@@ -106,7 +106,29 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="/" class="site-logo">{{ .Site.Title }}</a>
+      <a href="/" class="site-logo">
+        <svg class="compass-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(32, 34)">
+            <!-- Compass ring -->
+            <circle cx="0" cy="0" r="24" fill="none" stroke="var(--compass-ring)" stroke-width="1.5" opacity="0.6"/>
+            <!-- N tick -->
+            <line x1="0" y1="-24" x2="0" y2="-21" stroke="var(--compass-ring)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+            <text x="0" y="-26" text-anchor="middle" font-family="'SF Mono','Consolas',monospace" font-size="6" fill="var(--compass-ring)" opacity="0.7">N</text>
+            <!-- South needle + diamond -->
+            <line x1="0" y1="5" x2="0" y2="13" stroke="var(--compass-ring)" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+            <polygon points="0,12 -2,15 0,18 2,15" fill="var(--compass-ring)" opacity="0.35"/>
+            <!-- Cursor needle -->
+            <line x1="0" y1="-18" x2="0" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-18" x2="2.5" y2="-18" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-9.5" x2="2.5" y2="-9.5" stroke="var(--compass-cursor)" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-5" x2="2.5" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- Center dot -->
+            <circle cx="0" cy="0" r="2" fill="var(--compass-ring)" opacity="0.6"/>
+            <circle cx="0" cy="0" r="0.8" fill="var(--compass-bg)"/>
+          </g>
+        </svg>
+        {{ .Site.Title }}
+      </a>
       <nav class="site-nav">
         {{ range .Site.Menus.main }}
           <a href="{{ .URL }}" class="nav-link">{{ .Name }}</a>

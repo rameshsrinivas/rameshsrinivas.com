@@ -1,7 +1,7 @@
 ---
 title: "The Clean Slate"
 date: 2026-04-03
-draft: true
+draft: false
 categories: ["Life"]
 tags: ["Leadership", "Philosophy", "Self-Discovery", "Culture"]
 description: "It's easier to form a bond with a faceless alien than with the person sitting next to you. That's not a flaw. It's a design problem."
