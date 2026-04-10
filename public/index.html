@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html lang="en-us">
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+  (function() {
+    var theme = localStorage.getItem('theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
 <head>
-	<meta name="generator" content="Hugo 0.156.0"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.156.0">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -13,6 +22,10 @@
   <meta name="keywords" content="Ramesh Srinivas, CTO, OptionsPlay, fintech, technology leadership, AI-augmented development, options trading, financial technology, software architecture">
   
   
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
   <link rel="canonical" href="http://localhost:1313/">
   
   
@@ -20,7 +33,9 @@
   <meta property="og:url" content="http://localhost:1313/">
   <meta property="og:title" content="Ramesh Srinivas | Co-Founder &amp; CTO | Making the complex accessible">
   <meta property="og:description" content="Co-Founder &amp; CTO | Making the complex accessible">
-  <meta property="og:image" content="http://localhost:1313//images/headshot.png">
+  
+  
+  <meta property="og:image" content="http://localhost:1313//images/ramesh-srinivas.png">
   <meta property="og:site_name" content="Ramesh Srinivas">
   
   
@@ -29,7 +44,7 @@
   <meta name="twitter:url" content="http://localhost:1313/">
   <meta name="twitter:title" content="Ramesh Srinivas">
   <meta name="twitter:description" content="Co-Founder &amp; CTO | Making the complex accessible">
-  <meta name="twitter:image" content="http://localhost:1313//images/headshot.png">
+  <meta name="twitter:image" content="http://localhost:1313//images/ramesh-srinivas.png">
   <meta name="twitter:creator" content="@raremesh">
   
   
@@ -46,6 +61,7 @@
       "name": "OptionsPlay",
       "url": "https://www.optionsplay.com"
     },
+    "image": "http:\/\/localhost:1313\/images/ramesh-srinivas.png",
     "sameAs": [
       "https:\/\/www.linkedin.com\/in\/rsrinivas\/"
     ],
@@ -65,9 +81,9 @@
   
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({ 
+    mermaid.initialize({
       startOnLoad: true,
-      theme: 'neutral',
+      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral',
       securityLevel: 'loose'
     });
   </script>
@@ -75,7 +91,29 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="/" class="site-logo">Ramesh Srinivas</a>
+      <a href="/" class="site-logo">
+        <svg class="compass-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(32, 34)">
+            
+            <circle cx="0" cy="0" r="24" fill="none" stroke="var(--compass-ring)" stroke-width="1.5" opacity="0.6"/>
+            
+            <line x1="0" y1="-24" x2="0" y2="-21" stroke="var(--compass-ring)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+            <text x="0" y="-26" text-anchor="middle" font-family="'SF Mono','Consolas',monospace" font-size="6" fill="var(--compass-ring)" opacity="0.7">N</text>
+            
+            <line x1="0" y1="5" x2="0" y2="13" stroke="var(--compass-ring)" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+            <polygon points="0,12 -2,15 0,18 2,15" fill="var(--compass-ring)" opacity="0.35"/>
+            
+            <line x1="0" y1="-18" x2="0" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-18" x2="2.5" y2="-18" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-9.5" x2="2.5" y2="-9.5" stroke="var(--compass-cursor)" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-5" x2="2.5" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            
+            <circle cx="0" cy="0" r="2" fill="var(--compass-ring)" opacity="0.6"/>
+            <circle cx="0" cy="0" r="0.8" fill="var(--compass-bg)"/>
+          </g>
+        </svg>
+        Ramesh Srinivas
+      </a>
       <nav class="site-nav">
         
           <a href="/#about" class="nav-link">About</a>
@@ -86,6 +124,10 @@
         
           <a href="/#connect" class="nav-link">Connect</a>
         
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -97,7 +139,7 @@
   <div class="container">
     <div class="hero-content">
       <div class="hero-image">
-        <img src="/images/headshot.png" alt="Ramesh Srinivas">
+        <img src="/images/ramesh-srinivas.png" alt="Ramesh Srinivas, Co-Founder and CTO of OptionsPlay">
       </div>
       <div class="hero-text">
         <h1>Ramesh Srinivas</h1>
@@ -107,6 +149,9 @@
     </div>
   </div>
 </section>
+
+
+
 
 
 <section id="about" class="section">
@@ -122,6 +167,7 @@
       <p>My philosophy is simple: use complexity in service of clarity. Take sophisticated systems and make them accessible to people who shouldn't need a PhD to benefit from them. That principle shaped how I architected cloud platforms in the early 2000s, how I built real-time trading systems at scale, and how I lead technology at OptionsPlay today.</p>
       
       <p>I'm not a CTO who manages from a distance. I'm a builder who happens to lead.</p>
+      <p><a href="/about/" class="read-more">More about me →</a></p>
     </div>
   </div>
 </section>
@@ -214,6 +260,29 @@
       <p>&copy; 2026 Ramesh Srinivas. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function() {
+        document.body.classList.add('theme-transition');
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        setTimeout(function() {
+          document.body.classList.remove('theme-transition');
+        }, 350);
+      });
+    })();
+  </script>
+  <script>
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('spoiler')) {
+        e.target.classList.add('revealed');
+      }
+    });
+  </script>
 </body>
 </html>
 ```

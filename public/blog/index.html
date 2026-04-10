@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+  (function() {
+    var theme = localStorage.getItem('theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -12,6 +21,10 @@
   <meta name="keywords" content="Ramesh Srinivas, CTO, OptionsPlay, fintech, technology leadership, AI-augmented development, options trading, financial technology, software architecture">
   
   
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
   <link rel="canonical" href="http://localhost:1313/blog/">
   
   
@@ -19,7 +32,9 @@
   <meta property="og:url" content="http://localhost:1313/blog/">
   <meta property="og:title" content="Writing">
   <meta property="og:description" content="Thoughts on technology leadership, AI-augmented development, and building systems that make complex things accessible.">
-  <meta property="og:image" content="http://localhost:1313//images/headshot.png">
+  
+  
+  <meta property="og:image" content="http://localhost:1313//images/ramesh-srinivas.png">
   <meta property="og:site_name" content="Ramesh Srinivas">
   
   
@@ -28,7 +43,7 @@
   <meta name="twitter:url" content="http://localhost:1313/blog/">
   <meta name="twitter:title" content="Writing">
   <meta name="twitter:description" content="Thoughts on technology leadership, AI-augmented development, and building systems that make complex things accessible.">
-  <meta name="twitter:image" content="http://localhost:1313//images/headshot.png">
+  <meta name="twitter:image" content="http://localhost:1313//images/ramesh-srinivas.png">
   <meta name="twitter:creator" content="@raremesh">
   
   
@@ -45,9 +60,9 @@
   
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({ 
+    mermaid.initialize({
       startOnLoad: true,
-      theme: 'neutral',
+      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral',
       securityLevel: 'loose'
     });
   </script>
@@ -55,7 +70,29 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="/" class="site-logo">Ramesh Srinivas</a>
+      <a href="/" class="site-logo">
+        <svg class="compass-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(32, 34)">
+            
+            <circle cx="0" cy="0" r="24" fill="none" stroke="var(--compass-ring)" stroke-width="1.5" opacity="0.6"/>
+            
+            <line x1="0" y1="-24" x2="0" y2="-21" stroke="var(--compass-ring)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+            <text x="0" y="-26" text-anchor="middle" font-family="'SF Mono','Consolas',monospace" font-size="6" fill="var(--compass-ring)" opacity="0.7">N</text>
+            
+            <line x1="0" y1="5" x2="0" y2="13" stroke="var(--compass-ring)" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+            <polygon points="0,12 -2,15 0,18 2,15" fill="var(--compass-ring)" opacity="0.35"/>
+            
+            <line x1="0" y1="-18" x2="0" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-18" x2="2.5" y2="-18" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-9.5" x2="2.5" y2="-9.5" stroke="var(--compass-cursor)" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-5" x2="2.5" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            
+            <circle cx="0" cy="0" r="2" fill="var(--compass-ring)" opacity="0.6"/>
+            <circle cx="0" cy="0" r="0.8" fill="var(--compass-bg)"/>
+          </g>
+        </svg>
+        Ramesh Srinivas
+      </a>
       <nav class="site-nav">
         
           <a href="/#about" class="nav-link">About</a>
@@ -66,6 +103,10 @@
         
           <a href="/#connect" class="nav-link">Connect</a>
         
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -82,55 +123,72 @@
     
     
     <div class="taxonomy-filters">
+      <div class="taxonomy-row">
+        
+        
+        <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+        
+        <a href="http://localhost:1313/categories/photography/" class="taxonomy-chip chip-category">Photography</a>
+        
+        <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+        
+        <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+        
+        
+        
+        <button class="tags-toggle" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'); document.querySelector('.tags-collapsible').classList.toggle('tags-visible');">
+          <span class="tags-toggle-icon">&#9654;</span> Tags
+        </button>
+        
+      </div>
       
-      <span class="taxonomy-label">Categories:</span>
-      
-      <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
-      
-      <a href="http://localhost:1313/categories/photography/" class="taxonomy-chip chip-category">Photography</a>
-      
-      <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
-      
-      <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
-      
-      
-      
-      <span class="taxonomy-label">Tags:</span>
-      
-      <a href="http://localhost:1313/tags/aging/" class="taxonomy-chip chip-tag">Aging</a>
-      
-      <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
-      
-      <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
-      
-      <a href="http://localhost:1313/tags/gratitude/" class="taxonomy-chip chip-tag">Gratitude</a>
-      
-      <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
-      
-      <a href="http://localhost:1313/tags/lessons/" class="taxonomy-chip chip-tag">Lessons</a>
-      
-      <a href="http://localhost:1313/tags/meditation/" class="taxonomy-chip chip-tag">Meditation</a>
-      
-      <a href="http://localhost:1313/tags/new-york/" class="taxonomy-chip chip-tag">New York</a>
-      
-      <a href="http://localhost:1313/tags/optionsplay/" class="taxonomy-chip chip-tag">OptionsPlay</a>
-      
-      <a href="http://localhost:1313/tags/parenting/" class="taxonomy-chip chip-tag">Parenting</a>
-      
-      <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
-      
-      <a href="http://localhost:1313/tags/photography/" class="taxonomy-chip chip-tag">Photography</a>
-      
-      <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
-      
-      <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
-      
-      <a href="http://localhost:1313/tags/spirituality/" class="taxonomy-chip chip-tag">Spirituality</a>
-      
-      <a href="http://localhost:1313/tags/startups/" class="taxonomy-chip chip-tag">Startups</a>
-      
-      <a href="http://localhost:1313/tags/tennis/" class="taxonomy-chip chip-tag">Tennis</a>
-      
+      <div class="tags-collapsible">
+        
+        <a href="http://localhost:1313/tags/aging/" class="taxonomy-chip chip-tag">Aging</a>
+        
+        <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+        
+        <a href="http://localhost:1313/tags/culture/" class="taxonomy-chip chip-tag">Culture</a>
+        
+        <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
+        
+        <a href="http://localhost:1313/tags/family/" class="taxonomy-chip chip-tag">Family</a>
+        
+        <a href="http://localhost:1313/tags/gratitude/" class="taxonomy-chip chip-tag">Gratitude</a>
+        
+        <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+        
+        <a href="http://localhost:1313/tags/lessons/" class="taxonomy-chip chip-tag">Lessons</a>
+        
+        <a href="http://localhost:1313/tags/life/" class="taxonomy-chip chip-tag">Life</a>
+        
+        <a href="http://localhost:1313/tags/meditation/" class="taxonomy-chip chip-tag">Meditation</a>
+        
+        <a href="http://localhost:1313/tags/new-york/" class="taxonomy-chip chip-tag">New York</a>
+        
+        <a href="http://localhost:1313/tags/optionsplay/" class="taxonomy-chip chip-tag">OptionsPlay</a>
+        
+        <a href="http://localhost:1313/tags/parenting/" class="taxonomy-chip chip-tag">Parenting</a>
+        
+        <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+        
+        <a href="http://localhost:1313/tags/photography/" class="taxonomy-chip chip-tag">Photography</a>
+        
+        <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
+        
+        <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+        
+        <a href="http://localhost:1313/tags/spirituality/" class="taxonomy-chip chip-tag">Spirituality</a>
+        
+        <a href="http://localhost:1313/tags/startups/" class="taxonomy-chip chip-tag">Startups</a>
+        
+        <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+        
+        <a href="http://localhost:1313/tags/tennis/" class="taxonomy-chip chip-tag">Tennis</a>
+        
+        <a href="http://localhost:1313/tags/test/" class="taxonomy-chip chip-tag">Test</a>
+        
+      </div>
       
     </div>
     
@@ -142,21 +200,787 @@
         
           
           
-          <h2><a href="http://localhost:1313/blog/humans-are-not-machines/">Humans Are Not Machines</a></h2>
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-cognitive-trade/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-cognitive-trade/cover_hu_2eca62a234f5cb3b.webp 1x, /blog/the-cognitive-trade/cover_hu_5253cc1f212976c9.webp 2x">
+                  <img src="/blog/the-cognitive-trade/cover_hu_1fbdce5f64348dc2.png" srcset="/blog/the-cognitive-trade/cover_hu_1fbdce5f64348dc2.png 1x, /blog/the-cognitive-trade/cover_hu_b1b45e8e2183813b.png 2x" alt="Cover image for The Cognitive Trade — AI is restructuring how we think — not dumbing us down. But only if you know the difference between cognitive direction and cognitive surrender." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-cognitive-trade/">The Cognitive Trade</a></h2>
+          <p class="meta">April 10, 2026</p>
+          
+          <p>AI is restructuring how we think — not dumbing us down. But only if you know the difference between cognitive direction and cognitive surrender.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+            
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-cognitive-trade/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-ai-faster/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The AI didn&rsquo;t make me faster at coding. It made me faster at everything else.</p>
+<p><span class="quote-author">— from <a href="/blog/ai-pair-programming/">From 22 Person-Weeks to 7 Days</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+            
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-alien-mirror/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The alien was never the point. The alien was the mirror.</p>
+<p><span class="quote-author">— from <a href="/blog/the-clean-slate/">The Clean Slate</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/culture/" class="taxonomy-chip chip-tag">Culture</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-blueprint/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The blueprint is failure crystallized into foresight.</p>
+<p><span class="quote-author">— from <a href="/blog/the-force-multiplier/">The Force Multiplier</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+            
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-clean-slate/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>We don&rsquo;t get Rocky by being better people. We get Rocky by designing better situations.</p>
+<p><span class="quote-author">— from <a href="/blog/the-clean-slate/">The Clean Slate</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/culture/" class="taxonomy-chip chip-tag">Culture</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-director/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>Your job is not to become more like the AI. Your job is to become a better director of it.</p>
+<p><span class="quote-author">— from <a href="/blog/the-force-multiplier/">The Force Multiplier</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+            
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-dna/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The path is different. The DNA is the same.</p>
+<p><span class="quote-author">— from <a href="/blog/nine-things-from-my-dad/">10 Things I Learned from My Dad</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/life/" class="taxonomy-chip chip-tag">Life</a>
+            
+            <a href="http://localhost:1313/tags/family/" class="taxonomy-chip chip-tag">Family</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-gut/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>Your gut is not less rigorous than your analysis. It&rsquo;s more experienced.</p>
+<p><span class="quote-author">— from <a href="/blog/the-quiet-processor/">The Quiet Processor</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-inefficient/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The things that make us &ldquo;inefficient&rdquo; — our emotions, our stubbornness, our capacity to surprise even ourselves — those aren&rsquo;t bugs to be optimized away. They&rsquo;re the whole point.</p>
+<p><span class="quote-author">— from <a href="/blog/humans-are-not-machines/">Humans Are Not Machines</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-irony/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The irony is precise. The skills you need to use AI well are the same skills that AI threatens to erode if you use it passively.</p>
+<p><span class="quote-author">— from <a href="/blog/the-cognitive-trade/">The Cognitive Trade</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/technology/" class="taxonomy-chip chip-tag">Technology</a>
+            
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-peaks/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>Peaks are not destinations. They&rsquo;re calibrations.</p>
+<p><span class="quote-author">— from <a href="/blog/the-morning-i-stopped-chasing/">The Morning I Stopped Chasing</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-practice/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>Practice doesn&rsquo;t make perfect — it makes permanent.</p>
+<p><span class="quote-author">— from <a href="/blog/tennis-life-lessons/">24 Life Lessons from Teaching Tennis</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/tennis/" class="taxonomy-chip chip-tag">Tennis</a>
+            
+            <a href="http://localhost:1313/tags/life/" class="taxonomy-chip chip-tag">Life</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-science-spirituality/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>Science answers how. Spirituality asks what for and what is this, really. They&rsquo;re not competing. They&rsquo;re addressing different levels of the same reality.</p>
+<p><span class="quote-author">— from <a href="/blog/the-mirror-question/">The Mirror Question</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/spirituality/" class="taxonomy-chip chip-tag">Spirituality</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-steady-light/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>I was so busy looking for another explosion that I had stopped noticing the steady light.</p>
+<p><span class="quote-author">— from <a href="/blog/the-morning-i-stopped-chasing/">The Morning I Stopped Chasing</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-quote">
+
+        
+          
+          <a href="http://localhost:1313/blog/quote-subconscious/" class="quote-link">
+            <blockquote class="quote-post">
+              <p>The subconscious doesn&rsquo;t need more time to think. It needs you to stop interrupting it.</p>
+<p><span class="quote-author">— from <a href="/blog/the-quiet-processor/">The Quiet Processor</a></span></p>
+
+            </blockquote>
+          </a>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <p class="meta">April 3, 2026</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-clean-slate/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-clean-slate/cover_hu_f2e86f0251946019.webp 1x, /blog/the-clean-slate/cover_hu_f7bd98ec3d156aea.webp 2x">
+                  <img src="/blog/the-clean-slate/cover_hu_3a58b2d3ec79bc5f.png" srcset="/blog/the-clean-slate/cover_hu_3a58b2d3ec79bc5f.png 1x, /blog/the-clean-slate/cover_hu_3d52fd78bcf55f45.png 2x" alt="Cover image for The Clean Slate — It&#39;s easier to form a bond with a faceless alien than with the person sitting next to you. That&#39;s not a flaw. It&#39;s a design problem." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-clean-slate/">The Clean Slate</a></h2>
+          <p class="meta">April 3, 2026</p>
+          
+          <p>It&#39;s easier to form a bond with a faceless alien than with the person sitting next to you. That&#39;s not a flaw. It&#39;s a design problem.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            <a href="http://localhost:1313/tags/culture/" class="taxonomy-chip chip-tag">Culture</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-clean-slate/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-quiet-processor/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-quiet-processor/cover_hu_6ad52b25031e0120.webp 1x, /blog/the-quiet-processor/cover_hu_d157d4c0daeeb36b.webp 2x">
+                  <img src="/blog/the-quiet-processor/cover_hu_8607232db5870c42.png" srcset="/blog/the-quiet-processor/cover_hu_8607232db5870c42.png 1x, /blog/the-quiet-processor/cover_hu_2aa1dfe71369b059.png 2x" alt="Cover image for The Quiet Processor — The best decisions I&#39;ve ever made didn&#39;t come from thinking harder. They came from knowing when to stop thinking." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-quiet-processor/">The Quiet Processor</a></h2>
+          <p class="meta">March 27, 2026</p>
+          
+          <p>The best decisions I&#39;ve ever made didn&#39;t come from thinking harder. They came from knowing when to stop thinking.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+            
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-quiet-processor/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-morning-i-stopped-chasing/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-morning-i-stopped-chasing/cover_hu_5b191b2cda30d24a.webp 1x, /blog/the-morning-i-stopped-chasing/cover_hu_70af73b9c3c7336.webp 2x">
+                  <img src="/blog/the-morning-i-stopped-chasing/cover_hu_71cec83940599712.png" srcset="/blog/the-morning-i-stopped-chasing/cover_hu_71cec83940599712.png 1x, /blog/the-morning-i-stopped-chasing/cover_hu_cb5fbf86a1294677.png 2x" alt="Cover image for The Morning I Stopped Chasing and Started Living — On the difference between a peak experience and a lived life — and why the latter is harder and more valuable." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-morning-i-stopped-chasing/">The Morning I Stopped Chasing and Started Living</a></h2>
+          <p class="meta">March 21, 2026</p>
+          
+          <p>On the difference between a peak experience and a lived life — and why the latter is harder and more valuable.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/lessons/" class="taxonomy-chip chip-tag">Lessons</a>
+            
+            <a href="http://localhost:1313/tags/meditation/" class="taxonomy-chip chip-tag">Meditation</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-morning-i-stopped-chasing/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-force-multiplier/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-force-multiplier/cover_hu_e78f44852627ec72.webp 1x, /blog/the-force-multiplier/cover_hu_bf015dda618330df.webp 2x">
+                  <img src="/blog/the-force-multiplier/cover_hu_9b32fbcdac28fb8d.png" srcset="/blog/the-force-multiplier/cover_hu_9b32fbcdac28fb8d.png 1x, /blog/the-force-multiplier/cover_hu_6d2c8cea67c21f73.png 2x" alt="Cover image for The Force Multiplier They&#39;re Not Talking About — Everyone is talking about AI as a great equalizer. They have it backwards. Lived experience is the unfair advantage in the age of AI — and here&#39;s the precise mechanism why." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-force-multiplier/">The Force Multiplier They&#39;re Not Talking About</a></h2>
+          <p class="meta">March 13, 2026</p>
+          
+          <p>Everyone is talking about AI as a great equalizer. They have it backwards. Lived experience is the unfair advantage in the age of AI — and here&#39;s the precise mechanism why.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
+            
+            <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-force-multiplier/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/the-mirror-question/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/the-mirror-question/cover_hu_c4fa3d78c776eef1.webp 1x, /blog/the-mirror-question/cover_hu_7cdc8982f4b16180.webp 2x">
+                  <img src="/blog/the-mirror-question/cover_hu_7e41cd1976aa1e54.png" srcset="/blog/the-mirror-question/cover_hu_7e41cd1976aa1e54.png 1x, /blog/the-mirror-question/cover_hu_86c897a7c85e4f23.png 2x" alt="Cover image for The Mirror Question — I asked an AI if it was conscious. It asked me the same question back." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/the-mirror-question/">The Mirror Question</a></h2>
+          <p class="meta">March 6, 2026</p>
+          
+          <p>I asked an AI if it was conscious. It asked me the same question back.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
+            
+            <a href="http://localhost:1313/tags/spirituality/" class="taxonomy-chip chip-tag">Spirituality</a>
+            
+            <a href="http://localhost:1313/tags/self-discovery/" class="taxonomy-chip chip-tag">Self-Discovery</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/the-mirror-question/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/humans-are-not-machines/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/humans-are-not-machines/cover_hu_511c692c945a71d.webp 1x, /blog/humans-are-not-machines/cover_hu_ce8cdefa2ed16822.webp 2x">
+                  <img src="/blog/humans-are-not-machines/cover_hu_220afb6b92f1767c.png" srcset="/blog/humans-are-not-machines/cover_hu_220afb6b92f1767c.png 1x, /blog/humans-are-not-machines/cover_hu_24b515b782d8ce6e.png 2x" alt="Cover image for Humans Are Not Machines, Machines Are Not Human — We built machines to be efficient. We were never meant to be." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/humans-are-not-machines/">Humans Are Not Machines, Machines Are Not Human</a></h2>
           <p class="meta">February 21, 2026</p>
           
           <p>We built machines to be efficient. We were never meant to be.</p>
           
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
             
             <a href="http://localhost:1313/tags/philosophy/" class="taxonomy-chip chip-tag">Philosophy</a>
@@ -166,72 +990,6 @@
             
           </div>
           <a href="http://localhost:1313/blog/humans-are-not-machines/" class="read-more">Read more →</a>
-        
-
-      </article>
-      
-      <article class="blog-card card-text">
-
-        
-          
-          
-          <h2><a href="http://localhost:1313/blog/ai-development-blueprint/">The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development</a></h2>
-          <p class="meta">February 20, 2026</p>
-          
-          <p>A stage-gated process for turning ideas into production software using AI as a development partner — measure twice, cut once.</p>
-          
-          <div class="post-taxonomies">
-            
-            <span class="taxonomy-label">Categories:</span>
-            
-            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
-            
-            
-            
-            <span class="taxonomy-label">Tags:</span>
-            
-            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
-            
-            <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
-            
-            <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
-            
-            
-          </div>
-          <a href="http://localhost:1313/blog/ai-development-blueprint/" class="read-more">Read more →</a>
-        
-
-      </article>
-      
-      <article class="blog-card card-text">
-
-        
-          
-          
-          <h2><a href="http://localhost:1313/blog/ai-pair-programming/">From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like</a></h2>
-          <p class="meta">February 18, 2026</p>
-          
-          <p>How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code.</p>
-          
-          <div class="post-taxonomies">
-            
-            <span class="taxonomy-label">Categories:</span>
-            
-            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
-            
-            
-            
-            <span class="taxonomy-label">Tags:</span>
-            
-            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
-            
-            <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
-            
-            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
-            
-            
-          </div>
-          <a href="http://localhost:1313/blog/ai-pair-programming/" class="read-more">Read more →</a>
         
 
       </article>
@@ -250,32 +1008,179 @@
           
             
             
-            <a href="http://localhost:1313/blog/grand-central/">
+            
+            
+            <a href="http://localhost:1313/blog/sample-photo-post/">
               <picture>
-                <source type="image/webp" srcset="/blog/grand-central/rs-grand-central_hu_a965b00cb8793a86.webp">
-                <img src="/blog/grand-central/rs-grand-central_hu_ebb9607738750b3f.jpg" alt="The hustle and bustle of New York&#39;s iconic Grand Central" class="card-image" loading="lazy" width="600" height="402">
+                <source type="image/webp" srcset="/blog/sample-photo-post/sample_hu_93dbd9131445c0ab.webp 1x, /blog/sample-photo-post/sample_hu_6d48f21f6059cda5.webp 2x">
+                <img src="/blog/sample-photo-post/sample_hu_6450e607cf15bb10.jpg" srcset="/blog/sample-photo-post/sample_hu_6450e607cf15bb10.jpg 1x, /blog/sample-photo-post/sample_hu_f54612abe18673bb.jpg 2x" alt="A sample photo post to test image processing" class="card-image" loading="lazy" width="800" height="800">
               </picture>
             </a>
           
-          <p class="caption">The hustle and bustle of New York&#39;s iconic Grand Central</p>
+          <p class="caption">A sample photo post to test image processing</p>
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/photography/" class="taxonomy-chip chip-category">Photography</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/photography/" class="taxonomy-chip chip-tag">Photography</a>
             
-            <a href="http://localhost:1313/tags/new-york/" class="taxonomy-chip chip-tag">New York</a>
+            <a href="http://localhost:1313/tags/test/" class="taxonomy-chip chip-tag">Test</a>
             
             
           </div>
-          <p class="meta">January 3, 2026</p>
+          <p class="meta">February 21, 2026</p>
 
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/ai-development-blueprint/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/ai-development-blueprint/cover_hu_d3994b0ec8ab45bf.webp 1x, /blog/ai-development-blueprint/cover_hu_e47dbcba8b571aa0.webp 2x">
+                  <img src="/blog/ai-development-blueprint/cover_hu_7cc053b2ec7e652e.png" srcset="/blog/ai-development-blueprint/cover_hu_7cc053b2ec7e652e.png 1x, /blog/ai-development-blueprint/cover_hu_1c9c76260363fbfd.png 2x" alt="Cover image for The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development — A stage-gated process for turning ideas into production software using AI as a development partner — measure twice, cut once." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/ai-development-blueprint/">The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development</a></h2>
+          <p class="meta">February 20, 2026</p>
+          
+          <p>A stage-gated process for turning ideas into production software using AI as a development partner — measure twice, cut once.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/process/" class="taxonomy-chip chip-tag">Process</a>
+            
+            <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/ai-development-blueprint/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/ai-pair-programming/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/ai-pair-programming/cover_hu_83a8a2752705956.webp 1x, /blog/ai-pair-programming/cover_hu_8b73efae51cadee2.webp 2x">
+                  <img src="/blog/ai-pair-programming/cover_hu_9882bbc40f13c99b.png" srcset="/blog/ai-pair-programming/cover_hu_9882bbc40f13c99b.png 1x, /blog/ai-pair-programming/cover_hu_8bafdf6b4bcf9e56.png 2x" alt="Cover image for From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like — How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/ai-pair-programming/">From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like</a></h2>
+          <p class="meta">February 18, 2026</p>
+          
+          <p>How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
+            
+            <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/ai-pair-programming/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/thirteen-years/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/thirteen-years/cover_hu_f52b68403d532c2f.webp 1x, /blog/thirteen-years/cover_hu_2c62eb90b2b2c844.webp 2x">
+                  <img src="/blog/thirteen-years/cover_hu_c45ee652563e3d5b.png" srcset="/blog/thirteen-years/cover_hu_c45ee652563e3d5b.png 1x, /blog/thirteen-years/cover_hu_df020072422bb1f2.png 2x" alt="Cover image for Thirteen Years — Most startups don&#39;t make it to year five. We just finished year thirteen. This is less about the company, and more about the people." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/thirteen-years/">Thirteen Years</a></h2>
+          <p class="meta">February 1, 2026</p>
+          
+          <p>Most startups don&#39;t make it to year five. We just finished year thirteen. This is less about the company, and more about the people.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/gratitude/" class="taxonomy-chip chip-tag">Gratitude</a>
+            
+            <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
+            
+            <a href="http://localhost:1313/tags/startups/" class="taxonomy-chip chip-tag">Startups</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/thirteen-years/" class="read-more">Read more →</a>
         
 
       </article>
@@ -293,14 +1198,12 @@
           </a>
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/quote/" class="taxonomy-chip chip-category">Quote</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
             
             
@@ -316,6 +1219,24 @@
         
           
           
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/tennis-life-lessons/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/tennis-life-lessons/cover_hu_200e0352bc9e20d8.webp 1x, /blog/tennis-life-lessons/cover_hu_8985d89b5c834cba.webp 2x">
+                  <img src="/blog/tennis-life-lessons/cover_hu_76484ef7e585dacb.png" srcset="/blog/tennis-life-lessons/cover_hu_76484ef7e585dacb.png 1x, /blog/tennis-life-lessons/cover_hu_d8093bd98309fd9b.png 2x" alt="Cover image for 24 Life Lessons from Teaching Tennis to My Kids — Everything I know about life, I learned (or relearned) on the tennis court." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
           <h2><a href="http://localhost:1313/blog/tennis-life-lessons/">24 Life Lessons from Teaching Tennis to My Kids</a></h2>
           <p class="meta">February 21, 2025</p>
           
@@ -323,14 +1244,12 @@
           
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/tennis/" class="taxonomy-chip chip-tag">Tennis</a>
             
             <a href="http://localhost:1313/tags/lessons/" class="taxonomy-chip chip-tag">Lessons</a>
@@ -356,14 +1275,12 @@
           
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/aging/" class="taxonomy-chip chip-tag">Aging</a>
             
             <a href="http://localhost:1313/tags/tennis/" class="taxonomy-chip chip-tag">Tennis</a>
@@ -382,6 +1299,24 @@
         
           
           
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
+              <a href="http://localhost:1313/blog/find-the-artist/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/find-the-artist/cover_hu_111c0d6a5c4c663f.webp 1x, /blog/find-the-artist/cover_hu_c9ce662c9d5d37f5.webp 2x">
+                  <img src="/blog/find-the-artist/cover_hu_f35015a62d19d46e.png" srcset="/blog/find-the-artist/cover_hu_f35015a62d19d46e.png 1x, /blog/find-the-artist/cover_hu_f2b97e28bbb19ae.png 2x" alt="Cover image for Find the Artist — A cab, a ferry, a gondola up a mountain — all to find the artist behind a photograph on my wall." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
           <h2><a href="http://localhost:1313/blog/find-the-artist/">Find the Artist</a></h2>
           <p class="meta">February 21, 2025</p>
           
@@ -389,14 +1324,12 @@
           
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/meditation/" class="taxonomy-chip chip-tag">Meditation</a>
             
             <a href="http://localhost:1313/tags/spirituality/" class="taxonomy-chip chip-tag">Spirituality</a>
@@ -423,10 +1356,105 @@
             
               
               
+              
+              
+              <a href="http://localhost:1313/blog/nine-things-from-my-dad/">
+                <picture>
+                  <source type="image/webp" srcset="/blog/nine-things-from-my-dad/cover_hu_2eaeca9ca2d8a8ca.webp 1x, /blog/nine-things-from-my-dad/cover_hu_f7cd6599017c0090.webp 2x">
+                  <img src="/blog/nine-things-from-my-dad/cover_hu_da3e3b221abe276a.png" srcset="/blog/nine-things-from-my-dad/cover_hu_da3e3b221abe276a.png 1x, /blog/nine-things-from-my-dad/cover_hu_8aef21429070baf3.png 2x" alt="Cover image for 10 Things I Learned from My Dad — A tribute to a simple man with a remarkable journey — from rags to riches, back to rags, and back again." class="card-cover" loading="lazy" width="800" height="400">
+                </picture>
+              </a>
+            
+          
+          <h2><a href="http://localhost:1313/blog/nine-things-from-my-dad/">10 Things I Learned from My Dad</a></h2>
+          <p class="meta">October 15, 2024</p>
+          
+          <p>A tribute to a simple man with a remarkable journey — from rags to riches, back to rags, and back again.</p>
+          
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/life/" class="taxonomy-chip chip-category">Life</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/family/" class="taxonomy-chip chip-tag">Family</a>
+            
+            <a href="http://localhost:1313/tags/lessons/" class="taxonomy-chip chip-tag">Lessons</a>
+            
+            <a href="http://localhost:1313/tags/gratitude/" class="taxonomy-chip chip-tag">Gratitude</a>
+            
+            
+          </div>
+          <a href="http://localhost:1313/blog/nine-things-from-my-dad/" class="read-more">Read more →</a>
+        
+
+      </article>
+      
+      <article class="blog-card card-photo">
+
+        
+          
+          
+          
+          
+            
+          
+          
+
+          
+            
+            
+            
+            
+            <a href="http://localhost:1313/blog/grand-central/">
+              <picture>
+                <source type="image/webp" srcset="/blog/grand-central/rs-grand-central_hu_9fe95e8065d5688a.webp 1x, /blog/grand-central/rs-grand-central_hu_be027bb1b00ea5b1.webp 2x">
+                <img src="/blog/grand-central/rs-grand-central_hu_b10f9392d4e229e4.jpg" srcset="/blog/grand-central/rs-grand-central_hu_b10f9392d4e229e4.jpg 1x, /blog/grand-central/rs-grand-central_hu_33746085bbdcff9a.jpg 2x" alt="The hustle and bustle of New York&#39;s iconic Grand Central" class="card-image" loading="lazy" width="800" height="535">
+              </picture>
+            </a>
+          
+          <p class="caption">The hustle and bustle of New York&#39;s iconic Grand Central</p>
+          <div class="post-taxonomies">
+            
+                        
+            <a href="http://localhost:1313/categories/photography/" class="taxonomy-chip chip-category">Photography</a>
+            
+            
+            
+                        
+            <a href="http://localhost:1313/tags/photography/" class="taxonomy-chip chip-tag">Photography</a>
+            
+            <a href="http://localhost:1313/tags/new-york/" class="taxonomy-chip chip-tag">New York</a>
+            
+            
+          </div>
+          <p class="meta">January 3, 2015</p>
+
+        
+
+      </article>
+      
+      <article class="blog-card card-text">
+
+        
+          
+          
+            
+            
+            
+              
+            
+            
+              
+              
+              
+              
               <a href="http://localhost:1313/blog/31-things-from-startups/">
                 <picture>
-                  <source type="image/webp" srcset="/blog/31-things-from-startups/op-rest-of-us-1_hu_4b291f366d5878a6.webp">
-                  <img src="/blog/31-things-from-startups/op-rest-of-us-1_hu_65363bc65bfe7dae.png" alt="31 Things I&#39;ve Learned Being on Startups" class="card-cover" loading="lazy" width="600" height="301">
+                  <source type="image/webp" srcset="/blog/31-things-from-startups/op-rest-of-us-1_hu_9c131dca3095cc1c.webp 1x, /blog/31-things-from-startups/op-rest-of-us-1_hu_7c49ed7b4699e02b.webp 2x">
+                  <img src="/blog/31-things-from-startups/op-rest-of-us-1_hu_20d25bc6bcf9e9a.png" srcset="/blog/31-things-from-startups/op-rest-of-us-1_hu_20d25bc6bcf9e9a.png 1x, /blog/31-things-from-startups/op-rest-of-us-1_hu_a2eab500ba172739.png 2x" alt="Cover image for 31 Things I&#39;ve Learned Being on Startups — The sleep deprivation, the nerf balls, the heated debates — and why I keep going back." class="card-cover" loading="lazy" width="800" height="401">
                 </picture>
               </a>
             
@@ -438,14 +1466,12 @@
           
           <div class="post-taxonomies">
             
-            <span class="taxonomy-label">Categories:</span>
-            
+                        
             <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
             
             
             
-            <span class="taxonomy-label">Tags:</span>
-            
+                        
             <a href="http://localhost:1313/tags/startups/" class="taxonomy-chip chip-tag">Startups</a>
             
             <a href="http://localhost:1313/tags/leadership/" class="taxonomy-chip chip-tag">Leadership</a>
@@ -470,6 +1496,29 @@
       <p>&copy; 2026 Ramesh Srinivas. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function() {
+        document.body.classList.add('theme-transition');
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        setTimeout(function() {
+          document.body.classList.remove('theme-transition');
+        }, 350);
+      });
+    })();
+  </script>
+  <script>
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('spoiler')) {
+        e.target.classList.add('revealed');
+      }
+    });
+  </script>
 </body>
 </html>
 ```

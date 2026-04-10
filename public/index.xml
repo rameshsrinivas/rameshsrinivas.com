@@ -6,14 +6,161 @@
     <description>Recent content in Home on Ramesh Srinivas</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Humans Are Not Machines</title>
+      <title>The Cognitive Trade</title>
+      <link>http://localhost:1313/blog/the-cognitive-trade/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-cognitive-trade/</guid>
+      <description>&lt;p&gt;I need to tell you something that might surprise you, coming from a CTO who just wrote a three-part series on how AI is the greatest force multiplier of his career.&lt;/p&gt;&#xA;&lt;p&gt;I barely write code anymore. My first instinct, on almost any problem, is to ask Claude. I&amp;rsquo;ve shipped more in the last fifteen months than in the previous five years combined — and I&amp;rsquo;ve done it by delegating the execution to an AI while I direct the thinking.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-ai-faster/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-ai-faster/</guid>
+      <description>&lt;p&gt;The AI didn&amp;rsquo;t make me faster at coding. It made me faster at everything else.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/ai-pair-programming/&#34;&gt;From 22 Person-Weeks to 7 Days&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-alien-mirror/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-alien-mirror/</guid>
+      <description>&lt;p&gt;The alien was never the point. The alien was the mirror.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-clean-slate/&#34;&gt;The Clean Slate&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-blueprint/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-blueprint/</guid>
+      <description>&lt;p&gt;The blueprint is failure crystallized into foresight.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-force-multiplier/&#34;&gt;The Force Multiplier&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-clean-slate/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-clean-slate/</guid>
+      <description>&lt;p&gt;We don&amp;rsquo;t get Rocky by being better people. We get Rocky by designing better situations.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-clean-slate/&#34;&gt;The Clean Slate&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-director/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-director/</guid>
+      <description>&lt;p&gt;Your job is not to become more like the AI. Your job is to become a better director of it.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-force-multiplier/&#34;&gt;The Force Multiplier&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-dna/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-dna/</guid>
+      <description>&lt;p&gt;The path is different. The DNA is the same.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/nine-things-from-my-dad/&#34;&gt;10 Things I Learned from My Dad&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-gut/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-gut/</guid>
+      <description>&lt;p&gt;Your gut is not less rigorous than your analysis. It&amp;rsquo;s more experienced.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-quiet-processor/&#34;&gt;The Quiet Processor&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-inefficient/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-inefficient/</guid>
+      <description>&lt;p&gt;The things that make us &amp;ldquo;inefficient&amp;rdquo; — our emotions, our stubbornness, our capacity to surprise even ourselves — those aren&amp;rsquo;t bugs to be optimized away. They&amp;rsquo;re the whole point.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/humans-are-not-machines/&#34;&gt;Humans Are Not Machines&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-irony/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-irony/</guid>
+      <description>&lt;p&gt;The irony is precise. The skills you need to use AI well are the same skills that AI threatens to erode if you use it passively.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-cognitive-trade/&#34;&gt;The Cognitive Trade&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-peaks/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-peaks/</guid>
+      <description>&lt;p&gt;Peaks are not destinations. They&amp;rsquo;re calibrations.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-morning-i-stopped-chasing/&#34;&gt;The Morning I Stopped Chasing&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-practice/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-practice/</guid>
+      <description>&lt;p&gt;Practice doesn&amp;rsquo;t make perfect — it makes permanent.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/tennis-life-lessons/&#34;&gt;24 Life Lessons from Teaching Tennis&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-science-spirituality/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-science-spirituality/</guid>
+      <description>&lt;p&gt;Science answers how. Spirituality asks what for and what is this, really. They&amp;rsquo;re not competing. They&amp;rsquo;re addressing different levels of the same reality.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-mirror-question/&#34;&gt;The Mirror Question&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-steady-light/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-steady-light/</guid>
+      <description>&lt;p&gt;I was so busy looking for another explosion that I had stopped noticing the steady light.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-morning-i-stopped-chasing/&#34;&gt;The Morning I Stopped Chasing&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/blog/quote-subconscious/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/quote-subconscious/</guid>
+      <description>&lt;p&gt;The subconscious doesn&amp;rsquo;t need more time to think. It needs you to stop interrupting it.&lt;/p&gt;&#xA;&lt;p&gt;&lt;span class=&#34;quote-author&#34;&gt;— from &lt;a href=&#34;http://localhost:1313/blog/the-quiet-processor/&#34;&gt;The Quiet Processor&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Clean Slate</title>
+      <link>http://localhost:1313/blog/the-clean-slate/</link>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-clean-slate/</guid>
+      <description>&lt;div class=&#34;spoiler-warning&#34;&gt;This post contains spoilers for &lt;em&gt;Project Hail Mary&lt;/em&gt; by Andy Weir (2021 novel / 2026 film).&lt;/div&gt;&#xA;&lt;p&gt;A couple of Fridays ago I watched Ryan Gosling save humanity and fall in love with a spider.&lt;/p&gt;&#xA;&lt;p&gt;Not literally. But &lt;em&gt;Project Hail Mary&lt;/em&gt; — Andy Weir&amp;rsquo;s story of a lone astronaut who wakes up millions of miles from Earth with no memory and an impossible mission — does something I didn&amp;rsquo;t expect a science fiction film to do. It cracked open a question I&amp;rsquo;ve been sitting with for a long time.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Quiet Processor</title>
+      <link>http://localhost:1313/blog/the-quiet-processor/</link>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-quiet-processor/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve been running an informal experiment on my own brain for about thirty years.&lt;/p&gt;&#xA;&lt;p&gt;I didn&amp;rsquo;t frame it that way at the time. I was just a technologist who noticed patterns — in systems, in teams, in markets, in my own decision-making. I kept a journal of strange coincidences. I got serious about meditation in 2007. I started waking at 4:30 AM. I developed a habit of posing hard problems before sleep and waiting to see what surfaced in the morning.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Morning I Stopped Chasing and Started Living</title>
+      <link>http://localhost:1313/blog/the-morning-i-stopped-chasing/</link>
+      <pubDate>Sat, 21 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-morning-i-stopped-chasing/</guid>
+      <description>&lt;p&gt;In early 2007, something happened to me that I&amp;rsquo;ve never fully been able to explain.&lt;/p&gt;&#xA;&lt;p&gt;I won&amp;rsquo;t get into the specifics here — this isn&amp;rsquo;t that kind of post. What I will say is that one morning, after a few weeks of consistent early rising and meditation, something shifted. Fundamentally. In a way I could feel in my body and observe in my behavior over the weeks and months that followed.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Force Multiplier They&#39;re Not Talking About</title>
+      <link>http://localhost:1313/blog/the-force-multiplier/</link>
+      <pubDate>Fri, 13 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-force-multiplier/</guid>
+      <description>&lt;p&gt;There&amp;rsquo;s a narrative gaining traction in every boardroom, every LinkedIn feed, every technology conference: AI is the great equalizer. A junior developer with the right tools can now output what a senior team used to produce. The playing field is leveling.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve heard this argument. I&amp;rsquo;ve lived the counterargument.&lt;/p&gt;&#xA;&lt;p&gt;Last August, I estimated a major platform initiative at 22 person-weeks of effort — 10 weeks, multiple developers, QA, business analysis support. Those were honest numbers, built from decades of scoping projects in a mature enterprise codebase.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Mirror Question</title>
+      <link>http://localhost:1313/blog/the-mirror-question/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/the-mirror-question/</guid>
+      <description>&lt;p&gt;I read an article recently about Anthropic&amp;rsquo;s CEO, Dario Amodei, admitting he isn&amp;rsquo;t sure whether Claude — the AI I use every day — is conscious. His exact words: &lt;em&gt;&amp;ldquo;We don&amp;rsquo;t know if the models are conscious.&amp;rdquo;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;My first reaction was mild amusement. My second was to ask Claude directly.&lt;/p&gt;&#xA;&lt;p&gt;What followed was one of the stranger, more interesting conversations I&amp;rsquo;ve had in a while. And it didn&amp;rsquo;t end where I expected it to.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Humans Are Not Machines, Machines Are Not Human</title>
       <link>http://localhost:1313/blog/humans-are-not-machines/</link>
       <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blog/humans-are-not-machines/</guid>
       <description>&lt;p&gt;I work with AI every day. It helps me write code, think through architecture, and move faster than I ever could alone. I&amp;rsquo;m the first to admit — when it comes to raw efficiency, I don&amp;rsquo;t stand a chance against the tools I use.&lt;/p&gt;&#xA;&lt;p&gt;And yet, I keep seeing a notion float around that troubles me: that humans are essentially machines, and machines are becoming essentially human. That the line between us is blurring to the point of irrelevance.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sample Photo Post</title>
+      <link>http://localhost:1313/blog/sample-photo-post/</link>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/sample-photo-post/</guid>
+      <description>&lt;p&gt;This is a sample photo post to verify the Hugo image processing pipeline works correctly. Replace the image in this folder with your actual photograph.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The Technology Initiative Pipeline: A Blueprint for AI-Augmented Development</title>
@@ -30,11 +177,11 @@
       <description>&lt;p&gt;Last August, I wrote an executive summary for a major platform initiative. I spec&amp;rsquo;d it out carefully: 10 weeks to production, 2-3 developers plus QA and BA support, roughly 22 person-weeks of effort. I&amp;rsquo;d been doing this long enough to know those were honest numbers — if anything, conservative for the scope.&lt;/p&gt;&#xA;&lt;p&gt;Six months later, I shipped it. Five working days. Just me and an AI.&lt;/p&gt;&#xA;&lt;p&gt;Not a proof of concept. Not a prototype. A real-time rules engine evaluating thousands of securities every minute, generating ranked strategy recommendations across 11 strategy types, with an admin portal, 560 automated tests, and zero existing tests broken — integrated into a mature enterprise codebase with 100+ projects.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Simply Grand</title>
-      <link>http://localhost:1313/blog/grand-central/</link>
-      <pubDate>Sat, 03 Jan 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/blog/grand-central/</guid>
-      <description></description>
+      <title>Thirteen Years</title>
+      <link>http://localhost:1313/blog/thirteen-years/</link>
+      <pubDate>Sun, 01 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/thirteen-years/</guid>
+      <description>&lt;p&gt;I wanted to write something profound for this milestone. After all, thirteen years at one company — a startup, no less — feels like it should come with some wisdom attached.&lt;/p&gt;&#xA;&lt;p&gt;I searched for the right framing. The survival stats. The metrics. The milestones. Nine out of ten startups fail. Seventy percent don&amp;rsquo;t make it to ten years. We&amp;rsquo;re still here. We&amp;rsquo;re self-funded. We&amp;rsquo;re in the black. That&amp;rsquo;s all true, and none of it captures what I actually want to say.&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
@@ -65,11 +212,32 @@
       <description>&lt;p&gt;During a meditation session, I see a photograph on my wall that I don&amp;rsquo;t recognize. It&amp;rsquo;s stunning — the composition is exquisite, the lighting is perfect, the subject couldn&amp;rsquo;t be better. I&amp;rsquo;m mesmerized.&lt;/p&gt;&#xA;&lt;p&gt;It&amp;rsquo;s so gorgeous that I need to find the artist. I ask the people around me if they recognize it. I describe the photograph, the style, the mastery behind it. No one can place it.&lt;/p&gt;&#xA;&lt;p&gt;I keep looking. Eventually, someone thinks she might know, and gives me a location. I take a cab across the city and get there — but the guy at the desk tells me I have the wrong address. The artist might be at another location, across the water. I&amp;rsquo;d need to take a ferry.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>10 Things I Learned from My Dad</title>
+      <link>http://localhost:1313/blog/nine-things-from-my-dad/</link>
+      <pubDate>Tue, 15 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/nine-things-from-my-dad/</guid>
+      <description>&lt;p&gt;I first wrote this as a tribute on my father&amp;rsquo;s 80th birthday. I&amp;rsquo;d flown from New York to Chennai to surprise him — gave him a big hug, handed him a pop-up card handcrafted by his six-year-old grandson, and still felt like it wasn&amp;rsquo;t enough. So I sat down and wrote.&lt;/p&gt;&#xA;&lt;p&gt;Sixteen years later, my dad is 96. Still sharp as a knife. My mom, battling Parkinson&amp;rsquo;s with a strength she never knew she had, is a trooper in every sense of the word. They&amp;rsquo;re both great-grandparents now.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Simply Grand</title>
+      <link>http://localhost:1313/blog/grand-central/</link>
+      <pubDate>Sat, 03 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blog/grand-central/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>31 Things I&#39;ve Learned Being on Startups</title>
       <link>http://localhost:1313/blog/31-things-from-startups/</link>
       <pubDate>Wed, 01 Oct 2014 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blog/31-things-from-startups/</guid>
       <description>&lt;p&gt;In my 22-year career as a technologist, I&amp;rsquo;ve had the opportunity to be part of several startups. Some didn&amp;rsquo;t get off the ground. Some flattered to deceive. Others managed to get further along and become successful enough to be bought out.&lt;/p&gt;&#xA;&lt;p&gt;Despite a less than stellar success rate in general, and the significant risks associated with startups, I&amp;rsquo;ve always gravitated towards them. Why, you ask?&lt;/p&gt;&#xA;&lt;p&gt;The success rate, the risks, the ups and downs notwithstanding — you can count on coming out at the other end with precious career and life lessons. You&amp;rsquo;re afforded the luxury and freedom to mold culture, to be creative, to innovate. Something that isn&amp;rsquo;t exactly easy to do at conventional organizations, even if you are an intrapreneur.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;h2 id=&#34;the-short-version&#34;&gt;The short version&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;m a technologist who still writes code, a founder who still builds, and a leader who believes the best decisions come from people who haven&amp;rsquo;t lost touch with the craft.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve spent 34 years in technology — across Wall Street, startups, and everything in between. Today I&amp;rsquo;m Co-Founder and CTO of &lt;a href=&#34;https://www.optionsplay.com&#34;&gt;OptionsPlay&lt;/a&gt;, where we make options trading accessible to everyday investors. I lead all technology strategy, engineering, and infrastructure. We&amp;rsquo;re self-funded, profitable, and integrated with some of the largest financial platforms in the industry.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

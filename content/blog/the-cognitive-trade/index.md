@@ -1,7 +1,6 @@
 ---
 title: "The Cognitive Trade"
 date: 2026-04-10
-draft: true
 categories: ["Technology", "Life"]
 tags: ["AI", "Philosophy", "Leadership", "Self-Discovery"]
 description: "AI is restructuring how we think — not dumbing us down. But only if you know the difference between cognitive direction and cognitive surrender."

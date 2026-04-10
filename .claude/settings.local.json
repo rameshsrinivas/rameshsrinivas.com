@@ -7,7 +7,19 @@
       "Bash(git restore:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(finds its own tree\" — connecting inherited traits \\(entrepreneurial:*)",
+      "WebFetch(domain:www.forbes.com)",
+      "WebFetch(domain:webcache.googleusercontent.com)",
+      "WebFetch(domain:x.com)",
+      "WebFetch(domain:www.sciencealert.com)",
+      "WebSearch",
+      "WebFetch(domain:www.ooshirts.com)",
+      "Bash(python -c ':*)",
+      "Bash(pip install:*)",
+      "Bash(python \"c:\\\\Code\\\\rameshsrinivas.com\\\\notes\\\\speak-about-ai\\\\fix_notes.py\")",
+      "Bash(node -e ':*)",
+      "Bash(where node:*)"
     ]
   }
 }

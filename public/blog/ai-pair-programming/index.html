@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><script>
+  (function() {
+    var theme = localStorage.getItem('theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -12,6 +21,10 @@
   <meta name="keywords" content="Ramesh Srinivas, CTO, OptionsPlay, fintech, technology leadership, AI-augmented development, options trading, financial technology, software architecture">
   
   
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+
+  
   <link rel="canonical" href="http://localhost:1313/blog/ai-pair-programming/">
   
   
@@ -19,7 +32,9 @@
   <meta property="og:url" content="http://localhost:1313/blog/ai-pair-programming/">
   <meta property="og:title" content="From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like">
   <meta property="og:description" content="How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code.">
-  <meta property="og:image" content="http://localhost:1313//images/headshot.png">
+  
+  
+  <meta property="og:image" content="http://localhost:1313//blog/ai-pair-programming/cover.png">
   <meta property="og:site_name" content="Ramesh Srinivas">
   
   <meta property="article:author" content="Ramesh Srinivas">
@@ -31,7 +46,7 @@
   <meta name="twitter:url" content="http://localhost:1313/blog/ai-pair-programming/">
   <meta name="twitter:title" content="From 22 Person-Weeks to 7 Days: What AI Pair Programming Actually Looks Like">
   <meta name="twitter:description" content="How I shipped a real-time rules engine in 7 working days using AI-augmented development — and why the process matters more than the code.">
-  <meta name="twitter:image" content="http://localhost:1313//images/headshot.png">
+  <meta name="twitter:image" content="http://localhost:1313//blog/ai-pair-programming/cover.png">
   <meta name="twitter:creator" content="@raremesh">
   
   
@@ -63,9 +78,9 @@
   
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({ 
+    mermaid.initialize({
       startOnLoad: true,
-      theme: 'neutral',
+      theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral',
       securityLevel: 'loose'
     });
   </script>
@@ -73,7 +88,29 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="/" class="site-logo">Ramesh Srinivas</a>
+      <a href="/" class="site-logo">
+        <svg class="compass-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(32, 34)">
+            
+            <circle cx="0" cy="0" r="24" fill="none" stroke="var(--compass-ring)" stroke-width="1.5" opacity="0.6"/>
+            
+            <line x1="0" y1="-24" x2="0" y2="-21" stroke="var(--compass-ring)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+            <text x="0" y="-26" text-anchor="middle" font-family="'SF Mono','Consolas',monospace" font-size="6" fill="var(--compass-ring)" opacity="0.7">N</text>
+            
+            <line x1="0" y1="5" x2="0" y2="13" stroke="var(--compass-ring)" stroke-width="1.2" stroke-linecap="round" opacity="0.35"/>
+            <polygon points="0,12 -2,15 0,18 2,15" fill="var(--compass-ring)" opacity="0.35"/>
+            
+            <line x1="0" y1="-18" x2="0" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-18" x2="2.5" y2="-18" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-9.5" x2="2.5" y2="-9.5" stroke="var(--compass-cursor)" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="-2.5" y1="-5" x2="2.5" y2="-5" stroke="var(--compass-cursor)" stroke-width="1.5" stroke-linecap="round"/>
+            
+            <circle cx="0" cy="0" r="2" fill="var(--compass-ring)" opacity="0.6"/>
+            <circle cx="0" cy="0" r="0.8" fill="var(--compass-bg)"/>
+          </g>
+        </svg>
+        Ramesh Srinivas
+      </a>
       <nav class="site-nav">
         
           <a href="/#about" class="nav-link">About</a>
@@ -84,6 +121,10 @@
         
           <a href="/#connect" class="nav-link">Connect</a>
         
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -100,14 +141,12 @@
         <p class="meta">February 18, 2026</p>
         <div class="post-taxonomies">
           
-          <span class="taxonomy-label">Categories:</span>
-          
+                    
           <a href="http://localhost:1313/categories/technology/" class="taxonomy-chip chip-category">Technology</a>
           
           
           
-          <span class="taxonomy-label">Tags:</span>
-          
+                    
           <a href="http://localhost:1313/tags/ai/" class="taxonomy-chip chip-tag">AI</a>
           
           <a href="http://localhost:1313/tags/engineering/" class="taxonomy-chip chip-tag">Engineering</a>
@@ -164,12 +203,12 @@
 <p>Here&rsquo;s what actually happened:</p>
 <ul>
 <li><strong>Team:</strong> 1 architect (me) + 1 AI</li>
-<li><strong>Timeline:</strong> 5 working days from first commit to running in a live environment</li>
+<li><strong>Timeline:</strong> 7 working days from first commit to running in a live environment</li>
 <li><strong>Investment:</strong> ~1 person-week of effort</li>
 </ul>
 <p>Same scope. Same quality bar. Same enterprise codebase. Same compliance and testing requirements. I didn&rsquo;t cut corners — I added things that weren&rsquo;t in the original plan: an admin portal with real-time rule editing, sorted-set-based cross-symbol rankings, after-hours strategy generation with feature-flag kill switches.</p>
 <p>That&rsquo;s not a 2x improvement. That&rsquo;s an order of magnitude.</p>
-<h2 id="what-the-ai-actually-did-and-didnt-do">What the AI Actually Did (and Didn&rsquo;t Do)</h2>
+<h2 id="what-can-ai-actually-do-in-software-development-and-what-cant-it">What can AI actually do in software development (and what can&rsquo;t it)?</h2>
 <p>The AI didn&rsquo;t make the architectural decisions. I did. The AI didn&rsquo;t know that our microservices have 26 partitions that provide natural parallelism, or that our caching layer has specific serialization quirks, or that our DI container has opinions about constructor parameters. I knew those things.</p>
 <p>What the AI did was <em>hold all of that in context simultaneously</em> and execute against it with perfect consistency. When I said &ldquo;this cache layer needs to fall through from memory to Redis to MongoDB,&rdquo; it didn&rsquo;t just implement caching — it implemented caching that matched the patterns already established in a dozen other places in the codebase.</p>
 <p>When we hit runtime bugs — and we hit several, because legacy codebases always have surprises — the debugging cycle was minutes instead of hours. One example: a ranking formula was returning zero for an entire strategy category. The AI traced the math, identified the division-by-zero edge case, found the established pattern in a different part of the codebase that already solved the same problem, and applied it. Ten minutes, including the test.</p>
@@ -184,7 +223,7 @@
 <h2 id="the-takeaway">The Takeaway</h2>
 <p>The most interesting part wasn&rsquo;t the speed. It was the quality-to-speed ratio.</p>
 <p>We didn&rsquo;t cut corners. We wrote comprehensive tests. We followed existing patterns. We added feature flags so every new behavior can be toggled off without a deployment. We built an admin UI so business users aren&rsquo;t dependent on engineering for rule changes. We produced more documentation than the original plan called for.</p>
-<p>The future of software delivery isn&rsquo;t about replacing developers. It&rsquo;s about what happens when a senior engineer with deep domain knowledge gets a tireless, context-aware partner that can hold an entire enterprise codebase in its head. The answer: you go from 22 person-weeks to 5 days, and you ship something better than what you originally planned.</p>
+<p>The future of software delivery isn&rsquo;t about replacing developers. It&rsquo;s about what happens when a senior engineer with deep domain knowledge gets a tireless, context-aware partner that can hold an entire enterprise codebase in its head. The answer: you go from 22 person-weeks to 7 days, and you ship something better than what you originally planned.</p>
 <p>I&rsquo;ve been building software since 1992. Thirty-four years. I still remember writing my first clock program in BASIC and thinking: <em>this right here — this is what I want to do.</em> Build things. Solve problems. Make something out of nothing.</p>
 <p>Somewhere along the way, as systems got bigger and teams got more complex, the job shifted. Less building, more coordinating. Less solving, more estimating. The craft got buried under process.</p>
 <p>This past week felt like 1992 again. Just me, a problem, and a tool that lets me build at the speed I can think. I&rsquo;m having more fun now than I&rsquo;ve had in years.</p>
@@ -207,6 +246,29 @@
       <p>&copy; 2026 Ramesh Srinivas. All rights reserved.</p>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('theme-toggle');
+      toggle.addEventListener('click', function() {
+        document.body.classList.add('theme-transition');
+        var current = document.documentElement.getAttribute('data-theme');
+        var next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        setTimeout(function() {
+          document.body.classList.remove('theme-transition');
+        }, 350);
+      });
+    })();
+  </script>
+  <script>
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('spoiler')) {
+        e.target.classList.add('revealed');
+      }
+    });
+  </script>
 </body>
 </html>
 ```
