@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srinivas Family — 10 Days in Japan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:        #faf6f0;
+    --bg-card:   #ffffff;
+    --ink:       #1a1a2e;
+    --ink-soft:  #4a5568;
+    --ink-dim:   #718096;
+    --accent:    #c23b22;      /* tori-gate red */
+    --accent-soft: #e8a87c;    /* warm amber */
+    --navy:      #16213e;
+    --green:     #48bb78;
+    --line:      #e8e2d5;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .container { max-width: 980px; margin: 0 auto; }
+
+  /* ── Hero ─────────────────────────────────────── */
+  .hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .hero::before {
+    content: '⛩';
+    display: block;
+    font-size: 2.4rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  .hero .dates {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+  .hero .travelers {
+    display: inline-flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero .traveler-tag {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  /* ── Filter bar ───────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.9rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+  .filter-label {
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+  .filter-buttons { display: flex; gap: 0.4rem; }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── Day cards ────────────────────────────────── */
+  .day-card {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .day-card:hover {
+    box-shadow: 0 4px 24px rgba(26, 26, 46, 0.06);
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.4rem 1.75rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-number {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 3rem;
+  }
+  .day-title {
+    flex: 1;
+  }
+  .day-title h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .day-title .day-subtitle {
+    font-size: 0.9rem;
+    color: var(--ink-dim);
+  }
+  .day-meta {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .day-meta .budget {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .day-chevron {
+    font-size: 1.1rem;
+    color: var(--ink-dim);
+    transition: transform 0.25s;
+  }
+  .day-card.open .day-chevron { transform: rotate(180deg); }
+
+  .day-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .day-card.open .day-body { max-height: 2000px; }
+  .day-body-inner {
+    padding: 0 1.75rem 1.75rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.25rem;
+  }
+
+  /* ── Activities ────────────────────────────────── */
+  .activity {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .activity:last-child { border-bottom: none; }
+  .activity-time {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 0.15rem;
+  }
+  .activity-content h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .activity-content p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.4rem;
+  }
+  .activity-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: #f4ede0;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .tag.food  { background: #fde8e1; color: #9a3412; }
+  .tag.temple{ background: #fdeae0; color: #92400e; }
+  .tag.nature{ background: #dcfce7; color: #166534; }
+  .tag.city  { background: #dbeafe; color: #1e40af; }
+  .tag.shop  { background: #f3e8ff; color: #6b21a8; }
+
+  .teen-rating {
+    text-align: right;
+    min-width: 5rem;
+  }
+  .teen-rating .stars {
+    color: var(--accent-soft);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+  }
+  .teen-rating .label {
+    font-size: 0.7rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.1rem;
+  }
+
+  /* ── Budget summary ───────────────────────────── */
+  .budget-summary {
+    background: var(--navy);
+    color: #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    text-align: center;
+  }
+  .budget-summary h3 {
+    grid-column: 1 / -1;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .budget-item .budget-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #a0aec0;
+    margin-bottom: 0.25rem;
+  }
+  .budget-item .budget-value {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .budget-item.total .budget-value { color: var(--accent-soft); }
+
+  /* ── Footer note ──────────────────────────────── */
+  .footer-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 2rem; }
+    .day-header { padding: 1.1rem 1.25rem; flex-wrap: wrap; }
+    .day-meta { display: none; }
+    .activity { grid-template-columns: 1fr; gap: 0.4rem; }
+    .teen-rating { text-align: left; }
+    .budget-summary { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ── Hero ───────────────────────────────────────── -->
+  <header class="hero">
+    <h1>Srinivas Family<br>&mdash; 10 Days in Japan &mdash;</h1>
+    <div class="dates">Spring 2026 &middot; Cherry Blossom Season</div>
+    <div class="travelers">
+      <span class="traveler-tag">Ramesh</span>
+      <span class="traveler-tag">Mathangi</span>
+      <span class="traveler-tag">Rohan (22)</span>
+      <span class="traveler-tag">Riya (17)</span>
+    </div>
+  </header>
+
+  <!-- ── Filter ─────────────────────────────────────── -->
+  <div class="filter-bar">
+    <span class="filter-label">Show me:</span>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">Everything</button>
+      <button class="filter-btn" data-filter="teen">Teen-approved</button>
+      <button class="filter-btn" data-filter="veg">Veggie picks</button>
+      <button class="filter-btn" data-filter="photo">Photo spots</button>
+    </div>
+  </div>
+
+  <!-- ── Days ───────────────────────────────────────── -->
+  <div id="days"></div>
+
+  <!-- ── Budget Summary ─────────────────────────────── -->
+  <div class="budget-summary">
+    <h3>Trip Budget &mdash; Family of Four</h3>
+    <div class="budget-item"><div class="budget-label">Flights</div><div class="budget-value">$6,200</div></div>
+    <div class="budget-item"><div class="budget-label">Hotels (10 nights)</div><div class="budget-value">$3,800</div></div>
+    <div class="budget-item"><div class="budget-label">Food &amp; Activities</div><div class="budget-value">$4,100</div></div>
+    <div class="budget-item total"><div class="budget-label">Total</div><div class="budget-value">$14,100</div></div>
+  </div>
+
+  <div class="footer-note">
+    Built from a napkin sketch in 90 seconds. &nbsp; &mdash; No travel agent was harmed in the making of this itinerary.
+  </div>
+</div>
+
+<script>
+  const DAYS = [
+    {
+      num: 1, title: "Tokyo — Arrival & Shibuya", subtitle: "Touch down, fight the jet lag, hit the crossing.",
+      budget: "$340",
+      items: [
+        { time: "Evening", name: "Shibuya Crossing + Hachiko", desc: "The world's busiest intersection. Best shot from the 2nd-floor Starbucks — Ramesh, bring the wide lens.", tags: ["city"], teen: 5, veg: true, photo: true },
+        { time: "Blue hour", name: "Shibuya Sky — sunset to twilight", desc: "Rooftop observation deck, 360° of Tokyo. Golden hour into blue hour. This is the photography moment for day one.", tags: ["city"], teen: 5, veg: true, photo: true },
+        { time: "Dinner", name: "T's Tantan (Tokyo Station) — vegan ramen", desc: "100% plant-based tantanmen that even skeptics love. Mathangi's in. The pescetarians get extras.", tags: ["food"], teen: 4, veg: true, photo: false }
+      ]
+    },
+    {
+      num: 2, title: "Tokyo — Asakusa & Akihabara", subtitle: "Old Tokyo at sunrise, neon Tokyo at night.",
+      budget: "$410",
+      items: [
+        { time: "6:30 AM", name: "Ramesh's sunrise walk — Senso-ji", desc: "Solo photo walk before the crowds. The lanterns, the empty approach street, the soft light. Rejoin the family at 9 for breakfast.", tags: ["temple"], teen: 2, veg: true, photo: true },
+        { time: "Morning", name: "Senso-ji Temple + Nakamise Street", desc: "Family walk through Tokyo's oldest temple. Nakamise shopping street for matcha ice cream and souvenirs.", tags: ["temple", "shop"], teen: 4, veg: true, photo: true },
+        { time: "Noon", name: "Akihabara Electric Town", desc: "Arcades, anime, retro gaming, gunpla. Rohan's element — 22 and unashamed. Riya will find something to love too.", tags: ["city", "shop"], teen: 4, veg: true, photo: true },
+        { time: "Dinner", name: "Sushi Tokami or Kanesaka", desc: "Top-tier edomae sushi. Ramesh sticks to salmon, Riya and Rohan go full omakase. Mathangi gets tamago, kappa maki, avocado rolls, and the cucumber is better than it has any right to be.", tags: ["food"], teen: 4, veg: true, photo: false }
+      ]
+    },
+    {
+      num: 3, title: "Tokyo — teamLab Planets & Harajuku", subtitle: "Immersive art + peak Harajuku weirdness.",
+      budget: "$380",
+      items: [
+        { time: "Morning", name: "teamLab Planets", desc: "Walk through ankle-deep water, infinity mirrors, floating orchids. Phones out the whole time — Ramesh will have a field day.", tags: ["city"], teen: 5, veg: true, photo: true },
+        { time: "Lunch", name: "Ain Soph. Journey (Shinjuku)", desc: "Famous vegan restaurant. Fluffy pancakes, veggie burgers, inclusive enough that the pescetarians won't feel robbed.", tags: ["food"], teen: 4, veg: true, photo: false },
+        { time: "Noon", name: "Takeshita Street, Harajuku", desc: "Rainbow cotton candy, fruit crepes (veg-friendly), vintage shops. A sensory assault in the best way.", tags: ["shop", "food"], teen: 5, veg: true, photo: true },
+        { time: "Dusk", name: "Meiji Shrine (golden hour)", desc: "Quiet forest path right next to Harajuku. The contrast is the point. Long lens for the torii gates at sunset.", tags: ["temple", "nature"], teen: 3, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 4, title: "Hakone — Mt. Fuji Day", subtitle: "Shinkansen out, onsen in.",
+      budget: "$520",
+      items: [
+        { time: "Morning", name: "Shinkansen to Odawara", desc: "40 minutes on the bullet train. Pre-order veggie and seafood bento at Tokyo Station. Right side for Fuji views.", tags: ["city"], teen: 4, veg: true, photo: true },
+        { time: "Noon", name: "Hakone Ropeway + Lake Ashi", desc: "Fuji-san from the gondola. The floating torii gate at Hakone Shrine is the postcard shot Ramesh will chase.", tags: ["nature"], teen: 4, veg: true, photo: true },
+        { time: "Evening", name: "Ryokan + kaiseki dinner", desc: "Traditional inn, tatami floors, private onsen. Kaiseki multi-course meal — both veg and pescetarian menus arranged in advance. Yes, everyone has to bathe naked. It's fine.", tags: ["nature", "food"], teen: 3, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 5, title: "Kyoto — Temples & Gion", subtitle: "Ancient capital. Slow it down.",
+      budget: "$460",
+      items: [
+        { time: "5:30 AM", name: "Fushimi Inari — sunrise photo hike", desc: "Ramesh's dream shot. 10,000 red torii gates up a mountain. Go alone at dawn, get the empty corridors. Family joins later.", tags: ["temple", "nature"], teen: 4, veg: true, photo: true },
+        { time: "Late morning", name: "Fushimi Inari (family visit)", desc: "Walk the lower gates together. Inari-zushi (sweet tofu sushi) at the base — Mathangi-approved.", tags: ["temple", "food"], teen: 5, veg: true, photo: true },
+        { time: "Noon", name: "Kiyomizu-dera + Ninenzaka", desc: "Wooden temple on stilts, approach streets full of matcha everything. Vegetarian shojin ryori (temple cuisine) lunch nearby — built for Mathangi.", tags: ["temple", "food"], teen: 4, veg: true, photo: true },
+        { time: "Evening", name: "Gion district walk", desc: "Maiko spotting. Kaiseki dinner at Gion Karyo — they handle vegetarian and pescetarian menus side by side, seamlessly.", tags: ["city", "food"], teen: 3, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 6, title: "Kyoto — Arashiyama & Golden Pavilion", subtitle: "Bamboo, monkeys, and a pavilion covered in actual gold.",
+      budget: "$395",
+      items: [
+        { time: "6:30 AM", name: "Arashiyama Bamboo Grove (empty)", desc: "Ramesh's second solo shoot of the trip. Get there before the tour buses — the light filtering through the bamboo at sunrise is what you came for.", tags: ["nature"], teen: 3, veg: true, photo: true },
+        { time: "Morning", name: "Tenryu-ji + family bamboo walk", desc: "Family rejoins at the temple. Zen garden, bamboo grove together, and the sogen pond is one of Japan's oldest.", tags: ["temple", "nature"], teen: 4, veg: true, photo: true },
+        { time: "Midday", name: "Shigetsu — shojin ryori lunch", desc: "Vegetarian Buddhist cuisine inside Tenryu-ji. Mathangi's dream meal. The rest of the family will be converted, at least for the hour.", tags: ["food", "temple"], teen: 3, veg: true, photo: false },
+        { time: "Noon", name: "Iwatayama Monkey Park", desc: "Hike up, feed the macaques, panoramic view of Kyoto. Unhinged and unforgettable.", tags: ["nature"], teen: 5, veg: true, photo: true },
+        { time: "Late afternoon", name: "Kinkaku-ji (Golden Pavilion)", desc: "Literally a temple covered in gold leaf, reflected in a still pond. Go late — fewer crowds, softer light.", tags: ["temple"], teen: 4, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 7, title: "Nara — Day Trip", subtitle: "Deer that bow. Temples older than most countries.",
+      budget: "$280",
+      items: [
+        { time: "Morning", name: "Nara Park deer", desc: "They'll bow for crackers. Photography gold — and yes, you'll get nudged in the pockets. Don't show them the crackers before you're ready.", tags: ["nature"], teen: 5, veg: true, photo: true },
+        { time: "Midday", name: "Todai-ji + Great Buddha", desc: "15-meter bronze Buddha inside the world's largest wooden building. Pure scale photography.", tags: ["temple"], teen: 3, veg: true, photo: true },
+        { time: "Lunch", name: "Nakatanidou mochi pounding + veggie lunch", desc: "Watch the fastest mochi makers in Japan, then a veg-friendly set meal at a traditional teishoku spot nearby.", tags: ["food"], teen: 5, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 8, title: "Osaka — Food Capital", subtitle: "Eat until you can't move. Then eat more.",
+      budget: "$420",
+      items: [
+        { time: "Noon", name: "Dotonbori walk", desc: "Neon, canals, giant mechanical crab signs. Ramesh will burn through a card on the Glico running man alone.", tags: ["city"], teen: 5, veg: true, photo: true },
+        { time: "Early dinner", name: "Okonomiyaki crawl — veggie and seafood", desc: "Savory pancakes made to order. Mathangi gets the vegetable version (no katsuobushi), pescetarians get the squid and shrimp one. Everyone wins.", tags: ["food"], teen: 5, veg: true, photo: true },
+        { time: "Evening", name: "Street food wander (with caveats)", desc: "Takoyaki and kushikatsu for the pescetarians. Mathangi grabs onigiri and vegetable tempura next door. This is the foodie marathon.", tags: ["food"], teen: 5, veg: true, photo: true },
+        { time: "Blue hour", name: "Umeda Sky Building observatory", desc: "Floating garden 40 floors up. Best Osaka skyline — Ramesh's last big night shoot of the trip.", tags: ["city"], teen: 4, veg: true, photo: true }
+      ]
+    },
+    {
+      num: 9, title: "Osaka — Universal Studios Japan", subtitle: "The 'Rohan and Riya win today' day.",
+      budget: "$680",
+      items: [
+        { time: "All day", name: "Super Nintendo World + Harry Potter", desc: "Interactive Mario world with real-life Power-Up bands. Rohan will be 22 going on 12, and Riya won't stop smiling. Park food is limited — Mathangi should pack snacks or eat before entry.", tags: ["city"], teen: 5, veg: false, photo: true }
+      ]
+    },
+    {
+      num: 10, title: "Return — Tokyo via Shinkansen", subtitle: "Last meal. Last photo. Sayonara.",
+      budget: "$215",
+      items: [
+        { time: "Morning", name: "Shinkansen Osaka → Tokyo", desc: "2.5 hours. Window seat for Fuji views (right side going east). The last shot of the trip happens from a moving train.", tags: ["city"], teen: 4, veg: true, photo: true },
+        { time: "Noon", name: "Tsukiji Outer Market — farewell lunch", desc: "Sushi heaven for the pescetarians (salmon for Ramesh, full omakase for Riya and Rohan). Mathangi: vegetable onigiri, dashimaki tamago (Japanese omelette), soba, and sweet mochi to close it out. Everyone leaves happy.", tags: ["food"], teen: 4, veg: true, photo: true }
+      ]
+    }
+  ];
+
+  // Render days
+  const daysEl = document.getElementById('days');
+  DAYS.forEach((day, i) => {
+    const card = document.createElement('div');
+    card.className = 'day-card' + (i === 0 ? ' open' : '');
+    card.innerHTML = `
+      <div class="day-header">
+        <div class="day-number">${String(day.num).padStart(2, '0')}</div>
+        <div class="day-title">
+          <h2>${day.title}</h2>
+          <div class="day-subtitle">${day.subtitle}</div>
+        </div>
+        <div class="day-meta">
+          <span>${day.items.length} stops</span>
+          <span class="budget">${day.budget}</span>
+          <span class="day-chevron">▾</span>
+        </div>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        ${day.items.map(it => `
+          <div class="activity" data-tags="${it.tags.join(' ')}" data-teen="${it.teen}" data-veg="${it.veg}" data-photo="${it.photo}">
+            <div class="activity-time">${it.time}</div>
+            <div class="activity-content">
+              <h3>${it.name}</h3>
+              <p>${it.desc}</p>
+              <div class="activity-tags">
+                ${it.tags.map(t => `<span class="tag ${t}">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="teen-rating">
+              <div class="stars">${'★'.repeat(it.teen)}${'☆'.repeat(5 - it.teen)}</div>
+              <div class="label">Teen score</div>
+            </div>
+          </div>
+        `).join('')}
+      </div></div>
+    `;
+    daysEl.appendChild(card);
+  });
+
+  // Collapse / expand
+  daysEl.addEventListener('click', e => {
+    const header = e.target.closest('.day-header');
+    if (header) header.parentElement.classList.toggle('open');
+  });
+
+  // Filter buttons
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.activity').forEach(a => {
+        if (filter === 'all') {
+          a.style.display = '';
+        } else if (filter === 'teen') {
+          a.style.display = parseInt(a.dataset.teen) >= 4 ? '' : 'none';
+        } else if (filter === 'veg') {
+          a.style.display = a.dataset.veg === 'true' ? '' : 'none';
+        } else if (filter === 'photo') {
+          a.style.display = a.dataset.photo === 'true' ? '' : 'none';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

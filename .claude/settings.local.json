@@ -19,7 +19,12 @@
       "Bash(pip install:*)",
       "Bash(python \"c:\\\\Code\\\\rameshsrinivas.com\\\\notes\\\\speak-about-ai\\\\fix_notes.py\")",
       "Bash(node -e ':*)",
-      "Bash(where node:*)"
+      "Bash(where node:*)",
+      "Bash(python)",
+      "Bash(magick -version)",
+      "Bash(chmod +x sync-stage.sh)",
+      "Bash(./sync-stage.sh)",
+      "Bash(git check-ignore *)"
     ]
   }
 }

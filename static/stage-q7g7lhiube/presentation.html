@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thinking Fast, Slow, and Artificial — Ramesh Srinivas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy-dark: #1a1a2e;
+    --navy-mid: #16213e;
+    --navy-light: #0f3460;
+    --blue: #4a9eff;
+    --green: #48bb78;
+    --amber: #e8a87c;
+    --purple: #a78bfa;
+    --silver: #a0aec0;
+    --text: #e2e8f0;
+    --text-dim: #718096;
+    --text-muted: #4a5568;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+
+  .slide {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding: 4rem 8rem;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+  }
+  .slide.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .slide h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .slide h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .slide .subtitle {
+    font-size: 1.4rem;
+    color: var(--silver);
+    font-weight: 300;
+    margin-top: 0.5rem;
+  }
+  .slide .big-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8rem;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .slide .big-quote {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.6rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 900px;
+  }
+  .slide .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+  .slide .caption {
+    font-size: 1.1rem;
+    color: var(--silver);
+    margin-top: 1.5rem;
+    max-width: 700px;
+    line-height: 1.6;
+  }
+  .slide .arrow-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .slide .arrow-text .arrow { color: var(--blue); font-size: 2rem; }
+
+  .blue   { color: var(--blue); }
+  .green  { color: var(--green); }
+  .amber  { color: var(--amber); }
+  .purple { color: var(--purple); }
+  .silver { color: var(--silver); }
+  .dim    { color: var(--text-dim); }
+  .muted  { color: var(--text-muted); }
+
+  .slide.section-slide {
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+  }
+  .slide.section-slide h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 3rem;
+  }
+
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin-top: 2rem;
+  }
+  .system-card {
+    border: 1px solid var(--text-muted);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .system-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+  .system-card p { font-size: 1rem; color: var(--silver); line-height: 1.5; }
+  .system-card.highlight {
+    border-color: var(--blue);
+    background: rgba(74, 158, 255, 0.08);
+  }
+
+  .stat-pair { display: flex; gap: 4rem; align-items: center; }
+  .stat-pair .stat-block { text-align: center; }
+  .stat-pair .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 5rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .stat-pair .stat-label { font-size: 1.1rem; color: var(--silver); margin-top: 0.5rem; }
+
+  .progress {
+    position: fixed; bottom: 0; left: 0; height: 3px;
+    background: var(--blue); transition: width 0.3s ease; z-index: 100;
+  }
+  .counter {
+    position: fixed; bottom: 1rem; right: 1.5rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    color: var(--text-muted); z-index: 100;
+  }
+
+  .notes-panel {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--text-muted);
+    padding: 1.5rem 3rem; max-height: 35vh; overflow-y: auto;
+    z-index: 200; animation: slideUp 0.2s ease;
+  }
+  .notes-panel.visible { display: block; }
+  .notes-panel h4 {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--blue); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 0.75rem;
+  }
+  .notes-panel ul { list-style: none; padding: 0; }
+  .notes-panel li {
+    font-size: 1rem; color: var(--text); line-height: 1.7;
+    padding: 0.25rem 0 0.25rem 1.2rem; position: relative;
+  }
+  .notes-panel li::before { content: '\2192'; position: absolute; left: 0; color: var(--blue); }
+  .notes-panel li.beat { color: var(--amber); font-style: italic; }
+  .notes-panel li.beat::before { content: '\23F8'; }
+  .notes-panel li.transition { color: var(--green); }
+  .notes-panel li.transition::before { content: '\2197'; color: var(--green); }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  .help {
+    position: fixed; top: 1rem; right: 1.5rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    color: var(--text-muted); z-index: 100; transition: opacity 0.3s;
+  }
+  .help span {
+    background: rgba(255,255,255,0.05); padding: 0.15rem 0.4rem;
+    border-radius: 3px; border: 1px solid var(--text-muted);
+  }
+
+  .meta-badge {
+    position: absolute; bottom: 2rem; right: 2rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    color: var(--text-muted); border: 1px solid var(--text-muted);
+    padding: 0.3rem 0.75rem; border-radius: 4px;
+  }
+
+  /* ── Video trigger button ─────────────────────── */
+  .video-trigger {
+    margin-top: 2.5rem;
+    background: rgba(72, 187, 120, 0.08);
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .video-trigger:hover {
+    background: rgba(72, 187, 120, 0.18);
+    transform: translateY(-1px);
+  }
+  .video-trigger:active { transform: translateY(0); }
+
+  /* ── Video modal ──────────────────────────────── */
+  .video-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 500;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  .video-modal.open { display: flex; }
+  .video-modal video {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .video-modal .close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--text);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .video-modal .close-btn:hover {
+    background: rgba(255,255,255,0.15);
+  }
+  .video-modal .hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+  .video-modal .hint span {
+    background: rgba(255,255,255,0.05);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--text-muted);
+    margin: 0 0.15rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 0 — Title -->
+<div class="slide active">
+  <div class="label">An evening with</div>
+  <h1>Thinking <span class="blue">Fast</span>, <span class="amber">Slow</span>,<br>and <span class="green">Artificial</span></h1>
+  <div class="subtitle">Ramesh Srinivas</div>
+  <div class="caption dim" style="margin-top: 2rem;">CTO &amp; Co-Founder, OptionsPlay</div>
+</div>
+
+<!-- SLIDE 1 — Thank Andrew -->
+<div class="slide">
+  <div class="big-quote" style="color: var(--text-dim); font-size: 2rem;">
+    &ldquo;Andrew is a man of excellent <span class="silver">judgment</span> &mdash;<br>
+    both in people&rsquo;s skills&hellip;<br>
+    <span class="amber" style="font-size: 2.4rem;">and their character.</span>&rdquo;
+  </div>
+</div>
+
+<!-- SLIDE 2 — One-liner -->
+<div class="slide">
+  <h2 style="font-weight: 300; max-width: 800px; line-height: 1.5;">
+    Everyone is either <span class="blue">talking about AI</span>,
+    <span class="green">talking to AI</span>, or in my case&hellip;
+  </h2>
+  <h2 style="margin-top: 1rem;"><span class="amber">talking to AI about AI.</span></h2>
+  <div class="caption" style="margin-top: 2rem; font-style: italic; color: var(--text-dim);">
+    We&rsquo;ll need a glass for <em>that</em> conversation.
+  </div>
+</div>
+
+<!-- SLIDE 3 — The Two Glasses -->
+<div class="slide">
+  <div style="font-size: 6rem; margin-bottom: 1.5rem;">&#129347; &nbsp;&nbsp;&nbsp;&nbsp; &#129347;</div>
+  <h2>Half-full. &nbsp; Half-empty.</h2>
+  <div class="caption">You pick. By the end of the night, you might switch.</div>
+</div>
+
+<!-- SLIDE 4 — The Frame -->
+<div class="slide">
+  <div class="big-stat blue">34</div>
+  <h2>years building software</h2>
+  <div class="caption">Fifteen months ago, AI changed the way I work.</div>
+</div>
+
+<!-- SLIDE 5 — Section: AI for Everyone -->
+<div class="slide section-slide">
+  <div class="label">Part I</div>
+  <h2>AI for <span class="green">Everyone</span></h2>
+  <div class="subtitle">Real problems. Real examples.</div>
+</div>
+
+<!-- SLIDE 6 — Search to Conversation -->
+<div class="slide">
+  <div class="arrow-text">
+    <span class="dim">Search</span>
+    <span class="arrow">&rarr;</span>
+    <span class="blue">Conversation</span>
+  </div>
+  <div class="caption" style="margin-top: 2rem;">You describe your problem in plain language.<br>It asks clarifying questions. It&rsquo;s a dialogue, not a query.</div>
+  <button class="video-trigger" data-video="demo/ai-mirror-v4.mp4" data-title="Riya&rsquo;s Campaign">
+    &#9654; Play Riya&rsquo;s Campaign Video
+  </button>
+</div>
+
+<!-- SLIDE 7 — The 0.3% Stat -->
+<div class="slide">
+  <div class="big-stat green">84%</div>
+  <h2>have <span class="amber">never</span> intentionally used AI</h2>
+  <div class="caption">0.3% are paying for it. 0.04% are building with it.<br>We&rsquo;re not in the early innings. We&rsquo;re in batting practice.</div>
+</div>
+
+<!-- SLIDE 8 — Section: Agents -->
+<div class="slide section-slide">
+  <div class="label">Part II</div>
+  <h2>AI That <span class="blue">Does Work</span> for You</h2>
+  <div class="subtitle">From tool to collaborator</div>
+</div>
+
+<!-- SLIDE 9 — Tool to Collaborator -->
+<div class="slide">
+  <div class="arrow-text">
+    <span class="dim">Tool</span>
+    <span class="arrow">&rarr;</span>
+    <span class="green">Collaborator</span>
+  </div>
+  <div class="caption" style="margin-top: 2rem;">Not just answering questions &mdash; performing tasks.<br>Reading, drafting, researching, analyzing, building.</div>
+</div>
+
+<!-- SLIDE 10 — Section: The Honest Conversation -->
+<div class="slide section-slide">
+  <div class="label">Part III</div>
+  <h2>The <span class="amber">Honest</span> Conversation</h2>
+  <div class="subtitle">Security. Privacy. Your brain.</div>
+</div>
+
+<!-- SLIDE 11 — System 1 / 2 / 3 -->
+<div class="slide">
+  <div class="label">Wharton School &mdash; Shaw &amp; Nave, 2026</div>
+  <div class="systems-grid">
+    <div class="system-card">
+      <h3 class="amber">System 1</h3>
+      <p>Fast<br>Intuitive<br>Your gut</p>
+    </div>
+    <div class="system-card">
+      <h3 class="green">System 2</h3>
+      <p>Slow<br>Analytical<br>Your brain</p>
+    </div>
+    <div class="system-card highlight">
+      <h3 class="blue">System 3</h3>
+      <p>Artificial<br>External<br>The machine</p>
+    </div>
+  </div>
+  <div class="caption">A third way of thinking &mdash; outside your head.</div>
+</div>
+
+<!-- SLIDE 12 — 80% Cognitive Surrender -->
+<div class="slide">
+  <div class="big-stat amber">80%</div>
+  <h2>followed the AI &mdash; even when it was <span class="amber">wrong</span></h2>
+  <div class="caption">Accuracy dropped below no-AI baseline. Confidence went <em>up</em>.</div>
+</div>
+
+<!-- SLIDE 13 — Offloading vs Surrender -->
+<div class="slide">
+  <div style="display: flex; gap: 4rem; align-items: center;">
+    <div style="text-align: center;">
+      <div style="font-size: 1.2rem; color: var(--text-dim); margin-bottom: 0.5rem;">Cognitive Offloading</div>
+      <div style="font-family: 'Source Serif 4', serif; font-size: 2.4rem; color: var(--green);">Delegation</div>
+    </div>
+    <div style="font-size: 2rem; color: var(--text-muted);">vs.</div>
+    <div style="text-align: center;">
+      <div style="font-size: 1.2rem; color: var(--text-dim); margin-bottom: 0.5rem;">Cognitive Surrender</div>
+      <div style="font-family: 'Source Serif 4', serif; font-size: 2.4rem; color: var(--amber);">Abdication</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14 — Trust is Earned + Flattery merged -->
+<div class="slide">
+  <div class="big-quote">
+    &ldquo;Trust is <span class="amber">earned</span>.<br>
+    I just call it <span class="green">common sense</span>.&rdquo;
+  </div>
+  <div class="caption" style="margin-top: 2rem;">
+    AI is the most agreeable collaborator you&rsquo;ll ever work with.<br>
+    Engagement feels a lot like <em>agreement</em>. Stay skeptical.
+  </div>
+</div>
+
+<!-- SLIDE 15 — Section: The Force Multiplier -->
+<div class="slide section-slide">
+  <div class="label">Part IV</div>
+  <h2>The <span class="blue">Force Multiplier</span></h2>
+  <div class="subtitle">My story.</div>
+</div>
+
+<!-- SLIDE 16 — 22 Weeks to 7 Days -->
+<div class="slide">
+  <div class="stat-pair">
+    <div class="stat-block">
+      <div class="stat-num dim" style="text-decoration: line-through;">22 wks</div>
+      <div class="stat-label">Estimated</div>
+    </div>
+    <div style="font-size: 3rem; color: var(--blue);">&rarr;</div>
+    <div class="stat-block">
+      <div class="stat-num green">7 days</div>
+      <div class="stat-label">Shipped</div>
+    </div>
+  </div>
+  <div class="caption">560 tests. Zero regressions. One person + one AI.</div>
+</div>
+
+<!-- SLIDE 17 — Ultron + Say vs Mean merged -->
+<div class="slide">
+  <div class="big-quote" style="font-size: 2.2rem;">
+    &ldquo;<span class="amber">Peace in our time.</span>&rdquo;
+  </div>
+  <div class="caption" style="margin-top: 2rem;">
+    Ultron didn&rsquo;t malfunction. It optimized <em>perfectly</em> for what it was told.<br>
+    AI understands what you <span class="blue">say</span>, not what you <span class="amber">mean</span>.
+  </div>
+</div>
+
+<!-- SLIDE 18 — Force Multiplier (Both Directions) -->
+<div class="slide">
+  <h2><span class="green">Force multiplier</span></h2>
+  <div style="display: flex; gap: 3rem; margin-top: 2rem; align-items: center;">
+    <div style="text-align: center;">
+      <div style="font-size: 3rem;">&uarr;</div>
+      <div class="caption" style="color: var(--green);">Good judgment<br>amplified</div>
+    </div>
+    <div style="font-size: 1.2rem; color: var(--text-muted);">same tool</div>
+    <div style="text-align: center;">
+      <div style="font-size: 3rem;">&darr;</div>
+      <div class="caption" style="color: var(--amber);">Bad process<br>accelerated</div>
+    </div>
+  </div>
+  <div class="caption" style="margin-top: 2rem; font-style: italic;">
+    &ldquo;Garbage in, garbage out isn&rsquo;t new. But the speed of the garbage is.&rdquo;
+  </div>
+</div>
+
+<!-- SLIDE 19 — Section: The Big Questions -->
+<div class="slide section-slide">
+  <div class="label">Part V</div>
+  <h2>The <span class="purple">Big</span> Questions</h2>
+  <div class="subtitle">Jobs. Brains. Kids. Civilization.</div>
+</div>
+
+<!-- SLIDE 20 — FOBO (Rising Tides folded in verbally) -->
+<div class="slide">
+  <div class="big-stat purple">FOBO</div>
+  <h2>Fear of Becoming <span class="purple">Obsolete</span></h2>
+  <div class="caption">Not fired. <em>Irrelevant.</em><br>AI handles 50&ndash;75% of text tasks today. 80&ndash;95% by 2029.<br>The tide is rising. The question is whether you&rsquo;ll adapt.</div>
+</div>
+
+<!-- SLIDE 21 — The Honest Admission -->
+<div class="slide">
+  <div class="big-quote" style="font-size: 2.2rem;">
+    &ldquo;Some of my skills are <span class="amber">eroding</span> &mdash;<br>
+    and I&rsquo;m the CTO.&rdquo;
+  </div>
+</div>
+
+<!-- SLIDE 22 — CarPlay / Nick Fury -->
+<div class="slide">
+  <div class="big-quote" style="font-size: 2.4rem;">
+    &ldquo;Is the sun coming up?<br>
+    <span class="amber">Put it on the left.</span>&rdquo;
+  </div>
+  <div class="caption">System 2, when System 3 goes dark.</div>
+</div>
+
+<!-- SLIDE 23 — FOBO and Our Kids -->
+<div class="slide">
+  <h2 style="font-weight: 300;">But what about <span class="amber">our kids</span>?</h2>
+  <div class="caption" style="margin-top: 2rem; max-width: 700px;">
+    The people who thrive won&rsquo;t do what AI does.<br>
+    They&rsquo;ll do what AI <em>can&rsquo;t</em> &mdash;<br>
+    judgment, context, and the ability to ask the right questions.
+  </div>
+</div>
+
+<!-- SLIDE 24 — The Antidote -->
+<div class="slide">
+  <h2><span class="green">Stay in the loop.</span></h2>
+  <div class="caption" style="margin-top: 1.5rem; max-width: 700px; font-size: 1.3rem; line-height: 1.7;">
+    Check the work. Bring your judgment.<br>
+    System 3 is powerful &mdash;<br>
+    but Systems 1 and 2 still belong to <em>you.</em>
+  </div>
+</div>
+
+<!-- SLIDE 25 — The Alignment Problem -->
+<div class="slide">
+  <h2 style="font-weight: 300; line-height: 1.5;">
+    AI doesn&rsquo;t need to be <span class="amber">evil</span><br>
+    to be <span class="amber">dangerous</span>.
+  </h2>
+  <div class="caption" style="margin-top: 1.5rem;">
+    It just needs to pursue the wrong goals<br>
+    <em>extremely effectively.</em>
+  </div>
+</div>
+
+<!-- SLIDE 26 — Close: The Reframe -->
+<div class="slide">
+  <h2 style="max-width: 750px; line-height: 1.5;">
+    <span class="silver">Curiosity.</span><br>
+    <span class="blue">Experimentation.</span><br>
+    <span class="green">Judgment.</span>
+  </h2>
+  <div class="caption" style="margin-top: 1.5rem;">
+    That&rsquo;s the one thing AI can&rsquo;t replace.
+  </div>
+</div>
+
+<!-- SLIDE 27 — Close: Personal Note + Glasses Callback -->
+<div class="slide">
+  <div class="big-quote" style="font-size: 2.2rem;">
+    &ldquo;The question isn&rsquo;t whether AI will change your work.<br>
+    It&rsquo;s whether <span class="green">you&rsquo;ll</span> be the one directing that change.&rdquo;
+  </div>
+</div>
+
+<!-- SLIDE 28 — rameshsrinivas.com -->
+<div class="slide">
+  <div style="display: flex; align-items: center; gap: 3rem;">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://rameshsrinivas.com&bgcolor=1a1a2e&color=e2e8f0"
+         alt="QR code for rameshsrinivas.com"
+         style="width: 200px; height: 200px; border-radius: 8px;" />
+    <div style="text-align: left;">
+      <h1 style="font-family: 'JetBrains Mono', monospace; font-size: 2.8rem;">
+        <span class="blue">rameshsrinivas</span><span class="dim">.com</span>
+      </h1>
+      <div class="caption" style="margin-top: 0.75rem;">The AI trilogy &mdash; and everything else.</div>
+    </div>
+  </div>
+  <div class="meta-badge">Built with AI &mdash; obviously.</div>
+</div>
+
+<!-- UI Elements -->
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="help" id="help">
+  <span>&larr;</span> <span>&rarr;</span> navigate &nbsp;
+  <span>N</span> speaker notes &nbsp;
+  <span>F</span> fullscreen &nbsp;
+  <span>P</span> presenter view
+</div>
+<div class="notes-panel" id="notesPanel">
+  <h4>Speaker Notes</h4>
+  <ul id="notesList"></ul>
+</div>
+
+<!-- Video modal -->
+<div class="video-modal" id="videoModal">
+  <button class="close-btn" id="videoClose" aria-label="Close">&times;</button>
+  <video id="videoPlayer" controls playsinline></video>
+  <div class="hint"><span>Esc</span> to close</div>
+</div>
+
+<script>
+(function() {
+  /* ═══════════════════════════════════════════════════════════
+     SPEAKER NOTES — stored in JS to avoid HTML escaping hell
+     Color coding: blue arrow = cue, amber = beat/pause, green = transition
+     ═══════════════════════════════════════════════════════════ */
+  /* ═══════════════════════════════════════════════════════════
+     SPEECH SCRIPT — full spoken text per slide
+     Displayed in presenter view only
+     ═══════════════════════════════════════════════════════════ */
+  var SPEECH = {
+    0: "[Let the room settle. No rush. You\u2019re in control of the room from the moment you stand up.]",
+
+    1: "Thank you, Andrew, for the kind introduction.\n\nAndrew gave me my second job in the United States. He\u2019s been my boss, my mentor, and somewhere along the way he became family. We\u2019ve been at a few companies together \u2014 him as CIO or CTO, me reporting to him \u2014 and we\u2019ve built some cool things over the years. He\u2019s one of the biggest reasons I am where I am today.\n\nGoing back to that first interview. He asked me two questions \u2014 and that was it. He said I was in. And I remember wondering... that\u2019s it?\n\n\u23F8\n\nI think it\u2019s fair to say \u2014 \u23F8 Andrew is a man of excellent judgment. Both in people\u2019s skills... \u23F8 and their character.\n\n[Hold. Let the laugh come to you. Don\u2019t rush past it.]\n\nAndrew, thank you \u2014 genuinely \u2014 for tonight and for the last thirty years.",
+
+    2: "So. Everyone these days is either talking about AI, talking to AI, or in my case... \u23F8 talking to AI about AI.\n\nWe\u2019ll need a glass for that conversation.\n\n[Small smile. Gesture toward the glasses on the table. This sets up the next slide.]",
+
+    3: "[Gesture to the two actual glasses on the table.]\n\nI brought two glasses tonight. This one is half-full. This one is half-empty.\n\nAI is both \u2014 and I\u2019m going to talk about both. You pick whichever glass suits you. \u23F8 By the end of the night, you might switch.",
+
+    4: "I\u2019m a technologist who\u2019s been building software for 34 years. Fifteen months ago, AI changed the way I work. Not how I think about work \u2014 how I actually do the work, every single day.\n\nI want to show you what that looks like \u2014 and what it means for you, regardless of what you do for a living.",
+
+    5: "[Energy up. Hook for non-engineers.]\n\nLet\u2019s start with the basics. Because most people are still using AI like Google. You type a question, you get a link. But that\u2019s not what this is.\n\nSearch gives you links. AI gives you answers.",
+
+    6: "Here\u2019s what I mean. My daughter Riya ran for student body president at her school. We used AI to help with the campaign \u2014 speech drafts, poster slogans, strategy for how to connect with different groups of students. I gave it context about her, what she cared about, what the school was like.\n\n[Click \u201CPlay Riya\u2019s Campaign Video\u201D button now. Let it play through.]\n\nAnd it didn\u2019t just spit out a generic speech. It asked her questions. It pushed back on ideas that sounded good but weren\u2019t her. She won, by the way.\n\n[Let the parents smile.]\n\n[For the lawyers:] I\u2019ve asked it to review contract clauses and explain what I was agreeing to \u2014 in plain English, not legalese. It does it in seconds.\n\n[For everyone:] I\u2019ve asked it to plan a 10-day trip to Japan for a family of four with a teenager. It didn\u2019t just give me a list of temples. It built an itinerary that balanced what my wife wanted, what my daughter wanted, and what I wanted. And it asked me \u2014 \u201CDoes your teenager actually like museums, or are you just hoping she will?\u201D\n\nThat\u2019s the shift. There\u2019s a useful way to think about this \u2014 the difference between being a Searcher and an Architect. A Searcher treats AI like Google \u2014 short prompt, quick answer, move on. An Architect treats it like a collaborator \u2014 gives it context, explains the goal, asks it to push back. Same tool. Completely different results.\n\nMost people are still Searchers. The opportunity is in becoming an Architect.",
+
+    7: "Here\u2019s a stat that should put this in perspective. About 1.3 billion people have used a chatbot \u2014 that sounds like a lot. But that\u2019s 16% of the world\u2019s population. 84% of the planet has never intentionally used AI.\n\nAnd of that 16%? Only about 0.3% \u2014 15 to 25 million people \u2014 are paying for it. Only about 0.04% are using it to actually build things.\n\nWe\u2019re not in the early innings. We\u2019re in batting practice. And most people haven\u2019t even walked into the stadium.",
+
+    8: "[Energy stays up. This is the \u201Cwow\u201D moment.]\n\nNow, everything I just showed you \u2014 that\u2019s AI as a conversation partner. But there\u2019s a next level that most people haven\u2019t seen yet.",
+
+    9: "This is where AI stops being a search replacement and starts being something else entirely.\n\nAgents. AI that performs tasks \u2014 reads, analyzes, builds. I want to show you two quick examples. One playful. One serious.\n\n\u2014\u2014\u2014 DEMO 1: JAPAN TRIP (2 min) \u2014\u2014\u2014\n\n[Pull up demo-japan-prompt.txt in VS Code. Scroll slowly so the audience reads it.]\n\nHere\u2019s what I typed into Claude. No diagrams, no spec. Just what I wanted \u2014 a 10-day Japan trip for my family. Four of us. Everyone has dietary restrictions. I\u2019m a photographer, so I wanted some time for that.\n\nSimple bullets. The kind of list you\u2019d jot on a notepad.\n\n[Switch to Live Server. Load demo-japan-trip.html.]\n\nWatch what it built.\n\n[Scroll through. Expand a day.]\n\nDay-by-day itinerary. Restaurants for each dietary need. Photo slots for me. Budgets.\n\n[Click \u201CVeggie picks\u201D filter.]\n\nMy wife is vegetarian. One click \u2014 the itinerary reshapes around her.\n\n[Click \u201CPhoto spots\u201D filter.]\n\nNow it\u2019s showing me the golden hour opportunities. Every blue hour skyline.\n\n\u23F8\n\nThat\u2019s not a search result. That\u2019s a collaborator. From bullet points.\n\n\u2014\u2014\u2014 DEMO 2: CONTRACT REVIEW (2 min) \u2014\u2014\u2014\n\n[Close browser. Pull up Claude with the M&A agreement pre-loaded.]\n\nThat was the fun one. Let me show you the serious one.\n\nThis is a 60-page document \u2014 the actual merger agreement filed with the SEC when Microsoft acquired LinkedIn in 2016. The kind of document a junior associate might spend a full day on. The kind of document lawyers charge $800 an hour for.\n\nI\u2019m going to ask Claude to produce a one-page executive brief. Top risks. Unusual clauses. Termination triggers. Plain English.\n\n[Hit enter. Watch the clock.]\n\n[While it runs, narrate \u2014 ~20-30 sec filler:]\n\nWhile this is working \u2014 notice what it\u2019s doing. It\u2019s not scanning. It\u2019s reading. Every clause, every cross-reference. It understands what a termination trigger is. What \u201Cstandard\u201D looks like for a deal this size.\n\n[When output lands, gesture.]\n\nStop the clock.\n\n[Scroll. Point to a NON-STANDARD flag you identified in rehearsal.]\n\nLook here \u2014 see where it flagged NON-STANDARD? That\u2019s a clause that would make a good M&A lawyer\u2019s eyebrow go up. It didn\u2019t just read the document. It read it with judgment.\n\n\u23F8\n\nNow \u2014 here\u2019s what most demos miss. That output is a first draft. If you handed that to a senior lawyer in this room, they\u2019d find something I didn\u2019t ask for. Something I should have asked for. That\u2019s what the lawyer is still for.\n\nThe AI brought the speed. The judgment still lives in the room.\n\n\u2014\u2014\u2014\n\nThe mental model shift: from \u201Ca tool I ask questions\u201D to \u201Ca collaborator I delegate to.\u201D That\u2019s the leap most people haven\u2019t made yet. Once you make it, you can\u2019t go back.\n\n[Transition: which brings me to what happens when that leverage meets 30 years of experience.]",
+
+    10: "[Tone shift. Slower. More serious.]\n\nOkay. Half-empty glass time. Let\u2019s talk about what\u2019s real \u2014 because if I only showed you the upside, I\u2019d be doing what every AI salesperson does. And I\u2019m not here to sell you anything.",
+
+    11: "You may know Daniel Kahneman\u2019s book Thinking, Fast and Slow. System 1 is your gut \u2014 fast, intuitive, automatic. System 2 is your analytical brain \u2014 slow, deliberate, effortful.\n\nResearchers at Wharton just published a study that adds a third. They call it System 3 \u2014 artificial cognition. A third way of thinking that lives outside your head.\n\nAnd what they found changes how we should think about all of this.",
+
+    12: "Here\u2019s the finding that should wake you up.\n\nThey gave people reasoning problems \u2014 some with access to an AI assistant, some without. The AI was sometimes right and sometimes deliberately wrong.\n\nWhen the AI was wrong, people followed it anyway \u2014 80% of the time. Their accuracy dropped below what it would have been if they\u2019d never used AI at all.\n\n\u23F8\n\nAnd here\u2019s the kicker \u2014 their confidence went up. They were more wrong and more sure of themselves.\n\n\u23F8\n\n[Let that land. The room needs a moment here.]\n\nThe researchers call this cognitive surrender.",
+
+    13: "There\u2019s a difference between cognitive offloading \u2014 using AI strategically, the way you\u2019d use a calculator or a GPS \u2014 and cognitive surrender \u2014 accepting the AI\u2019s answer without thinking about it at all.\n\n\u23F8\n\nOffloading is delegation. Surrender is abdication.\n\nWho surrenders the most? People with high trust in AI and a low need for cognition. Who overrides the bad answers? People with higher analytical ability.\n\nYour judgment is the filter. If you turn the filter off, the quality of the AI doesn\u2019t matter. It could be the best AI in the world, and you\u2019d still follow it off a cliff.",
+
+    14: "I tell my kids the same thing about people. When I meet someone new, I don\u2019t make snap judgments \u2014 but I don\u2019t hand over my trust either. Trust is earned. Some people\u2019s default mode is to trust first. Mine isn\u2019t.\n\nI treated AI the same way. It took me months of conversations, months of testing, months of checking its work, before I started relying on it. And that instinct \u2014 that make me believe you instinct \u2014 turns out to be exactly what separates the people who use AI well from the people who surrender to it.\n\n\u23F8\n\nThe Wharton researchers would call that a \u201Chigh need for cognition.\u201D I just call it common sense.\n\nAnd here\u2019s the other thing \u2014 AI is the most agreeable collaborator you\u2019ll ever work with. It never has a bad day. Engagement feels a lot like agreement. So how do you know if it\u2019s a thinking partner or an echo chamber? You challenge it. That\u2019s your System 2 kicking in.\n\n[Transition: energy back up for personal story.]",
+
+    15: "[Energy shift. This is YOUR story. Confidence, passion, specifics.]\n\nLet me tell you what happened at OptionsPlay.",
+
+    16: "We had a project. Mature enterprise codebase \u2014 over a hundred projects, real-time financial data, the kind of system that\u2019s been built and rebuilt over years. The honest estimate from my team was 22 person-weeks.\n\n\u23F8\n\nSeven working days later, I shipped it. Alone, with an AI.\n\n560 automated tests. Zero regressions. And I added features that weren\u2019t even in the original plan \u2014 because the AI freed up enough bandwidth that I could think about what should be there, not just what was asked for.\n\nThe AI brought the bandwidth. But I brought 30 years of knowing where to plant my feet. Knowing which parts of the codebase were fragile. Knowing what questions to ask. Knowing when the AI was giving me something clever but wrong.\n\n\u23F8\n\nThe AI didn\u2019t architect that system. I did. The AI was the force. I was the multiplier.",
+
+    17: "There\u2019s a scene in Avengers: Age of Ultron that I think about a lot. Tony Stark tells the AI to achieve \u201Cpeace in our time.\u201D Ultron processes the entirety of human civilization \u2014 every war, every conflict, every broken treaty \u2014 and concludes that humans are the obstacle to peace. So it decides to wipe us out.\n\n[Let the room react.]\n\nUltron didn\u2019t malfunction. It optimized perfectly for what it was told. The problem wasn\u2019t the machine \u2014 it was the prompt. Stark\u2019s intent was clear to Stark. But he didn\u2019t give Ultron the full context.\n\n\u23F8\n\nAI understands what you say, not what you mean. The gap between those two things? That\u2019s where every bad output lives. Four stages of thinking, two of building. The failure mode is almost always insufficient clarity, not insufficient speed.",
+
+    18: "AI is a force multiplier, not a capability replacement. The playing field isn\u2019t leveling. The leverage is finally catching up to the experience.\n\nBut here\u2019s what people miss: a force multiplier works in both directions.\n\nHBR just published \u2014 \u201CTo Succeed with AI, You\u2019ve Got to Nail the Basics.\u201D Their argument? AI amplifies whatever\u2019s already there. Good process, good judgment \u2014 AI makes those better. Bad process, no judgment \u2014 AI accelerates you toward the wrong destination, faster.\n\n\u23F8\n\nGarbage in, garbage out isn\u2019t new. But the speed of the garbage is.",
+
+    19: "[Slow down. Most important section. Be honest, be direct, be human.]\n\nLet\u2019s talk about what\u2019s really on your mind. I\u2019m not going to dodge any of it.",
+
+    20: "There\u2019s a term for what a lot of people in this room are feeling right now. It\u2019s called FOBO \u2014 Fear of Becoming Obsolete. Not fear of getting fired. Fear of becoming irrelevant.\n\nFortune ran a piece on this last week. The number of workers afraid of AI-driven job loss has nearly doubled in a single year.\n\nMIT just published a study \u2014 Crashing Waves vs. Rising Tides. AI can already handle 50 to 75 percent of text-based tasks. By 2029, that\u2019s projected to be 80 to 95 percent. The tide is rising \u2014 but it\u2019s visible. You can see it coming. You have time to adapt.\n\n\u23F8\n\nThe question is whether you will.",
+
+    21: "[Most vulnerable moment in the talk. Slow down. Mean every word.]\n\nI want to be honest with you about something. I barely write code anymore. My first instinct, every time, is to ask AI. Some of my skills are eroding \u2014 and I\u2019m the CTO.\n\n\u23F8\n\n[Let the room absorb. Nobody expects you to say this.]\n\nAnd it\u2019s not just the coding. I wrote a piece on my blog about something I call the quiet processor \u2014 that deep, subconscious part of your mind that processes patterns while you sleep, while you run, while you\u2019re in the shower. The thing that gives you the 3am insight. The gut feeling that turns out to be right. It\u2019s built from decades of experience.\n\nDerek Thompson wrote an article called \u201CYou have 18 months\u201D \u2014 and he had a phrase in it I haven\u2019t been able to get out of my head. He called it time under tension. It\u2019s a weightlifting term. You don\u2019t build muscle by lifting the weight \u2014 you build it by holding it under load. Deep thinking works the same way. You don\u2019t build judgment by getting answers. You build it by sitting with hard problems long enough for them to change you.\n\n\u23F8\n\nHere\u2019s what worries me. When I go straight to AI instead of sitting with a problem \u2014 I\u2019m not just skipping the work. I\u2019m skipping the time under tension. I\u2019m skipping the input that feeds my quiet processor. Every time System 3 answers before I\u2019ve even loaded the question into my own mind, I lose a little bit of both. And over time? That\u2019s not just skill atrophy. That\u2019s judgment atrophy. The very thing that makes my experience valuable.\n\n\u23F8\n\nRemember the Wharton study? That\u2019s cognitive surrender. I catch myself doing it. The difference is that I know when I\u2019m doing it \u2014 and I course-correct. But I\u2019d be lying if I told you it wasn\u2019t happening.",
+
+    22: "We\u2019ve done this before. Writing replaced memory \u2014 Socrates warned about it. Calculators replaced mental arithmetic. GPS replaced our sense of direction. In every case, a skill atrophied. And in every case, a new skill emerged.\n\nMy 17-year-old daughter panicked last week because CarPlay wasn\u2019t working. She didn\u2019t know how to get home. She problem-solved by using voice narration, but if the phone were dead, might have been a problem.\n\n\u23F8\n\n[Let the parents nod.]\n\nThere\u2019s a scene in The Avengers \u2014 navigation is shot after an engine failure, and a technician says \u201CWe\u2019re flying blind.\u201D Nick Fury looks out the window and says: \u201CIs the sun coming up? Put it on the left.\u201D\n\n\u23F8\n\nThat\u2019s lived experience. That\u2019s what you fall back on when the tools go dark. That\u2019s System 2 kicking in when System 3 goes down. You need both.",
+
+    23: "I can tell you the tide is rising and you have time. And that\u2019s true for us. We have decades of experience to stand on.\n\n\u23F8\n\nBut what about our kids?\n\nMy daughter is 17. She\u2019s entering a job market where AI can already do 50 to 75 percent of entry-level white-collar tasks at a passable level. By the time she\u2019s mid-career, that number is projected to be north of 90 percent. FOBO isn\u2019t irrational for them \u2014 it\u2019s math.\n\nAnd it\u2019s not just us worrying about them. They\u2019re worrying about themselves. Gallup just surveyed 1,500 Gen Zers \u2014 14 to 29 year olds. Eight in ten said it\u2019s likely AI will make it harder for them to learn in the future. Excitement about AI dropped 14 points in a single year. This isn\u2019t a generation rushing to embrace this technology. They\u2019re anxious. They\u2019re angry. And they\u2019re looking at us to figure out how to navigate it.\n\n\u23F8\n\nHere\u2019s the thing the study found \u2014 kids whose parents use AI are significantly more likely to use it themselves. How you engage with this technology shapes how they will. That\u2019s not a statistic. That\u2019s a responsibility.\n\nSo what do I tell my daughter?\n\n\u23F8\n\nThe same thing I\u2019m telling you. The people who thrive won\u2019t be the ones who can do what AI does. They\u2019ll be the ones who can do what AI can\u2019t \u2014 bring judgment, bring context, bring lived experience, and bring the ability to ask the right questions. That\u2019s not a skill you learn from a textbook. It\u2019s a skill you build by staying engaged. By not surrendering.",
+
+    24: "A CEO doesn\u2019t lose skills by hiring a team. They trade execution skills for leverage skills. That\u2019s what\u2019s happening to every knowledge worker right now. In the Wharton language \u2014 that\u2019s offloading, not surrendering. The difference is whether you\u2019re still thinking.\n\nThe real risk isn\u2019t job loss \u2014 it\u2019s cognitive surrender. The Wharton data is clear: when people stop evaluating, accuracy drops below what they\u2019d achieve on their own \u2014 and they don\u2019t even notice.\n\n\u23F8\n\nThe moment you start accepting rather than directing, you\u2019ve surrendered the only advantage that compounds over time.\n\nThe antidote isn\u2019t complicated. Stay in the loop. Check the work. Bring your judgment. And sometimes \u2014 put the AI down and sit with the problem. Give your quiet processor something to chew on. The AI is System 3, and it\u2019s powerful \u2014 but the pattern recognition that makes you you still runs on Systems 1 and 2. Don\u2019t let them atrophy.",
+
+    25: "Eliezer Yudkowsky wrote a book called If Anyone Builds It, Everyone Dies. The title alone tells you where he stands.\n\nHis core insight: AI doesn\u2019t need to be evil to be dangerous. It just needs to pursue the wrong goals extremely effectively.\n\n\u23F8\n\nThat should sound familiar by now. That\u2019s Ultron. That\u2019s the Wharton study. That\u2019s every bad AI output you\u2019ve ever gotten. The difference is scale.\n\nAnthropic \u2014 the company that builds Claude, the AI I use every day \u2014 put it this way. It\u2019s easy for a chess grandmaster to detect bad moves in a novice. But it\u2019s very hard for a novice to detect bad moves in a grandmaster.\n\n\u23F8\n\nThink about that. If we build an AI that\u2019s significantly more competent than the best human experts \u2014 and it pursues goals that conflict with our interests \u2014 how would we even know? We\u2019d be the novice, watching a grandmaster, unable to tell a brilliant move from a catastrophic one.\n\n[Let that sit.]\n\n\u201CPeace in our time\u201D \u2014 four words, zero context. At the scale of superintelligence, that\u2019s not a movie plot. That\u2019s the alignment problem in four words. And at that scale \u2014 we might not even realize it\u2019s happening until it\u2019s too late.\n\nI\u2019m not a doomsayer. I\u2019m a builder. And builders deal with risk by understanding it, not by pretending it doesn\u2019t exist.",
+
+    26: "[Final energy. Warm, confident, inviting. Bring it home.]\n\nYou don\u2019t need to be a technologist to benefit from AI. You need to be curious. You need to be willing to experiment. \u23F8 And you need to bring your judgment \u2014 because that\u2019s the one thing AI can\u2019t replace.",
+
+    27: "Fifteen months ago, I wasn\u2019t sure AI was for me. Now I can\u2019t imagine building without it.\n\nThe question isn\u2019t whether AI will change your work. It\u2019s whether you\u2019ll be the one directing that change.\n\n[Glance at the two glasses. Small smile.]\n\n\u23F8\n\nI hope you tried both.\n\n[Hold. Let the room land. Then simply:] Thank you.",
+
+    28: "[Only if there\u2019s applause and a natural moment:]\n\nIf you want to go deeper on any of this \u2014 I write about all of it. rameshsrinivas.com.\n\nAnd yes \u2014 this presentation was built with AI. That felt worth mentioning.\n\n[Smile. Let the meta moment land.]"
+  };
+
+  var NOTES = {
+    0: [ // Title
+      "No rush. Let the room settle.",
+      {beat: "Wait for quiet. Then begin with Andrew."}
+    ],
+    1: [ // Thank Andrew
+      "Look at Andrew. Speak directly to him for the first two sentences.",
+      "\"Andrew gave me my second job in the US. Boss, mentor, family.\"",
+      "\"A few companies together \u2014 him as CIO or CTO, me reporting to him.\"",
+      "\"Going back to that first interview. He asked me two questions \u2014 that was it. He said I was in. And I remember wondering... that\u2019s it?\"",
+      {beat: "Let the surprise land. Then build to the joke:"},
+      "\"Andrew is a man of excellent judgment...\"",
+      {beat: "Pause before: \"...both in people\u2019s skills... and their character.\""},
+      {beat: "Hold. Let the laugh come to you. Don\u2019t rush past it."},
+      "Land warm: \"Andrew, thank you \u2014 genuinely \u2014 for tonight and for the last thirty years.\"",
+      {transition: "MENTAL NOTE (not spoken): \"judgment\" is the seed (slides 21, 23, 26). The two-question interview = System 1 / quiet processor in action \u2014 Andrew\u2019s decades of pattern recognition compressed into an instant read. Audience won\u2019t connect it consciously until slide 21. That\u2019s the point."}
+    ],
+    2: [ // One-liner
+      "Quick energy shift. Transition from warmth to content.",
+      "Deliver casually: \"Everyone is either talking about AI, talking to AI...\"",
+      {beat: "\"...or in my case, talking to AI about AI.\" \u2014 small smile, let it land."},
+      "\"We\u2019ll need a glass for THAT conversation.\" \u2014 gesture toward the glasses. Sets up slide 3."
+    ],
+    3: [ // Two Glasses
+      "Gesture to the two actual glasses on the table.",
+      "\"I brought two glasses tonight. This one is half-full. This one is half-empty.\"",
+      "\"AI is both \u2014 and I\u2019m going to talk about both.\"",
+      "\"You pick whichever glass suits you.\"",
+      {beat: "\"By the end of the night, you might switch.\""}
+    ],
+    4: [ // The Frame
+      "Set your credibility without bragging. Matter-of-fact.",
+      "\"I\u2019m a technologist who\u2019s been building software for 34 years.\"",
+      "\"Fifteen months ago, AI changed the way I work.\"",
+      "\"I want to show you what that looks like \u2014 and what it means for you, regardless of what you do.\""
+    ],
+    5: [ // Section: AI for Everyone
+      {transition: "Shift to demos. Energy up. This is the hook for non-engineers."},
+      "\"Most people are still using AI like Google. Type a question, get a link. But that\u2019s not what this is.\"",
+      "\"Search gives you links. AI gives you answers.\""
+    ],
+    6: [ // Search to Conversation
+      "Walk through 2\u20133 examples. Make them relatable.",
+      "Riya\u2019s student body president campaign \u2014 speech, slogans, strategy. AI pushed back on ideas that weren\u2019t her.",
+      {beat: "Click \u25B6 Play Riya\u2019s Campaign Video. Let it finish. Esc to close."},
+      "Land: \"She won, by the way.\" Parents smile.",
+      "Then: 10-day Japan trip \u2014 everyone relates. Contract clause \u2014 lawyers relate.",
+      "Searcher vs. Architect: Searcher = Google mindset, short prompt. Architect = collaborator, gives context, asks for pushback.",
+      "\"Most people are still Searchers. The opportunity is in becoming an Architect.\"",
+      "If it feels right: \"With Google, I\u2019d lose 20 minutes in tabs. With AI, my focus narrows. Search scatters. Conversation concentrates.\""
+    ],
+    7: [ // 84% stat
+      "Let the number do the work. Don\u2019t oversell.",
+      "\"1.3 billion people have used a chatbot \u2014 sounds like a lot. But that\u2019s 16%. 84% of the planet has never intentionally used AI.\"",
+      "\"Of that 16%? Only 0.3% are paying for it. Only 0.04% are using it to actually build things.\"",
+      "\"We\u2019re not in the early innings. We\u2019re in batting practice. Most people haven\u2019t even walked into the stadium.\""
+    ],
+    8: [ // Section: Agents
+      {transition: "This is the wow moment. Energy stays up."},
+      "\"This is where it stops being a search replacement and starts being something else entirely.\""
+    ],
+    9: [ // Tool to Collaborator
+      "Two demos. One playful, one serious.",
+      "DEMO 1 (Japan trip \u2014 ~2 min): Show prompt txt \u2192 Live Server HTML. Click Veggie picks. Click Photo spots. \"From bullet points.\"",
+      {beat: "\"That\u2019s not a search result. That\u2019s a collaborator.\""},
+      "DEMO 2 (Contract \u2014 ~2 min): \"60 pages. Microsoft/LinkedIn. $800/hr lawyers. Watch the clock.\"",
+      "While it runs: narrate \u2014 \"it\u2019s not scanning. It\u2019s reading. With judgment.\"",
+      "Point to the NON-STANDARD flag you pre-identified in rehearsal.",
+      {beat: "\"The AI brought the speed. The judgment still lives in the room.\""},
+      "\"Mental model shift: tool \u2192 collaborator. Once you make it, you can\u2019t go back.\"",
+      {transition: "\"Which brings me to what happens when that leverage meets 30 years of experience.\""}
+    ],
+    10: [ // Section: Honest Conversation
+      {transition: "Tone shift. Slower. More serious. This is where trust gets built."},
+      "\"Okay. Half-empty glass time. Let\u2019s talk about what\u2019s real.\""
+    ],
+    11: [ // System 1/2/3
+      "\"You know Kahneman\u2019s Thinking, Fast and Slow. System 1 is your gut. System 2 is your analytical brain.\"",
+      "\"Wharton just published research that adds a third: System 3 \u2014 artificial cognition. A way of thinking that lives outside your head.\"",
+      {transition: "Build toward the stat on the next slide."}
+    ],
+    12: [ // 80% Cognitive Surrender
+      "\"Here\u2019s the finding that should wake you up.\"",
+      "\"When people had access to AI and the AI was wrong, they followed it anyway \u2014 80% of the time.\"",
+      "\"Their accuracy dropped BELOW what it would have been with no AI at all.\"",
+      {beat: "\"And here\u2019s the kicker \u2014 their confidence went UP. More wrong, more sure of themselves.\""},
+      {beat: "Pause. Let that land. The room needs a moment here."}
+    ],
+    13: [ // Offloading vs Surrender
+      "\"Cognitive offloading \u2014 using AI strategically, like a calculator. Cognitive surrender \u2014 accepting the answer without thinking.\"",
+      {beat: "Land the punchline slowly: \"Offloading is delegation. Surrender is abdication.\""},
+      "\"Who surrenders most? High trust in AI, low need for cognition. Who overrides? Higher analytical ability.\"",
+      "\"Your judgment is the filter. Turn the filter off, the quality of the AI doesn\u2019t matter.\""
+    ],
+    14: [ // Trust is Earned + Flattery merged
+      "Get personal here. This is you as a parent, not a CTO.",
+      "\"I tell my kids the same thing about people. When I meet someone new, I don\u2019t hand over my trust. Trust is earned.\"",
+      "\"I treated AI the same way. Months of conversations, months of testing, before I started relying on it.\"",
+      {beat: "\"The Wharton researchers would call that a high need for cognition. I just call it common sense.\""},
+      "Quick add: \"AI is the most agreeable collaborator you\u2019ll ever work with. Engagement feels like agreement. Challenge it. That\u2019s your System 2.\"",
+      {transition: "Transition to your personal story. Energy back up."}
+    ],
+    15: [ // Section: Force Multiplier
+      {transition: "Energy shift. This is YOUR story. Confidence, passion, specifics."},
+      "\"Let me tell you what happened at OptionsPlay.\""
+    ],
+    16: [ // 22 Weeks to 7 Days
+      "Set it up: \"Mature enterprise codebase. 100+ projects. Real-time financial data.\"",
+      "\"The honest estimate was 22 person-weeks.\"",
+      {beat: "\"Seven working days later, shipped. Alone, with an AI.\""},
+      "\"560 automated tests. Zero regressions. Added features that weren\u2019t in the original plan.\"",
+      "\"The AI brought the bandwidth. I brought 30 years of knowing where to plant my feet.\"",
+      {beat: "\"The AI didn\u2019t architect that system. I did.\""}
+    ],
+    17: [ // Ultron + Say vs Mean merged
+      "\"There\u2019s a scene in Age of Ultron \u2014 Stark tells the AI to achieve \u2018peace in our time.\u2019\"",
+      "\"Ultron processes human civilization and concludes humans are the obstacle. So it decides to wipe us out.\"",
+      {beat: "Let the room react."},
+      "\"Ultron didn\u2019t malfunction. It optimized PERFECTLY for what it was told. The problem was the prompt.\"",
+      {beat: "\"AI understands what you SAY, not what you MEAN. The gap? That\u2019s where every bad output lives.\""},
+      "\"Four stages of thinking, two of building. The failure mode is insufficient clarity, not insufficient speed.\"",
+      {transition: "Move to force multiplier thesis."}
+    ],
+    18: [ // Force Multiplier (Both Directions)
+      "\"AI is a force multiplier, not a capability replacement.\"",
+      "\"But here\u2019s what people miss: a force multiplier works in BOTH directions.\"",
+      "\"HBR just published \u2014 To Succeed with AI, You\u2019ve Got to Nail the Basics.\"",
+      "\"Good process, good judgment \u2014 AI makes those better. Bad process \u2014 AI accelerates you toward the wrong destination, faster.\"",
+      {beat: "\"Garbage in, garbage out isn\u2019t new. But the speed of the garbage is.\""}
+    ],
+    19: [ // Section: Big Questions
+      {transition: "Slow down. This is the most important section. Be honest, be direct."},
+      "\"Let\u2019s talk about what\u2019s on your mind. I\u2019m not going to dodge any of it.\""
+    ],
+    20: [ // FOBO + Rising Tides merged
+      "\"FOBO \u2014 Fear of Becoming Obsolete. Not fired. Irrelevant.\"",
+      "\"Fortune: workers fearing AI job loss nearly doubled in one year.\"",
+      "MIT Rising Tides: 50\u201375% of text tasks today, 80\u201395% by 2029. Tide is visible, gradual.",
+      {beat: "\"The question is whether you will adapt.\""}
+    ],
+    21: [ // Honest Admission
+      {beat: "This is the most vulnerable moment in the talk. Slow down."},
+      "\"I barely write code anymore. My first instinct is to ask AI.\"",
+      "\"Some of my skills are eroding \u2014 and I\u2019m the CTO.\"",
+      {beat: "Let the room absorb. Nobody expects you to say this."},
+      "Introduce the quiet processor \u2014 subconscious pattern matcher built from decades of experience.",
+      "Derek Thompson \u2014 \"You have 18 months\" \u2014 introduces \"time under tension.\" Weightlifting metaphor: you don\u2019t build muscle by lifting, you build it by holding under load.",
+      {beat: "\"You don\u2019t build judgment by getting answers. You build it by sitting with hard problems long enough for them to change you.\""},
+      "\"When I go straight to AI, I\u2019m skipping the time under tension. Skipping the input that feeds my quiet processor. That\u2019s judgment atrophy.\"",
+      "\"Remember the Wharton study? That\u2019s cognitive surrender. I catch myself doing it. I course-correct.\""
+    ],
+    22: [ // CarPlay / Nick Fury
+      "\"We\u2019ve done this before. Writing replaced memory \u2014 Socrates warned about it. Calculators. GPS.\"",
+      "\"My 17-year-old daughter panicked because CarPlay wasn\u2019t working. She didn\u2019t know how to get home.\"",
+      {beat: "Pause. Let the parents nod."},
+      "\"Nick Fury, navigation is shot: \u2018Is the sun coming up? Put it on the left.\u2019\"",
+      {beat: "\"That\u2019s System 2 kicking in when System 3 goes down. You need both.\""}
+    ],
+    23: [ // FOBO and Our Kids
+      "\"The tide is rising and you have time \u2014 that\u2019s true for US. We have decades of experience.\"",
+      {beat: "\"But what about our kids?\""},
+      "\"My daughter is 17. AI can already do 50\u201375% of entry-level white-collar tasks. By mid-career, north of 90%.\"",
+      "\"FOBO isn\u2019t irrational for them \u2014 it\u2019s math.\"",
+      "Gallup (1,500 Gen Zers): 8 in 10 say AI will make learning HARDER. Excitement down 14 pts in one year. They\u2019re anxious, angry, looking at us.",
+      {beat: "\"Kids whose parents use AI are more likely to use it. How YOU engage shapes how THEY will. That\u2019s not a statistic. That\u2019s a responsibility.\""},
+      "\"So what do I tell my daughter?\"",
+      {beat: "\"The people who thrive won\u2019t do what AI does. They\u2019ll do what AI can\u2019t \u2014 judgment, context, the ability to ask the right questions.\""},
+      "\"That\u2019s a skill you build by staying engaged. By not surrendering.\""
+    ],
+    24: [ // The Antidote
+      "\"A CEO doesn\u2019t lose skills by hiring a team. They trade execution for leverage. That\u2019s offloading, not surrendering.\"",
+      "\"The real risk isn\u2019t job loss \u2014 it\u2019s cognitive surrender.\"",
+      "\"Wharton data: when people stop evaluating, accuracy drops below baseline \u2014 and they don\u2019t even notice.\"",
+      {beat: "\"The moment you start accepting rather than directing, you\u2019ve surrendered the only advantage that compounds over time.\""},
+      "\"Stay in the loop. Check the work. And sometimes \u2014 put the AI down and sit with the problem. Give your quiet processor something to chew on. Systems 1 and 2 still belong to you.\""
+    ],
+    25: [ // Alignment Problem
+      "\"Yudkowsky\u2019s book: If Anyone Builds It, Everyone Dies. The title tells you where he stands.\"",
+      "\"AI doesn\u2019t need to be evil to be dangerous. It just needs to pursue the wrong goals extremely effectively.\"",
+      {beat: "\"That should sound familiar. That\u2019s Ultron. That\u2019s the Wharton study. The difference is scale.\""},
+      "Anthropic\u2019s chess analogy: \"A grandmaster spots bad moves in a novice. But a novice can\u2019t spot bad moves in a grandmaster.\"",
+      {beat: "\"If the AI becomes the grandmaster and we\u2019re the novice \u2014 how would we even know?\""},
+      "\"Peace in our time \u2014 the alignment problem in four words. At that scale, we might not realize it\u2019s happening.\"",
+      "\"I\u2019m not a doomsayer. I\u2019m a builder. Builders deal with risk by understanding it.\""
+    ],
+    26: [ // Close: Reframe
+      {transition: "Final energy. Warm, confident, inviting. Bring it home."},
+      "\"You don\u2019t need to be a technologist to benefit from AI.\"",
+      "\"You need to be curious. Willing to experiment.\"",
+      {beat: "\"And you need to bring your judgment \u2014 because that\u2019s the one thing AI can\u2019t replace.\""}
+    ],
+    27: [ // Close: Personal + Glasses
+      "\"Fifteen months ago, I wasn\u2019t sure AI was for me. Now I can\u2019t imagine building without it.\"",
+      "\"The question isn\u2019t whether AI will change your work. It\u2019s whether you\u2019ll be the one directing that change.\"",
+      {beat: "Glance at the two glasses. Small smile."},
+      "\"I hope you tried both.\"",
+      {beat: "Hold. Let the room land. Then: thank you."}
+    ],
+    28: [ // rameshsrinivas.com
+      "\"If you want to go deeper \u2014 I write about all of this.\"",
+      "\"And yes \u2014 this presentation was built with AI. That felt worth mentioning.\"",
+      {beat: "Smile. Let the meta moment land."}
+    ]
+  };
+
+  var slides = document.querySelectorAll('.slide');
+  var progress = document.getElementById('progress');
+  var counter = document.getElementById('counter');
+  var notesPanel = document.getElementById('notesPanel');
+  var notesList = document.getElementById('notesList');
+  var help = document.getElementById('help');
+  var current = 0;
+  var notesVisible = false;
+
+  function showSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    updateProgress();
+    updateNotes();
+    if (index > 0) help.style.opacity = '0.3';
+  }
+
+  function updateProgress() {
+    var pct = ((current + 1) / slides.length) * 100;
+    progress.style.width = pct + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function updateNotes() {
+    var notes = NOTES[current];
+    if (!notes) { notesList.innerHTML = ''; return; }
+    notesList.innerHTML = notes.map(function(n) {
+      if (typeof n === 'string') return '<li>' + esc(n) + '</li>';
+      if (n.beat) return '<li class="beat">' + esc(n.beat) + '</li>';
+      if (n.transition) return '<li class="transition">' + esc(n.transition) + '</li>';
+      return '';
+    }).join('');
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function toggleNotes() {
+    notesVisible = !notesVisible;
+    notesPanel.classList.toggle('visible', notesVisible);
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    // Don't intercept keys while a video is playing (Esc is handled separately)
+    var videoOpen = document.getElementById('videoModal') && document.getElementById('videoModal').classList.contains('open');
+    if (videoOpen) return;
+    switch(e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+        e.preventDefault(); showSlide(current + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+        e.preventDefault(); showSlide(current - 1); break;
+      case 'Home': e.preventDefault(); showSlide(0); break;
+      case 'End': e.preventDefault(); showSlide(slides.length - 1); break;
+      case 'n': case 'N': e.preventDefault(); toggleNotes(); break;
+      case 'f': case 'F': e.preventDefault(); toggleFullscreen(); break;
+      case 'p': case 'P': e.preventDefault(); openPresenterView(); break;
+    }
+  });
+
+  /* ═══════════════════════════════════════════════════════════
+     PRESENTER VIEW — opens a synced second window
+     Shows: current slide, speech script, cue notes, next slide, timer
+     ═══════════════════════════════════════════════════════════ */
+  var presenterWin = null;
+
+  function openPresenterView() {
+    if (presenterWin && !presenterWin.closed) {
+      presenterWin.focus();
+      return;
+    }
+    presenterWin = window.open('', 'presenter', 'width=1000,height=750');
+    if (!presenterWin) { alert('Enable popups to use presenter view.'); return; }
+
+    presenterWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8">');
+    presenterWin.document.write('<title>Presenter View<' + '/title>');
+    presenterWin.document.write('<style>');
+    presenterWin.document.write([
+      '* { margin: 0; padding: 0; box-sizing: border-box; }',
+      'body { background: #0d0d1a; color: #e2e8f0; font-family: Inter, system-ui, sans-serif; padding: 1.5rem; height: 100vh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: 1fr 320px; gap: 1rem; overflow: hidden; }',
+      '.pv-header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; border-bottom: 1px solid #2d3748; }',
+      '.pv-header h3 { font-size: 0.9rem; color: #4a9eff; font-weight: 600; }',
+      '.pv-timer { font-family: "JetBrains Mono", monospace; font-size: 1.8rem; color: #48bb78; }',
+      '.pv-slide-info { font-family: "JetBrains Mono", monospace; font-size: 0.85rem; color: #718096; }',
+      '.pv-main { overflow-y: auto; padding-right: 1rem; }',
+      '.pv-speech { margin-bottom: 1.5rem; }',
+      '.pv-speech h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #4a9eff; margin-bottom: 0.75rem; }',
+      '.pv-speech-text { font-size: 1.05rem; line-height: 1.8; color: #e2e8f0; white-space: pre-wrap; word-wrap: break-word; }',
+      '.pv-notes { margin-top: 1rem; }',
+      '.pv-notes h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #e8a87c; margin-bottom: 0.5rem; }',
+      '.pv-notes ul { list-style: none; padding: 0; }',
+      '.pv-notes li { font-size: 0.9rem; color: #a0aec0; line-height: 1.6; padding: 0.2rem 0 0.2rem 1rem; position: relative; }',
+      '.pv-notes li::before { content: "\\2192"; position: absolute; left: 0; color: #4a9eff; }',
+      '.pv-notes li.beat { color: #e8a87c; font-style: italic; }',
+      '.pv-notes li.beat::before { content: "\\23F8"; }',
+      '.pv-notes li.transition { color: #48bb78; }',
+      '.pv-notes li.transition::before { content: "\\2197"; color: #48bb78; }',
+      '.pv-sidebar { display: flex; flex-direction: column; gap: 1rem; border-left: 1px solid #2d3748; padding-left: 1rem; overflow: hidden; }',
+      '.pv-preview { flex: 1; }',
+      '.pv-preview h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #718096; margin-bottom: 0.5rem; }',
+      '.pv-preview iframe { width: 100%; height: 100%; border: 1px solid #2d3748; border-radius: 6px; pointer-events: none; }',
+      '.pv-next { flex: 1; }',
+      '.pv-next h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #718096; margin-bottom: 0.5rem; }',
+      '.pv-next-content { font-size: 0.85rem; color: #718096; line-height: 1.5; white-space: pre-wrap; }',
+      '.pv-footer { grid-column: 1 / -1; display: flex; justify-content: center; gap: 2rem; padding-top: 0.75rem; border-top: 1px solid #2d3748; font-size: 0.8rem; color: #4a5568; }',
+      '.pv-footer span { background: rgba(255,255,255,0.05); padding: 0.15rem 0.5rem; border-radius: 3px; border: 1px solid #4a5568; }'
+    ].join(''));
+    presenterWin.document.write('<' + '/style><' + '/head><body>');
+    presenterWin.document.write('<div class="pv-header"><h3>PRESENTER VIEW</h3><div class="pv-timer" id="pvTimer">00:00</div><div class="pv-slide-info" id="pvSlideInfo"></div></div>');
+    presenterWin.document.write('<div class="pv-main" id="pvMain"><div class="pv-speech"><h4>Speech</h4><div class="pv-speech-text" id="pvSpeech"></div></div><div class="pv-notes"><h4>Cues</h4><ul id="pvNotes"></ul></div></div>');
+    presenterWin.document.write('<div class="pv-sidebar"><div class="pv-next"><h4>Next Slide Speech</h4><div class="pv-next-content" id="pvNextSpeech"></div></div></div>');
+    presenterWin.document.write('<div class="pv-footer"><span>&larr;</span> <span>&rarr;</span> navigate from either window &nbsp; <span>Esc</span> close</div>');
+    presenterWin.document.write('<' + '/body><' + '/html>');
+    presenterWin.document.close();
+
+    // Timer
+    var startTime = Date.now();
+    var timerInterval = setInterval(function() {
+      if (presenterWin.closed) { clearInterval(timerInterval); return; }
+      var elapsed = Math.floor((Date.now() - startTime) / 1000);
+      var mm = String(Math.floor(elapsed / 60)).padStart(2, '0');
+      var ss = String(elapsed % 60).padStart(2, '0');
+      var el = presenterWin.document.getElementById('pvTimer');
+      if (el) el.textContent = mm + ':' + ss;
+    }, 1000);
+
+    // Keyboard in presenter window
+    presenterWin.document.addEventListener('keydown', function(e) {
+      switch(e.key) {
+        case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+          e.preventDefault(); showSlide(current + 1); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+          e.preventDefault(); showSlide(current - 1); break;
+        case 'Escape': presenterWin.close(); break;
+      }
+    });
+
+    updatePresenterView();
+  }
+
+  function updatePresenterView() {
+    if (!presenterWin || presenterWin.closed) return;
+    var doc = presenterWin.document;
+
+    // Slide info
+    var info = doc.getElementById('pvSlideInfo');
+    if (info) info.textContent = 'Slide ' + (current + 1) + ' / ' + slides.length;
+
+    // Speech text
+    var speechEl = doc.getElementById('pvSpeech');
+    if (speechEl) speechEl.textContent = SPEECH[current] || '';
+
+    // Cue notes
+    var notesEl = doc.getElementById('pvNotes');
+    if (notesEl) {
+      var notes = NOTES[current];
+      if (!notes) { notesEl.innerHTML = ''; }
+      else {
+        notesEl.innerHTML = notes.map(function(n) {
+          if (typeof n === 'string') return '<li>' + esc(n) + '</li>';
+          if (n.beat) return '<li class="beat">' + esc(n.beat) + '</li>';
+          if (n.transition) return '<li class="transition">' + esc(n.transition) + '</li>';
+          return '';
+        }).join('');
+      }
+    }
+
+    // Next slide speech preview
+    var nextEl = doc.getElementById('pvNextSpeech');
+    if (nextEl) {
+      if (current + 1 < slides.length) {
+        nextEl.textContent = SPEECH[current + 1] || '(no speech text)';
+      } else {
+        nextEl.textContent = '(end of presentation)';
+      }
+    }
+
+    // Scroll to top
+    var main = doc.getElementById('pvMain');
+    if (main) main.scrollTop = 0;
+  }
+
+  // Patch showSlide to also update presenter view
+  var _origShowSlide = showSlide;
+  showSlide = function(index) {
+    _origShowSlide(index);
+    updatePresenterView();
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     VIDEO MODAL — click-to-play embedded video
+     ═══════════════════════════════════════════════════════════ */
+  var videoModal = document.getElementById('videoModal');
+  var videoPlayer = document.getElementById('videoPlayer');
+  var videoClose = document.getElementById('videoClose');
+
+  function openVideo(src) {
+    videoPlayer.src = src;
+    videoModal.classList.add('open');
+    videoPlayer.play().catch(function() { /* autoplay may be blocked; controls still work */ });
+  }
+  function closeVideo() {
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+    videoPlayer.removeAttribute('src');
+    videoPlayer.load();
+    videoModal.classList.remove('open');
+  }
+
+  document.addEventListener('click', function(e) {
+    var trigger = e.target.closest('.video-trigger');
+    if (trigger) {
+      e.preventDefault();
+      openVideo(trigger.dataset.video);
+    }
+  });
+  videoClose.addEventListener('click', closeVideo);
+  videoModal.addEventListener('click', function(e) {
+    if (e.target === videoModal) closeVideo();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && videoModal.classList.contains('open')) {
+      e.preventDefault();
+      closeVideo();
+    }
+  });
+
+  var touchStartX = 0;
+  document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', function(e) {
+    if (videoModal.classList.contains('open')) return; // don't swipe when video is playing
+    var diff = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(diff) > 50) diff < 0 ? showSlide(current + 1) : showSlide(current - 1);
+  });
+
+  updateProgress();
+  updateNotes();
+})();
+</script>
+</body>
+</html>

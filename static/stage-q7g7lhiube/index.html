@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Stage · Thinking Fast, Slow, and Artificial</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --navy-dark: #1a1a2e;
+    --navy-mid: #16213e;
+    --navy-light: #0f3460;
+    --blue: #4a9eff;
+    --green: #48bb78;
+    --amber: #e8a87c;
+    --purple: #a78bfa;
+    --silver: #a0aec0;
+    --text: #e2e8f0;
+    --text-dim: #718096;
+    --text-muted: #4a5568;
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: rgba(255,255,255,0.08);
+  }
+
+  html, body {
+    background: var(--navy-dark);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100%;
+  }
+  body {
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+    min-height: 100vh;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* ── Password gate ──────────────────────────────── */
+  .gate {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 100;
+    transition: opacity 0.3s;
+  }
+  .gate.hidden { opacity: 0; pointer-events: none; }
+  .gate-inner {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  .gate h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .gate .tagline {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+  .gate input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    text-align: center;
+    letter-spacing: 0.05em;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .gate input:focus { border-color: var(--blue); }
+  .gate input::placeholder { color: var(--text-muted); }
+  .gate button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--blue);
+    background: rgba(74, 158, 255, 0.1);
+    color: var(--blue);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .gate button:active { background: rgba(74, 158, 255, 0.2); transform: scale(0.98); }
+  .gate .error {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--amber);
+    min-height: 1.25rem;
+  }
+
+  /* ── Hub layout ─────────────────────────────────── */
+  .hub { padding: 3rem 1.5rem 4rem; max-width: 900px; margin: 0 auto; }
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .header .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--blue);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .header h1 .accent { color: var(--amber); }
+  .header .sub {
+    color: var(--silver);
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 2rem 0 1rem;
+    padding-left: 0.25rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .card:hover, .card:active {
+    border-color: var(--blue);
+    background: rgba(74, 158, 255, 0.05);
+    transform: translateY(-1px);
+  }
+  .card .icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .card .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .card .desc {
+    font-size: 0.85rem;
+    color: var(--silver);
+    line-height: 1.5;
+  }
+  .card .meta {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .card.featured {
+    border-color: rgba(74, 158, 255, 0.3);
+    background: rgba(74, 158, 255, 0.04);
+  }
+  .card.featured .title { color: var(--blue); }
+
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--card-border);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .footer .logout {
+    background: none;
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    font-family: inherit;
+  }
+  .footer .logout:hover { color: var(--amber); border-color: var(--amber); }
+
+  @media (max-width: 500px) {
+    .hub { padding: 2rem 1rem 3rem; }
+    .header h1 { font-size: 1.8rem; }
+    .card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     Password Gate
+     ═══════════════════════════════════════════════ -->
+<div class="gate" id="gate">
+  <div class="gate-inner">
+    <h1>Stage Door</h1>
+    <div class="tagline">Thinking Fast, Slow, and Artificial.</div>
+    <form id="gateForm" autocomplete="off">
+      <input type="password" id="pw" placeholder="enter password" autofocus autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button type="submit">Unlock</button>
+    </form>
+    <div class="error" id="gateError">&nbsp;</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     Hub (hidden until unlocked)
+     ═══════════════════════════════════════════════ -->
+<div class="hub" id="hub" style="display:none;">
+  <div class="header">
+    <div class="label">Stage · All Resources</div>
+    <h1>Thinking <span class="accent">Fast</span>, Slow, and <span class="accent">Artificial</span></h1>
+    <div class="sub">Everything I need for the evening, in one place.</div>
+  </div>
+
+  <div class="section-label">Main Event</div>
+  <div class="grid">
+    <a href="presentation.html" class="card featured" target="_blank" rel="noopener">
+      <div class="icon">🎙️</div>
+      <div class="title">Presentation</div>
+      <div class="desc">The live slide deck. Arrow keys to navigate. N for notes, P for presenter view, F for fullscreen.</div>
+      <div class="meta">29 slides · ~42 min</div>
+    </a>
+    <a href="flashcards.html" class="card" target="_blank" rel="noopener">
+      <div class="icon">🃏</div>
+      <div class="title">Flashcards</div>
+      <div class="desc">Pocket-sized practice. Tap cards to flip. Speech drawer for deep practice.</div>
+      <div class="meta">Mobile-first · Offline-friendly</div>
+    </a>
+    <a href="SPEECH.md" class="card" target="_blank" rel="noopener">
+      <div class="icon">📄</div>
+      <div class="title">Full Speech Script</div>
+      <div class="desc">The complete spoken-word version, slide by slide. For practice and offline review.</div>
+      <div class="meta">Markdown</div>
+    </a>
+  </div>
+
+  <div class="section-label">Demo 1 · Japan Trip (Playful)</div>
+  <div class="grid">
+    <a href="demo/japan-prompt.txt" class="card" target="_blank" rel="noopener">
+      <div class="icon">📝</div>
+      <div class="title">The Prompt</div>
+      <div class="desc">What I typed into Claude. Show this first. Scroll slowly so the audience reads it.</div>
+      <div class="meta">Plain text</div>
+    </a>
+    <a href="demo/japan-trip.html" class="card" target="_blank" rel="noopener">
+      <div class="icon">🗾</div>
+      <div class="title">The Output</div>
+      <div class="desc">The 10-day family itinerary. Click "Veggie picks", click "Photo spots" — the money moment.</div>
+      <div class="meta">Interactive HTML</div>
+    </a>
+  </div>
+
+  <div class="section-label">Slide 6 · Riya's Campaign</div>
+  <div class="grid">
+    <a href="demo/ai-mirror-v4.mp4" class="card" target="_blank" rel="noopener">
+      <div class="icon">🎬</div>
+      <div class="title">Riya's Campaign Video</div>
+      <div class="desc">Built with CapCut + AI. Show this while telling the student body president story on Slide 7.</div>
+      <div class="meta">MP4 · ~25 MB · HD</div>
+    </a>
+  </div>
+
+  <div class="section-label">Demo 2 · Contract Review (Serious)</div>
+  <div class="grid">
+    <a href="demo/contract-brief.md" class="card" target="_blank" rel="noopener">
+      <div class="icon">⚖️</div>
+      <div class="title">Executive Brief (Backup)</div>
+      <div class="desc">Pre-run output. Use this if the live run fails. NON-STANDARD 15% threshold is your callout.</div>
+      <div class="meta">Safety net</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    This page is unlisted and not indexed.
+    <button class="logout" id="logoutBtn">sign out</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  // SHA-256 hash of the unlock phrase. Rotate by computing a new hash and swapping below.
+  var PW_HASH = 'f0093c8b1643729b3fbbabe722aceed5863fa1b5bc87021446be0851bcaefa3f';
+  var STORAGE_KEY = 'stage_unlocked_v1';
+
+  var gate = document.getElementById('gate');
+  var hub = document.getElementById('hub');
+  var form = document.getElementById('gateForm');
+  var input = document.getElementById('pw');
+  var errorEl = document.getElementById('gateError');
+  var logoutBtn = document.getElementById('logoutBtn');
+
+  async function sha256(s) {
+    var buf = new TextEncoder().encode(s);
+    var hash = await crypto.subtle.digest('SHA-256', buf);
+    return Array.from(new Uint8Array(hash)).map(function(b) {
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
+
+  function unlock() {
+    gate.classList.add('hidden');
+    setTimeout(function() {
+      gate.style.display = 'none';
+      hub.style.display = 'block';
+    }, 300);
+  }
+
+  function showError(msg) {
+    errorEl.textContent = msg;
+    input.value = '';
+    input.focus();
+  }
+
+  // Auto-unlock if previously authenticated (per-device)
+  if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+    unlock();
+  } else {
+    setTimeout(function() { input.focus(); }, 100);
+  }
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    errorEl.textContent = '';
+    var val = input.value.trim().toLowerCase();
+    if (!val) return;
+    var hash = await sha256(val);
+    if (hash === PW_HASH) {
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      unlock();
+    } else {
+      showError('Not quite. Try again.');
+    }
+  });
+
+  logoutBtn.addEventListener('click', function() {
+    sessionStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  });
+})();
+</script>
+</body>
+</html>

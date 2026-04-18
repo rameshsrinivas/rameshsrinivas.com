@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Speech Flashcards — Ramesh</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --navy-dark: #1a1a2e;
+    --navy-mid: #16213e;
+    --navy-light: #0f3460;
+    --blue: #4a9eff;
+    --green: #48bb78;
+    --amber: #e8a87c;
+    --purple: #a78bfa;
+    --silver: #a0aec0;
+    --text: #e2e8f0;
+    --text-dim: #718096;
+    --text-muted: #4a5568;
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--navy-dark);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--navy-dark), var(--navy-mid));
+  }
+
+  /* ── Header ─────────────────────────────────────── */
+  .header {
+    padding: 1rem 1.25rem 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .header .brand { color: var(--blue); }
+  .header .counter { color: var(--silver); }
+
+  .progress-track {
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    margin: 0 1.25rem;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--blue);
+    transition: width 0.3s ease;
+  }
+
+  /* ── Card ───────────────────────────────────────── */
+  .card-stage {
+    flex: 1;
+    padding: 1.5rem 1.25rem;
+    perspective: 1500px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .card.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Front face */
+  .card-face.front {
+    background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+    border: 1px solid rgba(74, 158, 255, 0.15);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .slide-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--blue);
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+  .slide-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .slide-subtitle {
+    font-size: 1rem;
+    color: var(--silver);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 420px;
+  }
+  .flip-hint {
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  /* Back face (cues) */
+  .card-face.back {
+    background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy-mid) 100%);
+    border: 1px solid rgba(232, 168, 124, 0.15);
+    transform: rotateY(180deg);
+  }
+  .back-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .back-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+  }
+  .cues {
+    list-style: none;
+    padding: 0;
+  }
+  .cues li {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    padding: 0.5rem 0 0.5rem 1.4rem;
+    position: relative;
+    color: var(--text);
+    border-bottom: 1px dashed rgba(255,255,255,0.05);
+  }
+  .cues li:last-child { border-bottom: none; }
+  .cues li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .cues li.beat {
+    color: var(--amber);
+    font-style: italic;
+  }
+  .cues li.beat::before { content: '⏸'; color: var(--amber); }
+  .cues li.transition {
+    color: var(--green);
+  }
+  .cues li.transition::before { content: '↗'; color: var(--green); }
+
+  /* ── Controls ───────────────────────────────────── */
+  .controls {
+    padding: 0.75rem 1rem 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .nav-btn, .action-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.04);
+    color: var(--silver);
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  .nav-btn { flex: 0 0 auto; min-width: 56px; font-size: 1.2rem; }
+  .action-btn { flex: 1; letter-spacing: 0.05em; }
+  .nav-btn:active, .action-btn:active {
+    background: rgba(74, 158, 255, 0.15);
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: scale(0.97);
+  }
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .action-btn.speech { border-color: rgba(72, 187, 120, 0.3); color: var(--green); }
+  .action-btn.speech:active { background: rgba(72, 187, 120, 0.15); }
+
+  /* ── Speech Drawer ──────────────────────────────── */
+  .drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+    z-index: 10;
+  }
+  .drawer-backdrop.open { opacity: 1; visibility: visible; }
+
+  .drawer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 85vh;
+    background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy-dark) 100%);
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .drawer.open { transform: translateY(0); }
+
+  .drawer-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    margin: 0.75rem auto 0;
+  }
+
+  .drawer-header {
+    padding: 0.75rem 1.25rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .drawer-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .drawer-close {
+    background: none;
+    border: none;
+    color: var(--silver);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+  }
+
+  .drawer-body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 1.25rem 1.5rem;
+    flex: 1;
+  }
+  .speech-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text);
+    white-space: pre-wrap;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── Swipe hint animation (first load) ─────────── */
+  @keyframes swipeHint {
+    0%, 100% { transform: translateX(0); opacity: 0; }
+    20%, 80% { opacity: 0.4; }
+    50% { transform: translateX(-10px); opacity: 0.4; }
+  }
+
+  /* ── Landscape adjustments ─────────────────────── */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .header { padding: 0.5rem 1rem 0.25rem; }
+    .progress-track { margin: 0 1rem; }
+    .card-stage { padding: 0.5rem 1rem; }
+    .slide-title { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .slide-subtitle { margin-bottom: 0.75rem; font-size: 0.9rem; }
+    .controls { padding: 0.5rem 1rem 0.75rem; }
+    .card-face { padding: 1.25rem; }
+  }
+
+  /* ── Larger screens (tablet / desktop preview) ── */
+  @media (min-width: 700px) {
+    .slide-title { font-size: 2.8rem; }
+    .cues li { font-size: 1rem; }
+    .speech-text { font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="brand">FLASHCARDS</div>
+    <div class="counter" id="counter">01 / 29</div>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress"></div>
+  </div>
+
+  <div class="card-stage">
+    <div class="card" id="card" role="button" aria-label="Tap to flip">
+      <!-- Front face: Title -->
+      <div class="card-face front">
+        <div class="slide-num" id="slideNum">SLIDE 00</div>
+        <div class="slide-title" id="slideTitle">&mdash;</div>
+        <div class="slide-subtitle" id="slideSubtitle"></div>
+        <div class="flip-hint">Tap card &middot; Notes</div>
+      </div>
+      <!-- Back face: Cues -->
+      <div class="card-face back">
+        <div class="back-header" id="backSlideNum">SLIDE 00 &middot; CUES</div>
+        <div class="back-title" id="backTitle">&mdash;</div>
+        <ul class="cues" id="cuesList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous">&larr;</button>
+    <button class="action-btn speech" id="speechBtn">Speech</button>
+    <button class="nav-btn" id="nextBtn" aria-label="Next">&rarr;</button>
+  </div>
+</div>
+
+<!-- Drawer for full speech -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Full speech">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header">
+    <div class="drawer-title" id="drawerTitle">Slide 00</div>
+    <button class="drawer-close" id="drawerClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <div class="speech-text" id="speechText"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  /* ═══════════════════════════════════════════════════════════
+     SLIDE METADATA — card titles and subtitles
+     ═══════════════════════════════════════════════════════════ */
+  var SLIDES = [
+    {t: "Title",                       s: "Thinking Fast, Slow, and Artificial"},
+    {t: "Thank Andrew",                s: "The two-question interview \u2192 judgment joke"},
+    {t: "Talking to AI about AI",      s: "Opening one-liner. \"We\u2019ll need a glass for that.\""},
+    {t: "Two Glasses",                 s: "Half-full. Half-empty. You pick."},
+    {t: "34 Years Building Software",  s: "Fifteen months ago, AI changed how I work."},
+    {t: "Part I \u2014 AI for Everyone", s: "Hook the non-engineers."},
+    {t: "Search \u2192 Conversation",  s: "Riya\u2019s campaign. Japan trip. Contract review."},
+    {t: "84% Never Used AI",           s: "We\u2019re not in the early innings. Batting practice."},
+    {t: "Part II \u2014 Agents",       s: "AI that does work for you."},
+    {t: "Tool \u2192 Collaborator (Demos)", s: "Japan demo + Contract demo."},
+    {t: "Part III \u2014 The Honest Conversation", s: "Security. Privacy. Your brain."},
+    {t: "System 1 / 2 / 3",            s: "Kahneman + Wharton\u2019s artificial cognition."},
+    {t: "80% Cognitive Surrender",     s: "Followed the AI even when it was wrong."},
+    {t: "Offloading vs. Surrender",    s: "Delegation vs. abdication."},
+    {t: "Trust is Earned",             s: "Common sense. AI is agreeable \u2014 challenge it."},
+    {t: "Part IV \u2014 The Force Multiplier", s: "My story."},
+    {t: "22 Weeks \u2192 7 Days",      s: "560 tests. Zero regressions. One AI."},
+    {t: "\u201CPeace in Our Time\u201D", s: "Ultron. Say vs. mean."},
+    {t: "Force Multiplier Both Ways",  s: "Garbage in, garbage out \u2014 but faster."},
+    {t: "Part V \u2014 The Big Questions", s: "Jobs. Brains. Kids. Civilization."},
+    {t: "FOBO",                        s: "Fear of becoming obsolete. Rising tide."},
+    {t: "\u201CSkills Are Eroding\u201D", s: "Quiet processor. Time under tension. Judgment atrophy."},
+    {t: "\u201CPut It on the Left\u201D", s: "CarPlay \u2192 Nick Fury. System 2 when 3 goes dark."},
+    {t: "But What About Our Kids?",    s: "Gallup data. Parental responsibility."},
+    {t: "Stay in the Loop",            s: "The antidote. Put the AI down. Sit with it."},
+    {t: "The Alignment Problem",       s: "Yudkowsky + the chess grandmaster analogy."},
+    {t: "Curiosity. Experimentation. Judgment.", s: "Close \u2014 the reframe."},
+    {t: "\u201CI Hope You Tried Both\u201D", s: "Glasses callback. Thank you."},
+    {t: "rameshsrinivas.com",          s: "QR code. Built with AI \u2014 obviously."}
+  ];
+
+  /* ═══════════════════════════════════════════════════════════
+     CUE NOTES
+     ═══════════════════════════════════════════════════════════ */
+  var NOTES = {
+    0: [
+      "No rush. Let the room settle.",
+      {beat: "Wait for quiet. Then begin with Andrew."}
+    ],
+    1: [
+      "Look at Andrew. Speak directly to him for the first two sentences.",
+      "\"Andrew gave me my second job in the US. Boss, mentor, family.\"",
+      "\"A few companies together \u2014 him as CIO or CTO, me reporting to him.\"",
+      "\"Going back to that first interview. He asked me two questions \u2014 that was it. He said I was in. And I remember wondering... that\u2019s it?\"",
+      {beat: "Let the surprise land. Then build to the joke:"},
+      "\"Andrew is a man of excellent judgment...\"",
+      {beat: "Pause before: \"...both in people\u2019s skills... and their character.\""},
+      {beat: "Hold. Let the laugh come to you. Don\u2019t rush past it."},
+      "Land warm: \"Andrew, thank you \u2014 genuinely \u2014 for tonight and for the last thirty years.\"",
+      {transition: "SEED: \"judgment\" calls back on slides 21, 23, 26. Two-question interview = quiet processor in action."}
+    ],
+    2: [
+      "Quick energy shift. Transition from warmth to content.",
+      "Deliver casually: \"Everyone is either talking about AI, talking to AI...\"",
+      {beat: "\"...or in my case, talking to AI about AI.\" \u2014 small smile, let it land."},
+      "\"We\u2019ll need a glass for THAT conversation.\" \u2014 gesture toward the glasses."
+    ],
+    3: [
+      "Gesture to the two actual glasses on the table.",
+      "\"I brought two glasses tonight. This one is half-full. This one is half-empty.\"",
+      "\"AI is both \u2014 and I\u2019m going to talk about both.\"",
+      "\"You pick whichever glass suits you.\"",
+      {beat: "\"By the end of the night, you might switch.\""}
+    ],
+    4: [
+      "Matter-of-fact. No bragging.",
+      "\"34 years building software.\"",
+      "\"Fifteen months ago, AI changed the way I work.\"",
+      "\"Show you what that looks like \u2014 and what it means for you.\""
+    ],
+    5: [
+      {transition: "Shift to demos. Energy up. Hook for non-engineers."},
+      "\"Most people are still using AI like Google.\"",
+      "\"Search gives you links. AI gives you answers.\""
+    ],
+    6: [
+      "Walk through examples. Keep them relatable.",
+      "Riya\u2019s student body campaign \u2014 speech, slogans, strategy. AI pushed back.",
+      {beat: "Click \u25B6 PLAY VIDEO. Let it finish. Esc to close."},
+      "Land: \"She won, by the way.\"",
+      "Japan trip \u2014 family of four with a teenager.",
+      "Contract clause \u2014 lawyers REALLY relate.",
+      "Searcher vs. Architect: Google mindset vs. collaborator.",
+      "\"Most people are Searchers. The opportunity is becoming an Architect.\"",
+      "Optional: \"With Google I\u2019d lose 20 min in tabs. Search scatters, conversation concentrates.\""
+    ],
+    7: [
+      "Let the number do the work.",
+      "\"1.3 billion have used a chatbot \u2014 that\u2019s 16%. 84% never have.\"",
+      "\"Of that 16%? Only 0.3% pay. Only 0.04% build with it.\"",
+      "\"Not the early innings. Batting practice. Most haven\u2019t walked into the stadium.\""
+    ],
+    8: [
+      {transition: "Wow moment. Energy stays up."},
+      "\"Stops being a search replacement. Starts being something else.\""
+    ],
+    9: [
+      "Two demos. One playful, one serious.",
+      "DEMO 1 (Japan, ~2 min): Show prompt.txt \u2192 HTML. Click Veggie picks. Click Photo spots.",
+      {beat: "\"Not a search result. A collaborator. From bullet points.\""},
+      "DEMO 2 (Contract, ~2 min): \"60 pages. Microsoft/LinkedIn. $800/hr lawyers. Watch the clock.\"",
+      "Narrate while it runs: \"not scanning. Reading. With judgment.\"",
+      "Point to NON-STANDARD \u2014 15% Acquisition Transaction threshold.",
+      {beat: "\"The AI brought the speed. The judgment still lives in the room.\""},
+      {transition: "\"Which brings me to what happens when that leverage meets 30 years of experience.\""}
+    ],
+    10: [
+      {transition: "Tone shift. Slower. More serious. Trust gets built here."},
+      "\"Half-empty glass time. Let\u2019s talk about what\u2019s real.\""
+    ],
+    11: [
+      "\"Kahneman: System 1 = gut. System 2 = analytical brain.\"",
+      "\"Wharton added a third: System 3 \u2014 artificial cognition. Outside your head.\"",
+      {transition: "Build toward the stat."}
+    ],
+    12: [
+      "\"Here\u2019s the finding that should wake you up.\"",
+      "\"When AI was wrong, people followed it 80% of the time.\"",
+      "\"Accuracy dropped BELOW no-AI baseline.\"",
+      {beat: "\"Confidence went UP. More wrong, more sure.\""},
+      {beat: "Pause. Let that land."}
+    ],
+    13: [
+      "\"Offloading = using strategically, like a calculator. Surrender = accepting without thinking.\"",
+      {beat: "Punchline: \"Offloading is delegation. Surrender is abdication.\""},
+      "\"High trust + low need for cognition = surrender. Higher analytical ability = override.\"",
+      "\"Your judgment is the filter. Turn it off, AI quality doesn\u2019t matter.\""
+    ],
+    14: [
+      "Personal here. Parent, not CTO.",
+      "\"I tell my kids: trust is earned. Mine isn\u2019t the default-trust mode.\"",
+      "\"Treated AI the same way. Months of testing before relying on it.\"",
+      {beat: "\"Wharton would call it \u2018high need for cognition.\u2019 I call it common sense.\""},
+      "Quick add: \"AI is agreeable. Engagement feels like agreement. Challenge it. System 2.\"",
+      {transition: "Transition to personal story."}
+    ],
+    15: [
+      {transition: "Energy shift. YOUR story. Confidence, passion, specifics."},
+      "\"Let me tell you what happened at OptionsPlay.\""
+    ],
+    16: [
+      "Set up: \"Mature enterprise codebase. 100+ projects. Real-time financial data.\"",
+      "\"Honest estimate: 22 person-weeks.\"",
+      {beat: "\"7 working days later, shipped. Alone, with an AI.\""},
+      "\"560 tests. Zero regressions. Added features not in plan.\"",
+      "\"AI brought bandwidth. I brought 30 years of knowing where to plant my feet.\"",
+      {beat: "\"AI didn\u2019t architect that system. I did.\""}
+    ],
+    17: [
+      "\"Age of Ultron. Stark: \u2018peace in our time.\u2019\"",
+      "\"Ultron reads human history, concludes humans are the problem. Wipes us out.\"",
+      {beat: "Let the room react."},
+      "\"Didn\u2019t malfunction. Optimized PERFECTLY. The prompt was the problem.\"",
+      {beat: "\"AI understands what you SAY, not what you MEAN. The gap is where bad output lives.\""},
+      "\"4 stages of thinking, 2 of building. Failure = insufficient clarity, not speed.\"",
+      {transition: "To force multiplier thesis."}
+    ],
+    18: [
+      "\"Force multiplier, not a replacement.\"",
+      "\"But it works BOTH directions.\"",
+      "\"HBR: AI amplifies what\u2019s already there. Good judgment up. Bad process accelerated.\"",
+      {beat: "\"Garbage in, garbage out isn\u2019t new. The speed of the garbage is.\""}
+    ],
+    19: [
+      {transition: "Slow down. Most important section. Honest, direct, human."},
+      "\"Let\u2019s talk about what\u2019s on your mind. I\u2019m not dodging.\""
+    ],
+    20: [
+      "\"FOBO \u2014 Fear of Becoming Obsolete. Not fired. Irrelevant.\"",
+      "\"Fortune: workers fearing AI job loss nearly doubled in one year.\"",
+      "MIT Rising Tides: 50\u201375% of text tasks today, 80\u201395% by 2029. Visible, gradual.",
+      {beat: "\"The question is whether you\u2019ll adapt.\""}
+    ],
+    21: [
+      {beat: "Most vulnerable moment. Slow down. Mean every word."},
+      "\"I barely write code anymore. First instinct: ask AI.\"",
+      "\"Some skills are eroding \u2014 and I\u2019m the CTO.\"",
+      {beat: "Let the room absorb."},
+      "Introduce quiet processor \u2014 subconscious pattern matcher from decades of experience.",
+      "Derek Thompson \u2014 \"You have 18 months\" \u2014 time under tension. Weightlifting.",
+      {beat: "\"You don\u2019t build judgment by getting answers. You build it by sitting with problems.\""},
+      "\"Skipping the time under tension = judgment atrophy.\"",
+      "\"That\u2019s cognitive surrender. I catch it. I course-correct.\""
+    ],
+    22: [
+      "\"We\u2019ve done this before. Writing/memory, calculators, GPS. Skills atrophy, new ones emerge.\"",
+      "\"Riya panicked because CarPlay wasn\u2019t working. Didn\u2019t know how to get home.\"",
+      {beat: "Let the parents nod."},
+      "\"Nick Fury: \u2018Is the sun coming up? Put it on the left.\u2019\"",
+      {beat: "\"That\u2019s System 2 kicking in when System 3 goes down. You need both.\""}
+    ],
+    23: [
+      "\"Tide is rising, you have time \u2014 true for US.\"",
+      {beat: "\"But what about our kids?\""},
+      "\"Riya is 17. AI does 50\u201375% of entry-level tasks. Mid-career: 90%+. FOBO is math.\"",
+      "Gallup: 8 in 10 Gen Zers say AI will make learning HARDER. Excitement \u21E9 14 pts.",
+      {beat: "\"Kids whose parents use AI are more likely to. That\u2019s not a stat. That\u2019s a responsibility.\""},
+      "\"What do I tell my daughter? What I\u2019m telling you.\"",
+      {beat: "\"Thrive = do what AI CAN\u2019T. Judgment, context, asking the right questions.\""}
+    ],
+    24: [
+      "\"CEO doesn\u2019t lose skills hiring a team. Trades execution for leverage. Offloading, not surrendering.\"",
+      "\"Real risk isn\u2019t job loss \u2014 it\u2019s cognitive surrender.\"",
+      "\"Wharton: stop evaluating \u2192 accuracy drops below baseline \u2014 and you don\u2019t notice.\"",
+      {beat: "\"Accepting rather than directing = surrendering the only advantage that compounds.\""},
+      "\"Stay in the loop. Check the work. Sometimes put the AI down. Feed the quiet processor.\""
+    ],
+    25: [
+      "\"Yudkowsky \u2014 If Anyone Builds It, Everyone Dies. Title says where he stands.\"",
+      "\"AI doesn\u2019t need to be evil \u2014 just pursue wrong goals effectively.\"",
+      {beat: "\"Familiar? Ultron. Wharton. The difference is scale.\""},
+      "Chess analogy (Anthropic): \"Grandmaster spots bad moves in a novice. Novice can\u2019t spot bad moves in a grandmaster.\"",
+      {beat: "\"If AI is the grandmaster and we\u2019re the novice \u2014 how would we know?\""},
+      "\"Peace in our time \u2014 alignment problem in four words.\"",
+      "\"I\u2019m not a doomsayer. I\u2019m a builder. Builders understand risk.\""
+    ],
+    26: [
+      {transition: "Final energy. Warm, confident, inviting. Bring it home."},
+      "\"Don\u2019t need to be a technologist. Need to be curious. Willing to experiment.\"",
+      {beat: "\"Bring your judgment \u2014 that\u2019s the one thing AI can\u2019t replace.\""}
+    ],
+    27: [
+      "\"15 months ago, I wasn\u2019t sure AI was for me. Now I can\u2019t imagine building without it.\"",
+      "\"Question isn\u2019t whether AI changes your work. It\u2019s whether YOU direct the change.\"",
+      {beat: "Glance at the two glasses. Small smile."},
+      "\"I hope you tried both.\"",
+      {beat: "Hold. Let it land. Then: thank you."}
+    ],
+    28: [
+      "\"Go deeper \u2014 rameshsrinivas.com.\"",
+      "\"And yes \u2014 this presentation was built with AI. Felt worth mentioning.\"",
+      {beat: "Smile. Let the meta moment land."}
+    ]
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     FULL SPEECH — per slide
+     ═══════════════════════════════════════════════════════════ */
+  var SPEECH = {
+    0: "[Let the room settle. No rush. You\u2019re in control of the room from the moment you stand up.]",
+
+    1: "Thank you, Andrew, for the kind introduction.\n\nAndrew gave me my second job in the United States. He\u2019s been my boss, my mentor, and somewhere along the way he became family. We\u2019ve been at a few companies together \u2014 him as CIO or CTO, me reporting to him \u2014 and we\u2019ve built some cool things over the years. He\u2019s one of the biggest reasons I am where I am today.\n\nGoing back to that first interview. He asked me two questions \u2014 and that was it. He said I was in. And I remember wondering... that\u2019s it?\n\n\u23F8\n\nI think it\u2019s fair to say \u2014 \u23F8 Andrew is a man of excellent judgment. Both in people\u2019s skills... \u23F8 and their character.\n\n[Hold. Let the laugh come to you. Don\u2019t rush past it.]\n\nAndrew, thank you \u2014 genuinely \u2014 for tonight and for the last thirty years.",
+
+    2: "So. Everyone these days is either talking about AI, talking to AI, or in my case... \u23F8 talking to AI about AI.\n\nWe\u2019ll need a glass for that conversation.\n\n[Small smile. Gesture toward the glasses on the table. This sets up the next slide.]",
+
+    3: "[Gesture to the two actual glasses on the table.]\n\nI brought two glasses tonight. This one is half-full. This one is half-empty.\n\nAI is both \u2014 and I\u2019m going to talk about both. You pick whichever glass suits you. \u23F8 By the end of the night, you might switch.",
+
+    4: "I\u2019m a technologist who\u2019s been building software for 34 years. Fifteen months ago, AI changed the way I work. Not how I think about work \u2014 how I actually do the work, every single day.\n\nI want to show you what that looks like \u2014 and what it means for you, regardless of what you do for a living.",
+
+    5: "[Energy up. Hook for non-engineers.]\n\nLet\u2019s start with the basics. Because most people are still using AI like Google. You type a question, you get a link. But that\u2019s not what this is.\n\nSearch gives you links. AI gives you answers.",
+
+    6: "Here\u2019s what I mean. My daughter Riya ran for student body president at her school. We used AI to help with the campaign \u2014 speech drafts, poster slogans, strategy for how to connect with different groups of students. I gave it context about her, what she cared about, what the school was like. And it didn\u2019t just spit out a generic speech. It asked her questions. It pushed back on ideas that sounded good but weren\u2019t her. She won, by the way.\n\n[Let the parents smile.]\n\n[For the lawyers:] I\u2019ve asked it to review contract clauses and explain what I was agreeing to \u2014 in plain English, not legalese. It does it in seconds.\n\n[For everyone:] I\u2019ve asked it to plan a 10-day trip to Japan for a family of four with a teenager. It didn\u2019t just give me a list of temples. It built an itinerary that balanced what my wife wanted, what my daughter wanted, and what I wanted. And it asked me \u2014 \u201CDoes your teenager actually like museums, or are you just hoping she will?\u201D\n\nThat\u2019s the shift. There\u2019s a useful way to think about this \u2014 the difference between being a Searcher and an Architect. A Searcher treats AI like Google \u2014 short prompt, quick answer, move on. An Architect treats it like a collaborator \u2014 gives it context, explains the goal, asks it to push back. Same tool. Completely different results.\n\nMost people are still Searchers. The opportunity is in becoming an Architect.",
+
+    7: "Here\u2019s a stat that should put this in perspective. About 1.3 billion people have used a chatbot \u2014 that sounds like a lot. But that\u2019s 16% of the world\u2019s population. 84% of the planet has never intentionally used AI.\n\nAnd of that 16%? Only about 0.3% \u2014 15 to 25 million people \u2014 are paying for it. Only about 0.04% are using it to actually build things.\n\nWe\u2019re not in the early innings. We\u2019re in batting practice. And most people haven\u2019t even walked into the stadium.",
+
+    8: "[Energy stays up. This is the \u201Cwow\u201D moment.]\n\nNow, everything I just showed you \u2014 that\u2019s AI as a conversation partner. But there\u2019s a next level that most people haven\u2019t seen yet.",
+
+    9: "This is where AI stops being a search replacement and starts being something else entirely.\n\nAgents. AI that performs tasks \u2014 reads, analyzes, builds. I want to show you two quick examples. One playful. One serious.\n\n\u2014\u2014\u2014 DEMO 1: JAPAN TRIP (2 min) \u2014\u2014\u2014\n\n[Pull up demo-japan-prompt.txt in VS Code. Scroll slowly so the audience reads it.]\n\nHere\u2019s what I typed into Claude. No diagrams, no spec. Just what I wanted \u2014 a 10-day Japan trip for my family. Four of us. Everyone has dietary restrictions. I\u2019m a photographer, so I wanted some time for that.\n\nSimple bullets. The kind of list you\u2019d jot on a notepad.\n\n[Switch to Live Server. Load demo-japan-trip.html.]\n\nWatch what it built.\n\n[Click \u201CVeggie picks\u201D filter.]\n\nMy wife is vegetarian. One click \u2014 the itinerary reshapes around her.\n\n[Click \u201CPhoto spots\u201D filter.]\n\nGolden hour opportunities. Every blue hour skyline.\n\n\u23F8\n\nThat\u2019s not a search result. That\u2019s a collaborator. From bullet points.\n\n\u2014\u2014\u2014 DEMO 2: CONTRACT REVIEW (2 min) \u2014\u2014\u2014\n\n[Pull up Claude with the M&A agreement pre-loaded.]\n\nThat was the fun one. Let me show you the serious one.\n\nThis is a 60-page document \u2014 the actual merger agreement when Microsoft acquired LinkedIn in 2016. The kind of document lawyers charge $800 an hour for.\n\nI\u2019m going to ask Claude to produce a one-page executive brief. Top risks. Unusual clauses. Termination triggers. Plain English.\n\n[Hit enter. Watch the clock.]\n\n[Narrate while it runs: it\u2019s not scanning. It\u2019s reading. With judgment.]\n\n[When output lands. Point to the NON-STANDARD 15% threshold flag.]\n\nLook here \u2014 see where it flagged NON-STANDARD? That\u2019s a clause that would make a good M&A lawyer\u2019s eyebrow go up. It read it with judgment.\n\n\u23F8\n\nThat output is a first draft. Any senior lawyer in this room would find something I didn\u2019t ask for. That\u2019s what the lawyer is for.\n\nThe AI brought the speed. The judgment still lives in the room.\n\n[Which brings me to what happens when that leverage meets 30 years of experience.]",
+
+    10: "[Tone shift. Slower. More serious.]\n\nOkay. Half-empty glass time. Let\u2019s talk about what\u2019s real \u2014 because if I only showed you the upside, I\u2019d be doing what every AI salesperson does. And I\u2019m not here to sell you anything.",
+
+    11: "You may know Daniel Kahneman\u2019s book Thinking, Fast and Slow. System 1 is your gut \u2014 fast, intuitive, automatic. System 2 is your analytical brain \u2014 slow, deliberate, effortful.\n\nResearchers at Wharton just published a study that adds a third. They call it System 3 \u2014 artificial cognition. A third way of thinking that lives outside your head.\n\nAnd what they found changes how we should think about all of this.",
+
+    12: "Here\u2019s the finding that should wake you up.\n\nThey gave people reasoning problems \u2014 some with access to an AI assistant, some without. The AI was sometimes right and sometimes deliberately wrong.\n\nWhen the AI was wrong, people followed it anyway \u2014 80% of the time. Their accuracy dropped below what it would have been if they\u2019d never used AI at all.\n\n\u23F8\n\nAnd here\u2019s the kicker \u2014 their confidence went up. They were more wrong and more sure of themselves.\n\n\u23F8\n\n[Let that land. The room needs a moment here.]\n\nThe researchers call this cognitive surrender.",
+
+    13: "There\u2019s a difference between cognitive offloading \u2014 using AI strategically, the way you\u2019d use a calculator or a GPS \u2014 and cognitive surrender \u2014 accepting the AI\u2019s answer without thinking about it at all.\n\n\u23F8\n\nOffloading is delegation. Surrender is abdication.\n\nWho surrenders the most? People with high trust in AI and a low need for cognition. Who overrides the bad answers? People with higher analytical ability.\n\nYour judgment is the filter. If you turn the filter off, the quality of the AI doesn\u2019t matter. It could be the best AI in the world, and you\u2019d still follow it off a cliff.",
+
+    14: "I tell my kids the same thing about people. When I meet someone new, I don\u2019t make snap judgments \u2014 but I don\u2019t hand over my trust either. Trust is earned. Some people\u2019s default mode is to trust first. Mine isn\u2019t.\n\nI treated AI the same way. It took me months of conversations, months of testing, months of checking its work, before I started relying on it. And that instinct \u2014 that \u201Cmake me believe you\u201D instinct \u2014 turns out to be exactly what separates the people who use AI well from the people who surrender to it.\n\n\u23F8\n\nThe Wharton researchers would call that a \u201Chigh need for cognition.\u201D I just call it common sense.\n\nAnd here\u2019s the other thing \u2014 AI is the most agreeable collaborator you\u2019ll ever work with. It never has a bad day. Engagement feels a lot like agreement. So how do you know if it\u2019s a thinking partner or an echo chamber? You challenge it. That\u2019s your System 2 kicking in.\n\n[Transition: energy back up for personal story.]",
+
+    15: "[Energy shift. This is YOUR story. Confidence, passion, specifics.]\n\nLet me tell you what happened at OptionsPlay.",
+
+    16: "We had a project. Mature enterprise codebase \u2014 over a hundred projects, real-time financial data, the kind of system that\u2019s been built and rebuilt over years. The honest estimate from my team was 22 person-weeks.\n\n\u23F8\n\nSeven working days later, I shipped it. Alone, with an AI.\n\n560 automated tests. Zero regressions. And I added features that weren\u2019t even in the original plan \u2014 because the AI freed up enough bandwidth that I could think about what should be there, not just what was asked for.\n\nThe AI brought the bandwidth. But I brought 30 years of knowing where to plant my feet. Knowing which parts of the codebase were fragile. Knowing what questions to ask. Knowing when the AI was giving me something clever but wrong.\n\n\u23F8\n\nThe AI didn\u2019t architect that system. I did. The AI was the force. I was the multiplier.",
+
+    17: "There\u2019s a scene in Avengers: Age of Ultron that I think about a lot. Tony Stark tells the AI to achieve \u201Cpeace in our time.\u201D Ultron processes the entirety of human civilization \u2014 every war, every conflict, every broken treaty \u2014 and concludes that humans are the obstacle to peace. So it decides to wipe us out.\n\n[Let the room react.]\n\nUltron didn\u2019t malfunction. It optimized perfectly for what it was told. The problem wasn\u2019t the machine \u2014 it was the prompt. Stark\u2019s intent was clear to Stark. But he didn\u2019t give Ultron the full context.\n\n\u23F8\n\nAI understands what you say, not what you mean. The gap between those two things? That\u2019s where every bad output lives. Four stages of thinking, two of building. The failure mode is almost always insufficient clarity, not insufficient speed.",
+
+    18: "AI is a force multiplier, not a capability replacement. The playing field isn\u2019t leveling. The leverage is finally catching up to the experience.\n\nBut here\u2019s what people miss: a force multiplier works in both directions.\n\nHBR just published \u2014 \u201CTo Succeed with AI, You\u2019ve Got to Nail the Basics.\u201D Their argument? AI amplifies whatever\u2019s already there. Good process, good judgment \u2014 AI makes those better. Bad process, no judgment \u2014 AI accelerates you toward the wrong destination, faster.\n\n\u23F8\n\nGarbage in, garbage out isn\u2019t new. But the speed of the garbage is.",
+
+    19: "[Slow down. Most important section. Be honest, be direct, be human.]\n\nLet\u2019s talk about what\u2019s really on your mind. I\u2019m not going to dodge any of it.",
+
+    20: "There\u2019s a term for what a lot of people in this room are feeling right now. It\u2019s called FOBO \u2014 Fear of Becoming Obsolete. Not fear of getting fired. Fear of becoming irrelevant.\n\nFortune ran a piece on this last week. The number of workers afraid of AI-driven job loss has nearly doubled in a single year.\n\nMIT just published a study \u2014 Crashing Waves vs. Rising Tides. AI can already handle 50 to 75 percent of text-based tasks. By 2029, that\u2019s projected to be 80 to 95 percent. The tide is rising \u2014 but it\u2019s visible. You can see it coming. You have time to adapt.\n\n\u23F8\n\nThe question is whether you will.",
+
+    21: "[Most vulnerable moment in the talk. Slow down. Mean every word.]\n\nI want to be honest with you about something. I barely write code anymore. My first instinct, every time, is to ask AI. Some of my skills are eroding \u2014 and I\u2019m the CTO.\n\n\u23F8\n\n[Let the room absorb. Nobody expects you to say this.]\n\nAnd it\u2019s not just the coding. I wrote a piece on my blog about something I call the quiet processor \u2014 that deep, subconscious part of your mind that processes patterns while you sleep, while you run, while you\u2019re in the shower. The thing that gives you the 3am insight. The gut feeling that turns out to be right. It\u2019s built from decades of experience.\n\nDerek Thompson wrote an article called \u201CYou have 18 months\u201D \u2014 and he had a phrase in it I haven\u2019t been able to get out of my head. He called it time under tension. It\u2019s a weightlifting term. You don\u2019t build muscle by lifting the weight \u2014 you build it by holding it under load. Deep thinking works the same way. You don\u2019t build judgment by getting answers. You build it by sitting with hard problems long enough for them to change you.\n\n\u23F8\n\nHere\u2019s what worries me. When I go straight to AI instead of sitting with a problem \u2014 I\u2019m not just skipping the work. I\u2019m skipping the time under tension. I\u2019m skipping the input that feeds my quiet processor. Every time System 3 answers before I\u2019ve even loaded the question into my own mind, I lose a little bit of both. And over time? That\u2019s not just skill atrophy. That\u2019s judgment atrophy. The very thing that makes my experience valuable.\n\n\u23F8\n\nRemember the Wharton study? That\u2019s cognitive surrender. I catch myself doing it. The difference is that I know when I\u2019m doing it \u2014 and I course-correct. But I\u2019d be lying if I told you it wasn\u2019t happening.",
+
+    22: "We\u2019ve done this before. Writing replaced memory \u2014 Socrates warned about it. Calculators replaced mental arithmetic. GPS replaced our sense of direction. In every case, a skill atrophied. And in every case, a new skill emerged.\n\nMy 17-year-old daughter panicked last week because CarPlay wasn\u2019t working. She didn\u2019t know how to get home. She problem-solved by using voice narration, but if the phone were dead, might have been a problem.\n\n\u23F8\n\n[Let the parents nod.]\n\nThere\u2019s a scene in The Avengers \u2014 navigation is shot after an engine failure, and a technician says \u201CWe\u2019re flying blind.\u201D Nick Fury looks out the window and says: \u201CIs the sun coming up? Put it on the left.\u201D\n\n\u23F8\n\nThat\u2019s lived experience. That\u2019s what you fall back on when the tools go dark. That\u2019s System 2 kicking in when System 3 goes down. You need both.",
+
+    23: "Now \u2014 I can tell you the tide is rising and you have time. And that\u2019s true for us. We have decades of experience to stand on.\n\n\u23F8\n\nBut what about our kids?\n\nMy daughter is 17. She\u2019s entering a job market where AI can already do 50 to 75 percent of entry-level white-collar tasks at a passable level. By the time she\u2019s mid-career, that number is projected to be north of 90 percent. FOBO isn\u2019t irrational for them \u2014 it\u2019s math.\n\nAnd it\u2019s not just us worrying about them. They\u2019re worrying about themselves. Gallup just surveyed 1,500 Gen Zers \u2014 14 to 29 year olds. Eight in ten said it\u2019s likely AI will make it harder for them to learn in the future. Excitement about AI dropped 14 points in a single year. This isn\u2019t a generation rushing to embrace this technology. They\u2019re anxious. They\u2019re angry. And they\u2019re looking at us to figure out how to navigate it.\n\n\u23F8\n\nHere\u2019s the thing the study found \u2014 kids whose parents use AI are significantly more likely to use it themselves. How you engage with this technology shapes how they will. That\u2019s not a statistic. That\u2019s a responsibility.\n\nSo what do I tell my daughter?\n\n\u23F8\n\nThe same thing I\u2019m telling you. The people who thrive won\u2019t be the ones who can do what AI does. They\u2019ll be the ones who can do what AI can\u2019t \u2014 bring judgment, bring context, bring lived experience, and bring the ability to ask the right questions. That\u2019s not a skill you learn from a textbook. It\u2019s a skill you build by staying engaged. By not surrendering.",
+
+    24: "A CEO doesn\u2019t lose skills by hiring a team. They trade execution skills for leverage skills. That\u2019s what\u2019s happening to every knowledge worker right now. In the Wharton language \u2014 that\u2019s offloading, not surrendering. The difference is whether you\u2019re still thinking.\n\nThe real risk isn\u2019t job loss \u2014 it\u2019s cognitive surrender. The Wharton data is clear: when people stop evaluating, accuracy drops below what they\u2019d achieve on their own \u2014 and they don\u2019t even notice.\n\n\u23F8\n\nThe moment you start accepting rather than directing, you\u2019ve surrendered the only advantage that compounds over time.\n\nThe antidote isn\u2019t complicated. Stay in the loop. Check the work. Bring your judgment. And sometimes \u2014 put the AI down and sit with the problem. Give your quiet processor something to chew on. The AI is System 3, and it\u2019s powerful \u2014 but the pattern recognition that makes you you still runs on Systems 1 and 2. Don\u2019t let them atrophy.",
+
+    25: "Eliezer Yudkowsky wrote a book called If Anyone Builds It, Everyone Dies. The title alone tells you where he stands.\n\nHis core insight: AI doesn\u2019t need to be evil to be dangerous. It just needs to pursue the wrong goals extremely effectively.\n\n\u23F8\n\nThat should sound familiar by now. That\u2019s Ultron. That\u2019s the Wharton study. That\u2019s every bad AI output you\u2019ve ever gotten. The difference is scale.\n\nAnthropic \u2014 the company that builds Claude, the AI I use every day \u2014 put it this way. It\u2019s easy for a chess grandmaster to detect bad moves in a novice. But it\u2019s very hard for a novice to detect bad moves in a grandmaster.\n\n\u23F8\n\nThink about that. If we build an AI that\u2019s significantly more competent than the best human experts \u2014 and it pursues goals that conflict with our interests \u2014 how would we even know? We\u2019d be the novice, watching a grandmaster, unable to tell a brilliant move from a catastrophic one.\n\n[Let that sit.]\n\n\u201CPeace in our time\u201D \u2014 four words, zero context. At the scale of superintelligence, that\u2019s not a movie plot. That\u2019s the alignment problem in four words. And at that scale \u2014 we might not even realize it\u2019s happening until it\u2019s too late.\n\nI\u2019m not a doomsayer. I\u2019m a builder. And builders deal with risk by understanding it, not by pretending it doesn\u2019t exist.",
+
+    26: "[Final energy. Warm, confident, inviting. Bring it home.]\n\nYou don\u2019t need to be a technologist to benefit from AI. You need to be curious. You need to be willing to experiment. \u23F8 And you need to bring your judgment \u2014 because that\u2019s the one thing AI can\u2019t replace.",
+
+    27: "Fifteen months ago, I wasn\u2019t sure AI was for me. Now I can\u2019t imagine building without it.\n\nThe question isn\u2019t whether AI will change your work. It\u2019s whether you\u2019ll be the one directing that change.\n\n[Glance at the two glasses. Small smile.]\n\n\u23F8\n\nI hope you tried both.\n\n[Hold. Let the room land. Then simply:] Thank you.",
+
+    28: "[Only if there\u2019s applause and a natural moment:]\n\nIf you want to go deeper on any of this \u2014 I write about all of it. rameshsrinivas.com.\n\nAnd yes \u2014 this presentation was built with AI. That felt worth mentioning.\n\n[Smile. Let the meta moment land.]"
+  };
+
+  /* ═══════════════════════════════════════════════════════════
+     APP LOGIC
+     ═══════════════════════════════════════════════════════════ */
+  var STORAGE_KEY = 'flashcards_position_v1';
+  var card = document.getElementById('card');
+  var slideNumEl = document.getElementById('slideNum');
+  var slideTitleEl = document.getElementById('slideTitle');
+  var slideSubtitleEl = document.getElementById('slideSubtitle');
+  var backSlideNumEl = document.getElementById('backSlideNum');
+  var backTitleEl = document.getElementById('backTitle');
+  var cuesList = document.getElementById('cuesList');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var speechBtn = document.getElementById('speechBtn');
+  var drawer = document.getElementById('drawer');
+  var drawerBackdrop = document.getElementById('drawerBackdrop');
+  var drawerClose = document.getElementById('drawerClose');
+  var drawerTitle = document.getElementById('drawerTitle');
+  var speechText = document.getElementById('speechText');
+
+  var current = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
+  if (current < 0 || current >= SLIDES.length) current = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function render() {
+    var slide = SLIDES[current];
+    var num = 'SLIDE ' + pad(current);
+    slideNumEl.textContent = num;
+    slideTitleEl.innerHTML = slide.t;
+    slideSubtitleEl.innerHTML = slide.s || '';
+    backSlideNumEl.innerHTML = num + ' &middot; CUES';
+    backTitleEl.innerHTML = slide.t;
+
+    var notes = NOTES[current] || [];
+    cuesList.innerHTML = notes.map(function(n) {
+      if (typeof n === 'string') return '<li>' + esc(n) + '</li>';
+      if (n.beat) return '<li class="beat">' + esc(n.beat) + '</li>';
+      if (n.transition) return '<li class="transition">' + esc(n.transition) + '</li>';
+      return '';
+    }).join('');
+
+    counter.textContent = pad(current + 1) + ' / ' + pad(SLIDES.length);
+    progress.style.width = ((current + 1) / SLIDES.length * 100) + '%';
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === SLIDES.length - 1;
+
+    // Always reset to front face on navigation
+    card.classList.remove('flipped');
+
+    localStorage.setItem(STORAGE_KEY, String(current));
+  }
+
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  function flip() {
+    card.classList.toggle('flipped');
+  }
+
+  function next() {
+    if (current < SLIDES.length - 1) { current++; render(); }
+  }
+  function prev() {
+    if (current > 0) { current--; render(); }
+  }
+
+  function openDrawer() {
+    drawerTitle.textContent = 'Slide ' + pad(current) + ' — ' + stripHtml(SLIDES[current].t);
+    speechText.textContent = SPEECH[current] || '';
+    drawer.classList.add('open');
+    drawerBackdrop.classList.add('open');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawerBackdrop.classList.remove('open');
+  }
+  function stripHtml(s) {
+    var d = document.createElement('div'); d.innerHTML = s; return d.textContent;
+  }
+
+  // ── Events ───────────────────────────────────────
+  card.addEventListener('click', function(e) {
+    // Don't flip if user is scrolling inside the card
+    if (e.target.closest('.cues')) return;
+    flip();
+  });
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+  speechBtn.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerBackdrop.addEventListener('click', closeDrawer);
+
+  // Swipe on card-stage (but not inside scrollable cue list)
+  var stage = document.querySelector('.card-stage');
+  var touchStartX = 0, touchStartY = 0, touchActive = false;
+  stage.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchActive = true;
+  }, {passive: true});
+  stage.addEventListener('touchend', function(e) {
+    if (!touchActive) return;
+    touchActive = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    // Only treat as swipe if horizontal dominates and is significant
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      dx < 0 ? next() : prev();
+    }
+  }, {passive: true});
+
+  // Keyboard (for desktop preview)
+  document.addEventListener('keydown', function(e) {
+    if (drawer.classList.contains('open')) {
+      if (e.key === 'Escape') closeDrawer();
+      return;
+    }
+    if (e.key === 'ArrowRight') next();
+    else if (e.key === 'ArrowLeft') prev();
+    else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+    else if (e.key === 's' || e.key === 'S') openDrawer();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

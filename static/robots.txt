@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /stage-q7g7lhiube/
 
 Sitemap: https://rameshsrinivas.com/sitemap.xml

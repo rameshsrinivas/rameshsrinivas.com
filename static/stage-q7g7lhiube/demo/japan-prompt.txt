@@ -1,0 +1,47 @@
+I want to plan a 10-day trip to Japan for my family during the cherry blossom season (spring 2026).
+
+Family:
+- Me (Ramesh)
+- My wife Mathangi
+- My son Rohan, 22
+- My daughter Riya, 17
+
+We're all foodies. Food is a big part of how we travel.
+
+Dietary restrictions:
+- Mathangi is vegetarian
+- I'm pescetarian and only eat salmon (no other fish)
+- Rohan is pescetarian and also eats chicken
+- Riya is pescetarian and is ok with sushi
+- No pork or beef for anyone
+
+I'm also an amateur photographer. Please build in some dedicated time for
+photography — especially early morning and golden / blue hour shoots. A few
+solo slots before the family is up would be ideal, so I can catch quiet
+temples and empty streets without crowds.
+
+Cities I want to visit: Tokyo, Hakone (for Mt Fuji), Kyoto, Nara, Osaka.
+
+I'd like:
+
+- A day-by-day itinerary with morning, noon, and evening activities
+- A short description for each stop — why it matters, what to expect
+- A "teen-approved" rating (1-5 stars) on every activity so I know what
+  Riya will actually enjoy versus just tolerate
+- Realistic budget estimates per day, and a total for the trip including
+  flights, hotels, food, and activities (family of four)
+- Restaurant recommendations that work for all four dietary profiles. Call
+  out specifically what each person can order where it's not obvious.
+- Photography opportunities flagged — both the scheduled solo shoots and
+  the incidental photo spots I shouldn't miss
+
+Build this as a single HTML file I can open in a browser. Clean, modern
+design with subtle Japanese aesthetic touches — nothing gimmicky.
+
+I want to be able to filter the itinerary by:
+- Everything (default)
+- Teen-approved (Riya's picks)
+- Veggie-friendly (for Mathangi)
+- Photo spots (for me)
+
+Each day should be expandable / collapsible so I can focus on one at a time.
