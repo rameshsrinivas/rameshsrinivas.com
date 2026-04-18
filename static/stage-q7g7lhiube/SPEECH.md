@@ -91,6 +91,14 @@ That's the shift. There's actually a useful way to think about this — Tom's Gu
 
 Most people are still Searchers. The opportunity is in becoming an Architect.
 
+Three moves to make the shift:
+
+1. **Give it context.** Tell it who you are, what you're trying to do, what "done" looks like.
+2. **Make it iterate.** Don't accept the first answer. Push back. Ask what's missing.
+3. **Ask it to argue against you.** "Give me the strongest case for the opposite." That's how you find the holes in your own thinking.
+
+*[That's 30 seconds of practical tools they can use Monday morning. Skip if running long.]*
+
 ---
 
 ## SLIDE 7 — The 0.3% Stat
