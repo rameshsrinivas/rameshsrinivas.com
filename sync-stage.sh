@@ -22,8 +22,9 @@ cp "$SRC/SPEECH.md"                         "$DST/SPEECH.md"               && ec
 cp "$SRC/QA-PREP.md"                        "$DST/QA-PREP.md"              && echo "  ✓ QA-PREP.md"
 cp "$SRC/demo-japan-prompt.txt"             "$DST/demo/japan-prompt.txt"   && echo "  ✓ demo/japan-prompt.txt"
 cp "$SRC/demo-japan-trip.html"              "$DST/demo/japan-trip.html"    && echo "  ✓ demo/japan-trip.html"
-cp "$SRC/demo/MSFT-LNKD-executive-brief.md" "$DST/demo/contract-brief.md"  && echo "  ✓ demo/contract-brief.md"
-cp "$SRC/demo/document-prompt.txt"          "$DST/demo/document-prompt.txt" && echo "  ✓ demo/document-prompt.txt"
+cp "$SRC/demo/MSFT-LNKD-executive-brief.md" "$DST/demo/contract-brief.md"       && echo "  ✓ demo/contract-brief.md"
+cp "$SRC/demo/document-prompt.txt"          "$DST/demo/document-prompt.txt"      && echo "  ✓ demo/document-prompt.txt"
+cp "$SRC/demo/MSFT-LNKD-8K-2-1.txt"         "$DST/demo/MSFT-LNKD-8K-2-1.txt"     && echo "  ✓ demo/MSFT-LNKD-8K-2-1.txt"
 
 echo ""
 echo "Done. Ready to commit and push."
