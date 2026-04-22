@@ -2,7 +2,7 @@
 <section class="section">
   <div class="container">
     <h1>Writing</h1>
-    <p class="section-intro">Technology leadership, photography, tennis, and whatever else life throws my way.</p>
+    <p class="section-intro">AI, technology leadership, photography, tennis, and whatever else life throws my way.</p>
 
     <!-- Filter by Category / Tag -->
     {{ $allCategories := .Site.Taxonomies.categories }}
@@ -36,12 +36,11 @@
       <article class="blog-card card-{{ .Params.style | default "text" }}">
 
         {{ if eq .Params.style "quote" }}
-          <!-- Quote Card -->
-          <a href="{{ .Permalink }}" class="quote-link">
-            <blockquote class="quote-post">
-              {{ .Content }}
-            </blockquote>
-          </a>
+          <!-- Quote Card — overlay link covers the card; inner attribution link sits above via z-index -->
+          <a href="{{ .Permalink }}" class="card-overlay-link" aria-label="Read full quote"></a>
+          <blockquote class="quote-post">
+            {{ .Content }}
+          </blockquote>
           <div class="post-taxonomies">
             {{ with .Params.categories }}
                         {{ range . }}

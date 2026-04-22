@@ -1,6 +1,5 @@
 ---
-date: 2026-04-03
-draft: true
+date: 2026-04-17
 style: quote
 categories: ["Quote"]
 tags: ["Philosophy", "Self-Discovery"]
