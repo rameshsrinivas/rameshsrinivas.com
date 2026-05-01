@@ -975,3 +975,63 @@ p code {
   color: var(--text-caption);
   font-style: italic;
 }
+
+/* ===== Post Share ===== */
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.75rem 0 1.75rem;
+}
+
+.share-label {
+  color: var(--text-muted);
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  margin-right: 0.5rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  padding: 0;
+  text-decoration: none;
+}
+
+.share-btn:hover,
+.share-btn:focus-visible {
+  color: var(--text);
+  background: var(--bg-alt);
+  outline: none;
+}
+
+.share-btn svg {
+  display: block;
+}
+
+.share-copy .icon-check {
+  display: none;
+}
+
+.share-copy.copied .icon-link {
+  display: none;
+}
+
+.share-copy.copied .icon-check {
+  display: block;
+  color: #48bb78;
+}
+
+.share-copy.copied {
+  background: var(--bg-alt);
+}
